@@ -33,7 +33,7 @@ LOG=commit.log
 SQLEXT=.sql
 LOGEXT=.log
 DATE=date
-PSQL=pqsl
+PSQL=psql
 PFLAGS=-U $(DBUSER) $(DBNAME) -f
 TAR=tar
 TFLAGS=-pczf
@@ -74,7 +74,7 @@ $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 $(LOG): $(COMMITFILES)
 	$(DATE) >> $(LOG)
 
-.%$(LOGEXT): %
+.%$(LOGEXT): %$(SQLEXT)
 	$(PSQL) $(PFLAGS) $<
 	$(DATE) > $@
 
