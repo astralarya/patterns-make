@@ -17,4 +17,10 @@ Then you can easily get updates with
 
 ## Patterns
 
-Each directory contains a barebones Makefile project
+Each directory contains a barebones Makefile project.
+
+You can make a tarball of a project by navigating to the project directory and using:
+
+    make tar
+
+to create a \*.tar.gz containing the project.
