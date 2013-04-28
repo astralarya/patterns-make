@@ -1,7 +1,7 @@
 sqlproject
 =============
 
-**sqlproject** - Barebones self-committing SQL project
+**sqlproject** - Barebones SQL project
 
 
 ## Summary
