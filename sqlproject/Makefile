@@ -65,7 +65,7 @@ cleanall: clean
 edit:
 	$(NANO) $(ME)
 
-.PHONY: commit tar clean cleanall edit
+.PHONY: all commit tar clean cleanall edit
 
 $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 	$(RM) -f $(NAME)_*.tar.gz
