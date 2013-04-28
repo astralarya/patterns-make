@@ -1,0 +1,5 @@
+DB_HOST myserver
+DB_USER myuser
+DB_NAME mydb
+GREPEXEC /bin/grep
+AVOGADRO_CONSTANT 6.02214e23
