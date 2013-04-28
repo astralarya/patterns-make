@@ -8,7 +8,7 @@ sqlproject
 
 *sqlproject* tracks and automatically commits changes to any \*.sql files in its directory.
 
-To commit these files, simply:
+To commit, simply:
 
     make
 
