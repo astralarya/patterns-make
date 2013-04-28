@@ -27,6 +27,7 @@ DBNAME=mydb
 DBUSER=myuser
 VERSION=0.0
 LOG=commit.log
+MISC=README.md
 
 # environment specific
 
@@ -46,7 +47,7 @@ ME=Makefile
 SQLFILES=$(wildcard *$(SQLEXT))
 COMMITFILES=$(addprefix .,$(SQLFILES:$(SQLEXT)=$(LOGEXT)))
 GENERATED=$(COMMITFILES)
-MANIFEST=$(SQLFILES) $(COMMITFILES) $(LOG) $(ME)
+MANIFEST=$(SQLFILES) $(COMMITFILES) $(LOG) $(MISC) $(ME)
 
 # rules
 
