@@ -10,7 +10,7 @@ VERSION=0.1
 CFLAGS=-std=c++0x -g
 LDFLAGS=
 DOXFILE=
-MISC=$(EXECUTABLE).options
+MISC=$(EXECUTABLE).options README.md
 
 # environment specific
 
