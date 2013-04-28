@@ -9,7 +9,7 @@
 #define PROJECT_H
 
 // Options Filename
-static const char* const OPTIONSFILE = "test.options";
+static const char* const OPTIONSFILE = "myprog.options";
 
 // Typed Enums
 enum string_mode{DB_HOST,DB_USER,DB_NAME};
