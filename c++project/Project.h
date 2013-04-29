@@ -34,6 +34,8 @@ typename TypeInfo<string_mode>::key_type TypeInfo<string_mode>::keys ({{DB_HOST,
 
 template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
+template <>
+typename TypeInfo<float_mode>::init_type TypeInfo<float_mode>::init = 0;
 
 #endif
 
