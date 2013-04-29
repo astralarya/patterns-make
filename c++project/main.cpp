@@ -1,20 +1,12 @@
 // main.cpp
 // Mara Kim
 
-
+#include "main.h"
 #include "Initializer.h"
 #include "Options.h"
 #include <iostream>
+#include "test.h"
 
-#define MAIN_CPP
-#include "Project.h"
-
-#ifndef PROGRAM_NAME
-#define PROGRAM_NAME
-#endif
-#ifndef PROGRAM_VERSION
-#define PROGRAM_VERSION
-#endif
 
 inline void printshorthelp()
 {
@@ -60,11 +52,8 @@ int main(int argc, const char* argv[])
 
     // run program
 
-    std::cout << "DB_HOST = " << Options::Instance()->get(DB_HOST) << std::endl;
-    std::cout << "DB_NAME = " << Options::Instance()->get(DB_NAME) << std::endl;
-    std::cout << "DB_USER = " << Options::Instance()->get(DB_USER) << std::endl;
-
-    std::cout << "AVOGADRO = " << Options::Instance()->get(AVOGADRO) << std::endl;
+    test bar;
+    bar.foo();
 
     return 0;
 }

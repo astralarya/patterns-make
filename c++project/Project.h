@@ -3,10 +3,11 @@
 //
 // Globals to be included with Options.h
 
-#include "Mode.h"
 
 #ifndef PROJECT_H
 #define PROJECT_H
+
+#include "Mode.h"
 
 // Options Filename
 static const char* const OPTIONSFILE = "myprog.options";
@@ -26,7 +27,8 @@ struct Type<float_mode> {
 
 #endif
 
-#ifdef MAIN_CPP
+
+#ifdef PROJECT_STATICS
 /// Static Declarations ///
 
 // Mode Signitures
@@ -37,5 +39,4 @@ template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
 
 #endif
-
 

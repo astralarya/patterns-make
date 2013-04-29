@@ -12,7 +12,6 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
-#include "Mode.h"
 #include "Project.h"
 #include <fstream>
 #include <typeinfo>

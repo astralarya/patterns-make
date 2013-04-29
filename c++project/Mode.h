@@ -5,6 +5,7 @@
 // A mode is any enumerator
 // A type is any type that supports copy and
 //   std::istream::operator>>
+// Use Type<ENUM> to associate types
 
 
 #ifndef MODE_H
@@ -14,32 +15,10 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include "Type.h"
 
 class Options;
 
-// Type class to associate enums with types
-template <class ENUM>
-struct Type {
-    typedef void T;
-};
-
-// Type info
-template <typename ENUM>
-struct TypeInfo {
-    typedef std::map<ENUM,typename Type<ENUM>::T> map_type;
-    typedef std::map<ENUM,std::string> key_type;
-    typedef typename Type<ENUM>::T my_type;
-    static key_type keys;
-    static map_type defaults;
-    static my_type init;
-};
-
-template <typename ENUM>
-typename TypeInfo<ENUM>::key_type TypeInfo<ENUM>::keys;
-template <typename ENUM>
-typename TypeInfo<ENUM>::map_type TypeInfo<ENUM>::defaults;
-template <typename ENUM>
-typename TypeInfo<ENUM>::my_type TypeInfo<ENUM>::init;
 
 // Base mode class
 class Mode {
