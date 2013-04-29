@@ -38,7 +38,7 @@ SEPARATOR               [;,]
 
 <ASSIGN>{
     {STRING_S}              begin(StartCondition__::STRING);
-    [^[:space:]"]+           return OptionsParser::STRING;
+    [^[:space:]"]+          return OptionsParser::STRING;
     \n                      begin(StartCondition__::INITIAL); return OptionsParser::NEWLINE;
     [[:space:]]             /* empty */
 }
