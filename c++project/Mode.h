@@ -58,14 +58,14 @@ protected:
     init_type& init;
 
     // accessor functions
-    void set(ENUM mode, size_t index, const typename Type<ENUM>::T& value)
+    void set(const ENUM& mode, size_t index, const typename Type<ENUM>::T& value)
     {
         if(index >= map[mode].size())
             map[mode].resize(index+1,init);
         map[mode][index] = value;
     }
 
-    typename TypeInfo<ENUM>::ref_type get(ENUM mode, size_t index)
+    typename TypeInfo<ENUM>::ref_type get(const ENUM& mode, size_t index)
     {
         if(index >= map[mode].size())
             map[mode].resize(index+1,init);
