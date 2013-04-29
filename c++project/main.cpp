@@ -56,6 +56,10 @@ int main(int argc, const char* argv[])
     std::cout << "DB_USER = " << Options::Instance()->get(DB_USER) << std::endl;
 
     std::cout << "AVOGADRO = " << Options::Instance()->get(AVOGADRO) << std::endl;
+    Options::Instance()->set(AVOGADRO,1);
+    Options::Instance()->set(AVOGADRO,1,5.5);
+    std::cout << "AVOGADRO = " << Options::Instance()->get(AVOGADRO) << std::endl;
+    std::cout << "AVOGADRO[1] = " << Options::Instance()->get(AVOGADRO,1) << std::endl;
 
     return 0;
 }
