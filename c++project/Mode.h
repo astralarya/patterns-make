@@ -38,7 +38,8 @@ public:
     friend class MetaOptions;
     friend class Options;
     typedef ENUM my_enum;
-    typedef typename Type<ENUM>::T my_type;
+    typedef typename TypeInfo<ENUM>::my_type my_type;
+    typedef typename TypeInfo<ENUM>::ref_type ref_type;
     typedef typename TypeInfo<ENUM>::init_type init_type;
     typedef typename TypeInfo<ENUM>::map_type map_type;
     typedef typename TypeInfo<ENUM>::defaults_type defaults_type;
@@ -58,14 +59,14 @@ protected:
     init_type& init;
 
     // accessor functions
-    void set(const ENUM& mode, size_t index, const typename Type<ENUM>::T& value)
+    void set(const ENUM& mode, size_t index, const my_type& value)
     {
         if(index >= map[mode].size())
             map[mode].resize(index+1,init);
         map[mode][index] = value;
     }
 
-    typename TypeInfo<ENUM>::ref_type get(const ENUM& mode, size_t index)
+    ref_type get(const ENUM& mode, size_t index)
     {
         if(index >= map[mode].size())
             map[mode].resize(index+1,init);
