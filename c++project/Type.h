@@ -16,7 +16,7 @@ struct Type {
     typedef void T;
 };
 
-// Type info
+// Type info class dependent on Type<ENUM>
 template <typename ENUM>
 struct TypeInfo {
     typedef std::map<ENUM,std::vector<typename Type<ENUM>::T> > map_type;
