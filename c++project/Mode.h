@@ -58,10 +58,10 @@ protected:
     init_type& init;
 
     // accessor functions
-    void set(ENUM mode, typename Type<ENUM>::T value, size_t index)
+    void set(ENUM mode, size_t index, typename Type<ENUM>::T value)
     {
         if(index >= map[mode].size())
-            map[mode].reserve(index+1);
+            map[mode].resize(index+1);
         map[mode][index] = value;
     }
 
