@@ -74,11 +74,14 @@ protected:
                 if(finder != properties.end()) {
                     std::stringstream ss;
                     // copy the string
-                    ss << finder->second[0];
-                    my_type input;
-                    // use the insertion operator to set the variable
-                    ss >> input;
-                    map[it->first] = input;
+                    if(finder->second.size()) {
+                        ss << finder->second[0];
+                        my_type input;
+                        // use the insertion operator to set the variable
+                        ss >> input;
+                        map[it->first] = input;
+                    } else
+                        _set_default(it->first);
                 } else {
                     _set_default(it->first);
                 }
