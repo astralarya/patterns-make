@@ -47,11 +47,16 @@ class Options
         static Options* Instance();
 
         template <class ENUM>
-        void set(ENUM mode, typename Type<ENUM>::T value, size_t index=0)
+        void set(ENUM mode, typename Type<ENUM>::T value) {
+            set<ENUM>(mode,0,value);
+        };
+
+        template <class ENUM>
+        void set(ENUM mode, size_t index, typename Type<ENUM>::T value)
         {
             if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
-            static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(mode,value,index);
+            static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(mode,index,value);
         }
 
         template <class ENUM>
