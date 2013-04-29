@@ -9,9 +9,6 @@
 
 #include "Mode.h"
 
-// Options Filename
-static const char* const OPTIONSFILE = "myprog.options";
-
 // Typed Enums
 enum string_mode{DB_HOST,DB_USER,DB_NAME};
 template <>

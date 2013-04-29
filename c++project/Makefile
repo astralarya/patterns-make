@@ -10,7 +10,8 @@ VERSION=0.1
 CFLAGS=-std=c++0x -g
 LDFLAGS=
 DOXFILE=
-MISC=$(EXECUTABLE).options README.md
+OPTIONSFILE=$(EXECUTABLE).options
+MISC=README.md
 
 # environment specific
 
@@ -76,8 +77,11 @@ $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
 $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 	$(DOX) $(DOXFILE)	
 
-main.o: main.cpp
+main.o: main.cpp main.h
 	$(CXX) $(CFLAGS) -c $< -o $@ -D'PROGRAM_NAME="$(EXECUTABLE)"' -D'SOURCE_VERSION="$(VERSION)"'
+
+Options.o: Options.cpp Options.h
+	$(CXX) $(CFLAGS) -c $< -o $@ -D'OPTIONSFILE="$(OPTIONSFILE)"'
 
 %.o: %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@
