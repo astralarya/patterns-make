@@ -5,7 +5,6 @@
 #include "Initializer.h"
 #include "Options.h"
 #include <iostream>
-#include "test.h"
 
 
 inline void printshorthelp()
@@ -30,7 +29,7 @@ int main(int argc, const char* argv[])
     // Initialize
     Initializer init(argc, argv);
 
-       // process arguments
+    // process arguments
     bool stop = false;
     if(init.flag("version") ||
        init.flag('v')) {
@@ -52,8 +51,11 @@ int main(int argc, const char* argv[])
 
     // run program
 
-    test bar;
-    bar.foo();
+    std::cout << "DB_HOST = " << Options::Instance()->get(DB_HOST) << std::endl;
+    std::cout << "DB_NAME = " << Options::Instance()->get(DB_NAME) << std::endl;
+    std::cout << "DB_USER = " << Options::Instance()->get(DB_USER) << std::endl;
+
+    std::cout << "AVOGADRO = " << Options::Instance()->get(AVOGADRO) << std::endl;
 
     return 0;
 }

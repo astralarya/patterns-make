@@ -4,8 +4,8 @@
 // Default values
 
 
-#define PROJECT_STATICS
 #include "Options.h"
+#define PROJECT_STATICS
 #include "Project.h"
 
 // Defaults
