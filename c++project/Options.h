@@ -60,7 +60,7 @@ class Options
         }
 
         template <class ENUM>
-        typename Type<ENUM>::T get(ENUM mode, size_t index=0)
+        typename TypeInfo<ENUM>::ref_type get(ENUM mode, size_t index=0)
         {
             if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
