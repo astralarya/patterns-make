@@ -47,9 +47,9 @@ class Options
         static Options* Instance();
 
         template <class ENUM>
-        void set(ENUM mode, typename Type<ENUM>::T value) {
+        inline void set(ENUM mode, typename Type<ENUM>::T value) {
             set<ENUM>(mode,0,value);
-        };
+        }
 
         template <class ENUM>
         void set(ENUM mode, size_t index, typename Type<ENUM>::T value)
@@ -70,7 +70,7 @@ class Options
 
         friend class OptionsParser;
     protected:
-        void _new(Mode::type_map& properties);
+        void _new(const Mode::type_map& properties);
     private:
         // make instantiation, copying, and assignment private
         Options();

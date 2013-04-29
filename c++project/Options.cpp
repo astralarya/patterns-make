@@ -62,10 +62,9 @@ void Options::_initialize()
     options_file.close();
 }
 
-void Options::_new(Mode::type_map& properties)
+void Options::_new(const Mode::type_map& properties)
 {
     _properties = properties;
-    mode_map::iterator mode;
-    for(mode = _modes.begin(); mode != _modes.end(); mode++)
+    for(auto mode = _modes.begin(); mode != _modes.end(); mode++)
         mode->second->_initialize(_properties);
 }

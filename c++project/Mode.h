@@ -27,7 +27,7 @@ public:
     typedef std::vector<std::string> svector_type;
     typedef std::pair<std::string,svector_type> svpair_type;
     typedef std::map<std::string,svector_type> type_map;
-    virtual void _initialize(type_map&) = 0;
+    virtual void _initialize(const type_map&) = 0;
     
 };
 
@@ -73,7 +73,7 @@ protected:
     }
 
     // initializer
-    void _initialize(type_map& properties) {
+    void _initialize(const type_map& properties) {
         // for each key
         for(auto it = keys.begin(); it != keys.end(); it++) {
             if(!it->second.empty()) {
