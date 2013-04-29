@@ -61,5 +61,9 @@ int main(int argc, const char* argv[])
     std::cout << "AVOGADRO = " << Options::Instance()->get(AVOGADRO) << std::endl;
     std::cout << "AVOGADRO[1] = " << Options::Instance()->get(AVOGADRO,1) << std::endl;
 
+    Options::Instance()->set('a',true);
+    std::cout << "'a'= " << Options::Instance()->get('a') << std::endl;
+    std::cout << "'b'= " << Options::Instance()->get('b') << std::endl;
+
     return 0;
 }

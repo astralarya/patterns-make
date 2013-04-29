@@ -15,6 +15,7 @@ template <typename ENUM>
 typename TypeInfo<ENUM>::defaults_type TypeInfo<ENUM>::defaults;
 template <typename ENUM>
 typename TypeInfo<ENUM>::init_type TypeInfo<ENUM>::init;
+// NOTE: Integral types must define init in Project.h
 
 #ifndef PROGRAM_NAME
 #define PROGRAM_NAME

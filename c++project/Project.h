@@ -9,7 +9,7 @@
 
 #include "Mode.h"
 
-// Typed Enums
+// Typed modes
 enum string_mode{DB_HOST,DB_USER,DB_NAME};
 template <>
 struct Type<string_mode> {
@@ -20,6 +20,11 @@ enum float_mode{AVOGADRO};
 template <>
 struct Type<float_mode> {
     typedef float T;
+};
+
+template<>
+struct Type<char> {
+    typedef bool T;
 };
 
 #endif
@@ -36,6 +41,9 @@ template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
 template <>
 typename TypeInfo<float_mode>::init_type TypeInfo<float_mode>::init = 0;
+
+template <>
+typename TypeInfo<char>::init_type TypeInfo<char>::init = false;
 
 #endif
 
