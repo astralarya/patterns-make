@@ -4,6 +4,7 @@ Flexc++ input file
 Mara Kim
 */
 
+%namespace = OPTIONS
 %class-name = OptionsScanner
 %lex-source = "OptionsScanner.cc"
 

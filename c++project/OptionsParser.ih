@@ -5,6 +5,10 @@
 // $insert class.h
 #include "OptionsParser.h"
 
+// $insert namespace-open
+namespace OPTIONS
+{
+
 inline void OptionsParser::error(char const *msg)
 {
     std::cerr << msg << '\n';
@@ -19,6 +23,9 @@ inline int OptionsParser::lex()
 inline void OptionsParser::print()
 {
     print__();           // displays tokens if --print was specified
+}
+
+// $insert namespace-close
 }
 
     // Add here includes that are only required for the compilation

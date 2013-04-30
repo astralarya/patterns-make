@@ -8,6 +8,10 @@
 
 #include "OptionsParserbase.h"
 
+// $insert namespace-open
+namespace OPTIONS
+{
+
 // $insert classHead
 class OptionsScanner: public OptionsScannerBase
 {
@@ -54,6 +58,9 @@ inline void OptionsScanner::preCode()
 inline void OptionsScanner::print()
 {
     print__();
+}
+
+// $insert namespace-close
 }
 
 #endif // OptionsScanner_H_INCLUDED_

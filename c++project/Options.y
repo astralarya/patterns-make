@@ -1,9 +1,10 @@
 /*
-OPTIONSparser.y
+Options.y
 Bisonc++ input file
 Mara Kim
 */
 
+%namespace OPTIONS
 %class-name OptionsParser
 %parsefun-source OptionsParser.cc
 %scanner OptionsScanner.h

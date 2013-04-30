@@ -8,6 +8,10 @@
 // $insert scanner.h
 #include "OptionsScanner.h"
 
+// $insert namespace-open
+namespace OPTIONS
+{
+
 #undef OptionsParser
 class OptionsParser: public OptionsParserBase
 {
@@ -34,5 +38,10 @@ class OptionsParser: public OptionsParserBase
         void nextToken();
         void print__();
 };
+
+// $insert namespace-close
+}
+
+typedef OPTIONS::OptionsParser OptionsParser;
 
 #endif
