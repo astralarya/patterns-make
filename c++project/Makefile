@@ -77,7 +77,7 @@ $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
 $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 	$(DOX) $(DOXFILE)	
 
-main.o: main.cpp main.h
+main.o: main.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ -D'PROGRAM_NAME="$(EXECUTABLE)"' -D'SOURCE_VERSION="$(VERSION)"'
 
 Options.o: Options.cpp Options.h
