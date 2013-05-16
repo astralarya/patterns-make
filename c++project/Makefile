@@ -30,11 +30,13 @@ ME=Makefile
 
 # macros
 
+FULLCFLAGS=$(CFLAGS) -D'PROGRAM_NAME="$(EXECUTABLE)"' -D'SOURCE_VERSION="$(VERSION)"' -D'OPTIONSFILE="$(OPTIONSFILE)"'
 LEXFILE=$(wildcard *.l)
 YACCFILE=$(wildcard *.y)
 SOURCES=$(wildcard *.cpp)
 HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
+DEPENDENCIES=$(OBJECTS:.o=.d)
 EXTRA=$(LEXFILE:.l=Scanner.h) $(LEXFILE:.l=Scanner.ih) $(YACCFILE:.y=Parser.h) $(YACCFILE:.y=Parser.ih) $(YACCFILE:.y=.types.h)
 GENERATEDH=$(LEXFILE:.l=Scannerbase.h) $(YACCFILE:.y=Parserbase.h)
 GENERATEDC=$(LEXFILE:.l=Scanner.cc) $(YACCFILE:.y=Parser.cc)
@@ -62,7 +64,7 @@ edit:
 	$(NANO) $(ME)
 
 clean:
-	$(RM) -rf $(OBJECTS) $(GENERATEDH) $(GENERATEDC) $(EXECUTABLE)
+	$(RM) -rf $(OBJECTS) $(DEPENDENCIES) $(GENERATEDH) $(GENERATEDC) $(EXECUTABLE)
 
 cleanall: clean
 	$(RM) -rf $(EXECUTABLE)*.tar.gz html latex *~
@@ -77,20 +79,20 @@ $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
 $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 	$(DOX) $(DOXFILE)	
 
-main.o: main.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@ -D'PROGRAM_NAME="$(EXECUTABLE)"' -D'SOURCE_VERSION="$(VERSION)"'
-
-Options.o: Options.cpp Options.h
-	$(CXX) $(CFLAGS) -c $< -o $@ -D'OPTIONSFILE="$(OPTIONSFILE)"'
+# pull in dependency info for *existing* .o files
+-include $(DEPENDENCIES)
 
 %.o: %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(FULLCFLAGS) -c $< -o $@
+	$(CXX) -MM $(FULLCFLAGS) $*.cpp > $*.d
 
 %.o: %.c
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(FULLCFLAGS) -c $< -o $@
+	$(CXX) -MM $(FULLCFLAGS) $*.c > $*.d
 
 %.o: %.cc
-	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) $(FULLCFLAGS) -c $< -o $@
+	$(CXX) -MM $(FULLCFLAGS) $*.cc > $*.d
 
 %Parser.cc: %.y
 	$(YACC) $(YACCFLAGS) $<
