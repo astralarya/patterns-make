@@ -12,6 +12,8 @@ To build, simply:
 
     make
 
+The project automatically compiles version info into the executable via git.  The version info can be output using the -V argument to the executable.
+
 
 Copy this project with
 

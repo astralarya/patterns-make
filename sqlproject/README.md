@@ -16,6 +16,10 @@ To commit to DEVDB, simply:
 
     make
 
+To commit to all databases:
+
+    make all
+
 
 The project automatically tracks version info via git, and commits them via version.sql to generate DEVDB\_version(), DEVDB\_hash(), DEVDB\_status(), and DEVDB\_version\_long().
 
