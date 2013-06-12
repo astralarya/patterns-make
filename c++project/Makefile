@@ -16,16 +16,18 @@ MISC=README.md
 
 # environment specific
 
+GIT=git
+SED=sed
+TR=tr
+ECHO=echo
+TAR=tar
 CXX=g++
 LEX=flexc++
 YACC=bisonc++
 DOX=doxygen
-TAR=tar
-TFLAGS=-pczf
+MV=mv
 NANO=vim
 FF=firefox
-RM=rm
-ECHO=echo
 DOXINDEX=./html/index.html
 ME=Makefile
 
@@ -41,6 +43,7 @@ EXTRA=$(LEXFILE:.l=Scanner.h) $(LEXFILE:.l=Scanner.ih) $(YACCFILE:.y=Parser.h) $
 GENERATEDH=$(LEXFILE:.l=Scannerbase.h) $(YACCFILE:.y=Parserbase.h)
 GENERATEDC=$(LEXFILE:.l=Scanner.cc) $(YACCFILE:.y=Parser.cc)
 MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(REVISION_FILE) $(MISC) $(ME)
+REVISION=$(shell $(SED) -e 's/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n' )
 
 # rules
 
@@ -66,16 +69,13 @@ dox: $(DOXINDEX)
 doxbuild:
 	$(DOX) $(DOXFILE)	
 
-edit:
-	$(NANO) $(ME)
-
 clean:
 	$(RM) -rf $(OBJECTS) $(DEPENDENCIES) $(GENERATEDH) $(GENERATEDC) $(EXECUTABLE)
 
 cleanall: clean
 	$(RM) -rf $(EXECUTABLE)*.tar.gz html latex *~
 
-.PHONY: all again rebuild name hash tar dox doxbuild edit clean cleanall
+.PHONY: all again rebuild name hash tar dox doxbuild clean cleanall
 
 
 $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
