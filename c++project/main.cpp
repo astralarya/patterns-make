@@ -4,8 +4,11 @@
 #ifndef PROGRAM_NAME
 #define PROGRAM_NAME
 #endif
-#ifndef PROGRAM_VERSION
-#define PROGRAM_VERSION
+#ifndef SOURCE_VERSION
+#define SOURCE_VERSION
+#endif
+#ifndef REVISION_HASH
+#define REVISION_HASH
 #endif
 
 #include "Initializer.h"
@@ -27,7 +30,8 @@ void printhelp()
     std::cout << "<Description>\n"
               << "Option\t\tGNU long option\t\tMeaning\n"
               << "-h, -?\t\t--help\t\t\tShow this message\n"
-              << "-v\t\t--version\t\tOutput program version\n";
+              << "-v\t\t--version\t\tOutput program version\n"
+              << "-V\t\t--version-long\t\tOutput full program version\n";
 }
 
 int main(int argc, const char* argv[])
@@ -39,9 +43,17 @@ int main(int argc, const char* argv[])
     // process arguments
     bool stop = false;
     if(init.flag("version") ||
-       init.flag('v')) {
+       init.flag('v') ||
+       init.flag("version-long") ||
+       init.flag('V') ) {
         // output version
-        std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << "\n";
+        std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << std::endl;
+        stop = true;
+    }
+    if(init.flag("version-long") ||
+       init.flag('V') ) {
+        // output revision
+        std::cout << REVISION_HASH;
         stop = true;
     }
     if(init.flag("help") ||
