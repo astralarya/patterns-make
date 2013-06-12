@@ -96,6 +96,15 @@ main.o: main.cpp $(REVISION_FILE)
 	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
 	@rm -f $*.d.tmp
 
+Options.o: Options.cpp
+	$(CXX) $(CFLAGS) -c $< -o $@ -D OPTIONSFILE='"$(OPTIONSFILE)"'
+	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
+	@mv -f $*.d $*.d.tmp
+	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
+	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
+	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
+	@rm -f $*.d.tmp
+
 %.o: %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@
 	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
