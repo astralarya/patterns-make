@@ -8,9 +8,16 @@ sqlproject
 
 *sqlproject* tracks and automatically commits changes to any \*.sql files in its directory.
 
-To commit, simply:
+The files can be committed to multiple databases, and the changes and commits are tracked independently of each other.
+
+Two databases are defined by default: DEVDB and LIVEDB.  To add more databases, simply add them to DBS.
+
+To commit to DEVDB, simply:
 
     make
+
+
+The project automatically tracks version info via git, and commits them via version.sql to generate DEVDB\_version(), DEVDB\_hash(), DEVDB\_status(), and DEVDB\_version\_long().
 
 
 Copy this project with
