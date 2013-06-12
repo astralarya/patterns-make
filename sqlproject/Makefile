@@ -23,59 +23,92 @@
 # project specific
 
 NAME=sqlproject
-DBNAME=mydb
+DEVDB=mydbdev
+LIVEDB=mydb
+DBS=$(DEVDB) $(LIVEDB)
 DBUSER=myuser
 VERSION=0.0
-LOG=commit.log
+REVISION_FILE=VERSION.log
 MISC=README.md
 
 # environment specific
 
-SQLEXT=.sql
-LOGEXT=.log
+VERSIONSQL=version.sql
+LOG=commit.log
 DATE=date
 PSQL=psql
-PFLAGS=-U $(DBUSER) $(DBNAME) -f
+PFLAGS=-U $(DBUSER)
+GIT=git
 TAR=tar
 TFLAGS=-pczf
 NANO=vim
+SED=sed
+TR=tr
+HEAD=head
+TAIL=tail
+ECHO=echo
+GREP=grep
+TEE=tee
+MKDIR=mkdir
 RM=rm
 ME=Makefile
 
 # macros
 
-SQLFILES=$(wildcard *$(SQLEXT))
-COMMITFILES=$(addprefix .,$(SQLFILES:$(SQLEXT)=$(LOGEXT)))
-GENERATED=$(COMMITFILES)
-MANIFEST=$(SQLFILES) $(COMMITFILES) $(LOG) $(MISC) $(ME)
+SQLFILES=$(wildcard *.sql)
+COMMITFILES=$(SQLFILES:.sql=.log)
+MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
+HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
+STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
 # rules
 
-all: commit
+dev: $(DEVDB)
 
-commit: $(LOG)
+all: $(DBS)
 
-tar: $(NAME)_$(VERSION).tar.gz
+live: $(LIVEDB)
+
+hash $(REVISION_FILE):
+	@$(GIT) rev-parse && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@[ -e $(REVISION_FILE) ]
+
+tar: hash $(NAME)_$(VERSION).tar.gz
 
 clean:
-	$(RM) -f $(GENERATED)
+	$(RM) -f $(addprefix */,$(COMMITFILES))
 
 cleanall: clean
-	$(RM) -f $(LOG) $(NAME)_*.tar.gz
+	$(RM) -f */$(LOG) $(NAME)_*.tar.gz
 
-edit:
-	$(NANO) $(ME)
+.PHONY: all dev live hash tar clean cleanall
 
-.PHONY: all commit tar clean cleanall edit
+.SECONDARY:
 
 $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 	$(RM) -f $(NAME)_*.tar.gz
 	$(TAR) $(TFLAGS) $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
-$(LOG): $(COMMITFILES)
-	$(DATE) >> $(LOG)
+$(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_FILE)
+	@$(ECHO) $<
+	@$(DATE) > $@
+	@$(SED) -e 's/DB_NAME/$(LIVEDB)/g' -e 's/DB_VERSION/$(VERSION)/' -e 's/DB_HASH/$(HASH)/' -e 's/DB_STATUS/$(STATUS)/' $< | $(PSQL) $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) &>> $@
+	@$(GREP) ": " $@ || true
 
-.%$(LOGEXT): %$(SQLEXT)
-	$(PSQL) $(PFLAGS) $<
-	$(DATE) > $@
+%.db/$(LOG): hash %.db $(addprefix %.db/,$(COMMITFILES))
+	@$(DATE) >> $@
+	@$(ECHO) Commit $*
+	@$(RM) -f $*.db/version.log
+
+$(foreach DB,$(DBS),$(DB).db/%.log): %.sql
+	@$(ECHO) $<
+	@$(DATE) > $@
+	@$(PSQL) $(PFLAGS) -d $(@:.db/$*.log=) -f $< &>> $@
+	@$(GREP) ": " $@ || true
+
+%.db:
+	$(MKDIR) -p $*.db
+
+%: %.db/$(LOG)
+	@$(ECHO) Done $*
 
