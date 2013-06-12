@@ -11,6 +11,7 @@ CFLAGS=-std=c++0x -g
 LDFLAGS=
 DOXFILE=
 OPTIONSFILE=$(EXECUTABLE).options
+REVISION_FILE=VERSION.log
 MISC=README.md
 
 # environment specific
@@ -30,7 +31,6 @@ ME=Makefile
 
 # macros
 
-FULLCFLAGS=$(CFLAGS) -D'PROGRAM_NAME="$(EXECUTABLE)"' -D'SOURCE_VERSION="$(VERSION)"' -D'OPTIONSFILE="$(OPTIONSFILE)"'
 LEXFILE=$(wildcard *.l)
 YACCFILE=$(wildcard *.y)
 SOURCES=$(wildcard *.cpp)
@@ -40,18 +40,24 @@ DEPENDENCIES=$(OBJECTS:.o=.d)
 EXTRA=$(LEXFILE:.l=Scanner.h) $(LEXFILE:.l=Scanner.ih) $(YACCFILE:.y=Parser.h) $(YACCFILE:.y=Parser.ih) $(YACCFILE:.y=.types.h)
 GENERATEDH=$(LEXFILE:.l=Scannerbase.h) $(YACCFILE:.y=Parserbase.h)
 GENERATEDC=$(LEXFILE:.l=Scanner.cc) $(YACCFILE:.y=Parser.cc)
-MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(MISC) $(ME)
+MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
 all: $(MAIN) $(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(EXECUTABLE)
 
-rebuild: clean all
+again: hash all
+
+rebuild: clean hash all
 
 name:
-	$(ECHO) $(EXECUTABLE)
+	@$(ECHO) $(EXECUTABLE)
 
-tar: $(MANIFEST)
+hash $(REVISION_FILE):
+	@$(GIT) rev-parse && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) status -sb >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@[ -e $(REVISION_FILE) ]
+
+tar: hash $(MANIFEST)
 	$(TAR) $(TFLAGS) $(EXECUTABLE)_$(VERSION).tar.gz $(MANIFEST)
 
 dox: $(DOXINDEX)
@@ -69,8 +75,7 @@ clean:
 cleanall: clean
 	$(RM) -rf $(EXECUTABLE)*.tar.gz html latex *~
 
-.PHONY: all rebuild name tar dox doxbuild edit clean cleanall
-
+.PHONY: all again rebuild name hash tar dox doxbuild edit clean cleanall
 
 
 $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
@@ -82,9 +87,18 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 # pull in dependency info for *existing* .o files
 -include $(DEPENDENCIES)
 
+main.o: main.cpp $(REVISION_FILE)
+	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D SOURCE_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(REVISION)"'
+	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
+	@mv -f $*.d $*.d.tmp
+	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
+	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
+	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
+	@rm -f $*.d.tmp
+
 %.o: %.cpp
-	$(CXX) $(FULLCFLAGS) -c $< -o $@
-	$(CXX) -MM $(FULLCFLAGS) $*.cpp > $*.d
+	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -92,8 +106,8 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 	@rm -f $*.d.tmp
 
 %.o: %.c
-	$(CXX) $(FULLCFLAGS) -c $< -o $@
-	$(CXX) -MM $(FULLCFLAGS) $*.c > $*.d
+	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) -MM $(CFLAGS) $*.c > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -101,8 +115,8 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 	@rm -f $*.d.tmp
 
 %.o: %.cc
-	$(CXX) $(FULLCFLAGS) -c $< -o $@
-	$(CXX) -MM $(FULLCFLAGS) $*.cc > $*.d
+	$(CXX) $(CFLAGS) -c $< -o $@
+	$(CXX) -MM $(CFLAGS) $*.cc > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
