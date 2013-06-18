@@ -57,7 +57,7 @@ ME=Makefile
 
 SQLFILES=$(wildcard *.sql)
 COMMITFILES=$(SQLFILES:.sql=.log)
-MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
+MANIFEST=$(SQLFILES) $(REVISION_FILE) $(MISC) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
 STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
