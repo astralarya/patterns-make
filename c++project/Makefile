@@ -57,7 +57,7 @@ name:
 	@$(ECHO) $(EXECUTABLE)
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) status -sb >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
