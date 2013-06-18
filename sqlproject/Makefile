@@ -100,11 +100,15 @@ $(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_
 	@$(ECHO) Commit $*
 	@$(RM) -f $*.db/version.log
 
-$(foreach DB,$(DBS),$(DB).db/%.log): %.sql
-	@$(ECHO) $<
-	@$(DATE) > $@
-	@$(PSQL) $(PFLAGS) -d $(@:.db/$*.log=) -f $< &>> $@
-	@$(GREP) ": " $@ || true
+define db_commit
+$(1).db/%.log: %.sql
+	@$$(ECHO) $$<
+	@$$(DATE) > $$@
+	@$$(PSQL) $$(PFLAGS) -d $$(@:.db/$$*.log=) -f $$< &>> $$@
+	@$$(GREP) ": " $$@ || true
+endef
+
+$(foreach DB,$(DBS),$(eval $(call db_commit,$(DB))))
 
 %.db:
 	$(MKDIR) -p $*.db
