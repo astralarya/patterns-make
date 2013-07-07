@@ -36,12 +36,22 @@ struct Type<char> {
 // Mode Signitures
 template <>
 typename TypeInfo<string_mode>::key_type TypeInfo<string_mode>::keys ({{DB_HOST, "DB_HOST"},{DB_USER,"DB_USER"},{DB_NAME,"DB_NAME"}});
+template <>
+typename TypeInfo<string_mode>::defaults_type TypeInfo<string_mode>::defaults {};
+template <>
+typename TypeInfo<string_mode>::init_type TypeInfo<string_mode>::init {};
 
 template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
 template <>
+typename TypeInfo<float_mode>::defaults_type TypeInfo<float_mode>::defaults {};
+template <>
 typename TypeInfo<float_mode>::init_type TypeInfo<float_mode>::init = 0;
 
+template <>
+typename TypeInfo<char>::key_type TypeInfo<char>::keys {};
+template <>
+typename TypeInfo<char>::defaults_type TypeInfo<char>::defaults {};
 template <>
 typename TypeInfo<char>::init_type TypeInfo<char>::init = false;
 
