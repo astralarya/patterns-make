@@ -19,6 +19,8 @@ MISC=README.md
 GIT=git
 SED=sed
 TR=tr
+HEAD=head
+TAIL=tail
 ECHO=echo
 TAR=tar
 CXX=g++
@@ -43,7 +45,8 @@ EXTRA=$(LEXFILE:.l=Scanner.h) $(LEXFILE:.l=Scanner.ih) $(YACCFILE:.y=Parser.h) $
 GENERATEDH=$(LEXFILE:.l=Scannerbase.h) $(YACCFILE:.y=Parserbase.h)
 GENERATEDC=$(LEXFILE:.l=Scanner.cc) $(YACCFILE:.y=Parser.cc)
 MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(REVISION_FILE) $(MISC) $(ME)
-REVISION=$(shell $(SED) -e 's/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n' )
+HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
+STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
 # rules
 
@@ -88,7 +91,7 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 -include $(DEPENDENCIES)
 
 main.o: main.cpp $(REVISION_FILE)
-	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D SOURCE_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(REVISION)"'
+	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D SOURCE_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(HASH)"' -D REVISION_STATUS='"$(STATUS)"'
 	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d

@@ -10,6 +10,9 @@
 #ifndef REVISION_HASH
 #define REVISION_HASH
 #endif
+#ifndef REVISION_STATUS
+#define REVISION_STATUS
+#endif
 
 #include "Initializer.h"
 #include "Options.h"
@@ -34,6 +37,17 @@ void printhelp()
               << "-V\t\t--version-long\t\tOutput full program version\n";
 }
 
+void printversion()
+{
+    std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << std::endl;
+}
+
+void printrevision()
+{
+    std::cout << REVISION_HASH << std::endl
+              << REVISION_STATUS << std::endl;
+}
+
 int main(int argc, const char* argv[])
 {
 
@@ -43,17 +57,16 @@ int main(int argc, const char* argv[])
     // process arguments
     bool stop = false;
     if(init.flag("version") ||
-       init.flag('v') ||
-       init.flag("version-long") ||
-       init.flag('V') ) {
+       init.flag('v') ) {
         // output version
-        std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << std::endl;
+        printversion();
         stop = true;
     }
     if(init.flag("version-long") ||
        init.flag('V') ) {
         // output revision
-        std::cout << REVISION_HASH;
+        printversion();
+        printrevision();
         stop = true;
     }
     if(init.flag("help") ||
