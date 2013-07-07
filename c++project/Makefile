@@ -92,7 +92,7 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 
 main.o: main.cpp $(REVISION_FILE)
 	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D SOURCE_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(HASH)"' -D REVISION_STATUS='"$(STATUS)"'
-	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
+	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -101,7 +101,7 @@ main.o: main.cpp $(REVISION_FILE)
 
 Options.o: Options.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ -D OPTIONSFILE='"$(OPTIONSFILE)"'
-	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
+	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -110,7 +110,7 @@ Options.o: Options.cpp
 
 %.o: %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@
-	$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
+	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -119,7 +119,7 @@ Options.o: Options.cpp
 
 %.o: %.c
 	$(CXX) $(CFLAGS) -c $< -o $@
-	$(CXX) -MM $(CFLAGS) $*.c > $*.d
+	@$(CXX) -MM $(CFLAGS) $*.c > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
@@ -128,7 +128,7 @@ Options.o: Options.cpp
 
 %.o: %.cc
 	$(CXX) $(CFLAGS) -c $< -o $@
-	$(CXX) -MM $(CFLAGS) $*.cc > $*.d
+	@$(CXX) -MM $(CFLAGS) $*.cc > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
 	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
