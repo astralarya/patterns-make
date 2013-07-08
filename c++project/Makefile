@@ -12,7 +12,7 @@ LDFLAGS=
 DOXFILE=
 OPTIONSFILE=$(EXECUTABLE).options
 REVISION_FILE=VERSION.log
-MISC=README.md
+MISC=README.md .gitignore
 
 # environment specific
 
