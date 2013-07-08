@@ -1,4 +1,5 @@
 myprog
+myprog*.tar.gz
 VERSION.log
 *.d
 *.o
