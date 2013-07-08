@@ -64,7 +64,7 @@ hash $(REVISION_FILE):
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
-	$(TAR) $(TFLAGS) $(EXECUTABLE)_$(VERSION).tar.gz $(MANIFEST)
+	$(TAR) --transform 's,^,$(EXECUTABLE)_$(VERSION)/,' -pczf $(EXECUTABLE)_$(VERSION).tar.gz $(MANIFEST)
 
 dox: $(DOXINDEX)
 	$(FF) $(DOXINDEX)
