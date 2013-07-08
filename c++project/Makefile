@@ -28,6 +28,7 @@ LEX=flexc++
 YACC=bisonc++
 DOX=doxygen
 MV=mv
+RM=rm
 NANO=vim
 FF=firefox
 DOXINDEX=./html/index.html
