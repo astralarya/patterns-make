@@ -9,8 +9,6 @@
 Initializer::Initializer(int argc, const char* argv[]):
 _argc(argc),
 _argv(argv){
-	MetaOptions::Instance()->set(MetaOptions::EXECUTABLE_PATH, pre_path(_argv[0]));
-
 	// check for arguments
 	if(_argc > 1)
 	{

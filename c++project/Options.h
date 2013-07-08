@@ -26,23 +26,6 @@ namespace OPTIONS {
     class OptionsParser;
 }
 
-class MetaOptions
-{
-    public:
-        friend class Options;
-        enum properties{EXECUTABLE_PATH};
-
-        typedef std::map<properties,std::string> prop_map;
-        std::string prop(properties i);
-        void set(properties i, std::string s);
-
-        static MetaOptions* Instance();
-
-    private:
-        static MetaOptions* _Instance;
-        prop_map _properties;
-};
-
 class Options
 {
     public:
@@ -77,6 +60,9 @@ class Options
         // make instantiation, copying, and assignment private
         Options();
         Options(Options const&);
+
+        // get executable path
+        std::string exe_path();
 
         // read options file
         void _initialize();

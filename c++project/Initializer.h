@@ -8,8 +8,8 @@
 #ifndef INITIALIZER_H_
 #define INITIALIZER_H_
 
-#include "Options.h"
 #include <string>
+#include <sstream>
 #include <set>
 #include <map>
 
