@@ -53,7 +53,7 @@ STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 
 
 all: hash $(MAIN) $(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(EXECUTABLE)
 
-rebuild: clean hash all
+rebuild: clean all
 
 name:
 	@$(ECHO) $(EXECUTABLE)
@@ -78,7 +78,7 @@ clean:
 cleanall: clean
 	$(RM) -rf $(EXECUTABLE)*.tar.gz html latex *~
 
-.PHONY: all again rebuild name hash tar dox doxbuild clean cleanall
+.PHONY: all rebuild name hash tar dox doxbuild clean cleanall
 
 
 $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
