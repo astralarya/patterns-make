@@ -39,13 +39,13 @@ void printhelp()
 
 void printversion()
 {
-    std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << std::endl;
+    std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << '\n';
 }
 
 void printrevision()
 {
-    std::cout << REVISION_HASH << std::endl
-              << REVISION_STATUS << std::endl;
+    std::cout << REVISION_HASH << '\n'
+              << REVISION_STATUS << '\n';
 }
 
 int main(int argc, const char* argv[])
