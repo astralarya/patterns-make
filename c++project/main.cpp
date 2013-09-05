@@ -1,5 +1,7 @@
 // main.cpp
 // Mara Kim
+//
+// A main function that reports help and version info
 
 
 #include "Initializer.h"
