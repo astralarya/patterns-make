@@ -13,7 +13,6 @@
 #define OPTIONS_H
 
 #include "Project.h"
-#include "OptionsParser.h"
 #include <fstream>
 #include <typeinfo>
 #include <string>
@@ -23,9 +22,12 @@
 #define OPTIONSFILE
 #endif
 
+class OptionsParser;
+
 class Options
 {
     public:
+        friend class OptionsParser;
 
         static Options* Instance();
 
