@@ -18,10 +18,6 @@
 #include <string>
 #include <map>
 
-#ifndef OPTIONSFILE
-#define OPTIONSFILE
-#endif
-
 class OptionsParser;
 
 class Options

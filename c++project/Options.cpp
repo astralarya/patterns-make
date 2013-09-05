@@ -5,10 +5,6 @@
 // configuration file and provides
 // the values to the program
 
-#ifndef OPTIONSFILE
-#define OPTIONSFILE
-#endif
-
 #include "Options.h"
 #include "OptionsParser.h"
 
