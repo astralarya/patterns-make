@@ -52,7 +52,6 @@ class Options
             return static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->get(mode,index);
         }
 
-        friend class OptionsParser;
     protected:
         void _new(const Mode::type_map& properties);
     private:

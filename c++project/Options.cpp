@@ -42,7 +42,7 @@ void Options::_initialize()
 {
     std::ifstream options_file(exe_path() + OPTIONSFILE);
     if(options_file.is_open()) {
-        OptionsParser p(this, options_file);
+        OptionsParser p(*this, options_file);
         p.parse();
         options_file.close();
     }

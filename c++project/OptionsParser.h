@@ -6,6 +6,8 @@
 #ifndef OPTIONSparser_h
 #define OPTIONSparser_h
 
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <map>
 #include "Options.h"
@@ -21,7 +23,7 @@ class OptionsParser
 
     private:
         std::istream& _istream;
-        Options* _options;
+        Options& _options;
         void error(char const *msg);    // called on (syntax) errors
 };
 
