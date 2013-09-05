@@ -80,8 +80,3 @@ std::string Initializer::reportUnused() {
     return ss.str();
 }
 
-std::string Initializer::pre_path(const char* c) {
-    std::string path(c);
-    size_t path_end = path.rfind('/') + 1;
-    return path.substr(0,path_end);
-}

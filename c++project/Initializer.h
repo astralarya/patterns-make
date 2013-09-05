@@ -34,7 +34,6 @@ private:
 	std::map<char,extras_map> _shortflagextras;
 	std::map<std::string,extras_map> _longflagextras;
 	extras_map _unusedextras;
-	std::string pre_path(const char* c);
 };
 
 #endif /* INITIALIZER_H_ */
