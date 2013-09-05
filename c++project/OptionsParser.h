@@ -3,8 +3,8 @@
 //
 // Mara Kim
 
-#ifndef OPTIONSparser_h
-#define OPTIONSparser_h
+#ifndef OPTIONSPARSER_H
+#define OPTIONSPARSER_H
 
 #include <iostream>
 #include <sstream>
