@@ -13,6 +13,7 @@
 #define OPTIONS_H
 
 #include "Project.h"
+#include "OptionsParser.h"
 #include <fstream>
 #include <typeinfo>
 #include <string>
@@ -21,10 +22,6 @@
 #ifndef OPTIONSFILE
 #define OPTIONSFILE
 #endif
-
-namespace OPTIONS {
-    class OptionsParser;
-}
 
 class Options
 {
@@ -53,7 +50,7 @@ class Options
             return static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->get(mode,index);
         }
 
-        friend class OPTIONS::OptionsParser;
+        friend class OptionsParser;
     protected:
         void _new(const Mode::type_map& properties);
     private:

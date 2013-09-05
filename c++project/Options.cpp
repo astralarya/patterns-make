@@ -6,7 +6,6 @@
 // the values to the program
 
 #include "Options.h"
-#include "OptionsParser.h"
 
 // Global static pointer that ensures a single instance
 Options* Options::_Instance = NULL;
