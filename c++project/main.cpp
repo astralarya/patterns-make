@@ -1,18 +1,6 @@
 // main.cpp
 // Mara Kim
 
-#ifndef PROGRAM_NAME
-#define PROGRAM_NAME
-#endif
-#ifndef SOURCE_VERSION
-#define SOURCE_VERSION
-#endif
-#ifndef REVISION_HASH
-#define REVISION_HASH
-#endif
-#ifndef REVISION_STATUS
-#define REVISION_STATUS
-#endif
 
 #include "Initializer.h"
 #include "Options.h"
@@ -23,7 +11,7 @@
 inline void printshorthelp()
 {
     // output usage info
-    std::cout << "Usage: " << PROGRAM_NAME << '\n';
+    std::cout << "Usage: " PROGRAM_NAME "\n";
 }
 
 void printhelp()
@@ -39,13 +27,13 @@ void printhelp()
 
 void printversion()
 {
-    std::cout << PROGRAM_NAME << ' ' << SOURCE_VERSION << '\n';
+    std::cout << PROGRAM_NAME " " SOURCE_VERSION "\n";
 }
 
 void printrevision()
 {
-    std::cout << REVISION_HASH << '\n'
-              << REVISION_STATUS << '\n';
+    std::cout << REVISION_HASH "\n"
+                 REVISION_STATUS "\n";
 }
 
 int main(int argc, const char* argv[])
