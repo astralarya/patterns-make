@@ -63,10 +63,13 @@ bool Initializer::flag(std::string s) {
 }
 
 std::string Initializer::extra(char c) {
-    _unusedextras.erase(_shortflagextras[c].begin()->first);
-    std::string r(_shortflagextras[c].begin()->second);
-    _shortflagextras[c].erase(_shortflagextras[c].begin());
-    return r;
+    if(_shortflagextras[c].size()) {
+        _unusedextras.erase(_shortflagextras[c].begin()->first);
+        std::string r(_shortflagextras[c].begin()->second);
+        _shortflagextras[c].erase(_shortflagextras[c].begin());
+        return r;
+    } else
+        return "";
 }
 
 Initializer::extras_map Initializer::extras(char c) {
@@ -76,10 +79,13 @@ Initializer::extras_map Initializer::extras(char c) {
 }
 
 std::string Initializer::extra(std::string s) {
-    _unusedextras.erase(_longflagextras[s].begin()->first);
-    std::string r(_longflagextras[s].begin()->second);
-    _longflagextras[s].erase(_longflagextras[s].begin());
-    return r;
+    if(_longflagextras[s].size()) {
+        _unusedextras.erase(_longflagextras[s].begin()->first);
+        std::string r(_longflagextras[s].begin()->second);
+        _longflagextras[s].erase(_longflagextras[s].begin());
+        return r;
+    } else
+        return "";
 }
 
 Initializer::extras_map Initializer::extras(std::string s) {
@@ -89,9 +95,12 @@ Initializer::extras_map Initializer::extras(std::string s) {
 }
 
 std::string Initializer::extra() {
-    std::string r(_unusedextras.begin()->second);
-    _unusedextras.erase(_unusedextras.begin());
-    return r;
+    if(_unusedextras.size()) {
+        std::string r(_unusedextras.begin()->second);
+        _unusedextras.erase(_unusedextras.begin());
+        return r;
+    } else
+        return "";
 }
 
 Initializer::extras_map Initializer::extras() {
