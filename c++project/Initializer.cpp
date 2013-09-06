@@ -25,7 +25,7 @@ _argv(argv){
                 s = s.substr(2);
                 size_t eq = s.find('=');
                 if(eq != std::string::npos) {
-                    std::string extra = s.substr(eq);
+                    std::string extra = s.substr(eq + 1);
                     s = s.substr(0,eq);
                     _longflagextras[s][i] = extra;
                 }
