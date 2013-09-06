@@ -19,12 +19,19 @@ _argv(argv){
             std::string s = _argv[i];
             if(input)
                 _unusedextras[i] = s;
-            else if(!strcmp(argv[i],"--"))
+            else if(s == "--")
                 input = true;
             else if(s.find("--") == 0) {
-                _longflags.insert(s.substr(2));
+                s = s.substr(2);
+                size_t eq = s.find('=');
+                if(eq != std::string::npos) {
+                    std::string extra = s.substr(eq);
+                    s = s.substr(0,eq);
+                    _longflagextras[s][i] = extra;
+                }
+                _longflags.insert(s);
                 _prevflags.clear();
-                _prevlong = s.substr(2);
+                _prevlong = s;
             } else if(s.find("-") == 0) {
                 _prevflags.clear();
                 _prevlong.clear();
