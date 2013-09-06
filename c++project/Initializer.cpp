@@ -23,9 +23,11 @@ _argv(argv){
                 input = true;
             else if(s.find("--") == 0) {
                 _longflags.insert(s.substr(2));
+                _prevflags.clear();
                 _prevlong = s.substr(2);
             } else if(s.find("-") == 0) {
                 _prevflags.clear();
+                _prevlong.clear();
                 for(size_t j = 1; j < s.length(); j++) {
                     _shortflags.insert(s[j]);
                     _prevflags.insert(s[j]);
