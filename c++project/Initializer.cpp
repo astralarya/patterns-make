@@ -14,9 +14,14 @@ _argv(argv){
         // process arguments
         std::set<char> _prevflags;
         std::string _prevlong;
+        bool input = false;
         for(size_t i = 1; i < _argc; i++) {
             std::string s = _argv[i];
-            if(s.find("--") == 0) {
+            if(input)
+                _unusedextras[i] = s;
+            else if(!strcmp(argv[i],"--"))
+                input = true;
+            else if(s.find("--") == 0) {
                 _longflags.insert(s.substr(2));
                 _prevlong = s.substr(2);
             } else if(s.find("-") == 0) {

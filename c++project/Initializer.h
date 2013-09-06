@@ -8,6 +8,7 @@
 #ifndef INITIALIZER_H_
 #define INITIALIZER_H_
 
+#include <cstring>
 #include <string>
 #include <sstream>
 #include <set>
