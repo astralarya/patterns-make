@@ -10,14 +10,18 @@
 #include <iostream>
 
 
-inline void printshorthelp()
-{
+void printwelcome() {
+    // Welcome
+    std::cout << "\n<Welcome>\n\n";
+}
+
+void printshorthelp() {
     // output usage info
     std::cout << "Usage: " PROGRAM_NAME "\n";
 }
 
-void printhelp()
-{
+void printhelp() {
+    printwelcome();
     // output help
     printshorthelp();
     std::cout << "<Description>\n\n"
@@ -29,21 +33,16 @@ void printhelp()
                  "-V\t\t--version-long\t\tOutput full program version\n";
 }
 
-void printversion()
-{
+void printversion() {
     std::cout << PROGRAM_NAME " " SOURCE_VERSION "\n";
 }
 
-void printrevision()
-{
+void printrevision() {
     std::cout << REVISION_HASH "\n"
                  REVISION_STATUS "\n";
 }
 
 int main(int argc, const char* argv[]) {
-    // Welcome
-    std::cout << "\n<Welcome>\n\n";
-
     // Initialize
     Initializer init(argc, argv);
 
@@ -74,9 +73,10 @@ int main(int argc, const char* argv[]) {
         stop = true;
     }
 
-    if(stop) {
+    if(stop)
         return 0;
-    }
+    else
+        printwelcome();
 
 
     // run program
