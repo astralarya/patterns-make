@@ -23,6 +23,9 @@ public:
 	bool flag(std::string s);
 	typedef std::map<int,std::string> extras_map;
 	typedef extras_map::iterator extras_iterator;
+	std::string extra();
+	std::string extra(char c);
+	std::string extra(std::string s);
 	extras_map extras();
 	extras_map extras(char c);
 	extras_map extras(std::string s);
