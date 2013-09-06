@@ -13,15 +13,16 @@
 inline void printshorthelp()
 {
     // output usage info
-    std::cout <<  "<Description>\n"
-                  "Usage: " PROGRAM_NAME "\n";
+    std::cout << "Usage: " PROGRAM_NAME "\n";
 }
 
 void printhelp()
 {
     // output help
     printshorthelp();
-    std::cout << "Option\t\tGNU long option\t\tMeaning\n"
+    std::cout << "<Description>\n\n"
+
+                 "Option\t\tGNU long option\t\tMeaning\n"
                  "-f\t\t--foo\t\t\tRun the program\n"
                  "-h, -?\t\t--help\t\t\tShow this message\n"
                  "-v\t\t--version\t\tOutput program version\n"
@@ -39,8 +40,9 @@ void printrevision()
                  REVISION_STATUS "\n";
 }
 
-int main(int argc, const char* argv[])
-{
+int main(int argc, const char* argv[]) {
+    // Welcome
+    std::cout << "\n<Welcome>\n\n";
 
     // Initialize
     Initializer init(argc, argv);
