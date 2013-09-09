@@ -59,7 +59,7 @@ SQLFILES=$(wildcard *.sql)
 COMMITFILES=$(SQLFILES:.sql=.log)
 MANIFEST=$(SQLFILES) $(REVISION_FILE) $(MISC) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
-STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
+STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
 # rules
 
@@ -70,7 +70,7 @@ all: $(DBS)
 live: $(LIVEDB)
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && git diff --minimal >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(NAME)_$(VERSION).tar.gz
