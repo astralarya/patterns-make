@@ -24,8 +24,6 @@ TAIL=tail
 ECHO=echo
 TAR=tar
 CXX=g++
-LEX=flexc++
-YACC=bisonc++
 DOX=doxygen
 MV=mv
 RM=rm
@@ -36,15 +34,13 @@ ME=Makefile
 
 # macros
 
-LEXFILE=$(wildcard *.l)
-YACCFILE=$(wildcard *.y)
 SOURCES=$(wildcard *.cpp)
 HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
 DEPENDENCIES=$(OBJECTS:.o=.d)
-EXTRA=$(LEXFILE:.l=Scanner.h) $(LEXFILE:.l=Scanner.ih) $(YACCFILE:.y=Parser.h) $(YACCFILE:.y=Parser.ih) $(YACCFILE:.y=.types.h)
-GENERATEDH=$(LEXFILE:.l=Scannerbase.h) $(YACCFILE:.y=Parserbase.h)
-GENERATEDC=$(LEXFILE:.l=Scanner.cc) $(YACCFILE:.y=Parser.cc)
+EXTRA=
+GENERATEDH=
+GENERATEDC=
 MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(REVISION_FILE) $(MISC) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
 STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
@@ -134,14 +130,3 @@ Options.o: Options.cpp
 	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
 	@rm -f $*.d.tmp
 
-%Parser.cc: %.y
-	$(YACC) $(YACCFLAGS) $<
-
-%Scanner.cc: %.l
-	$(LEX) $(LEXFLAGS) $<
-
-%Parserbase.h: %.y
-	$(YACC) $(YACCFLAGS) $<
-
-%Scannerbase.h: %.l
-	$(LEX) $(LEXFLAGS) $<
