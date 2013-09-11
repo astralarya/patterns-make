@@ -57,9 +57,10 @@ ME=Makefile
 
 SQLFILES=$(wildcard *.sql)
 COMMITFILES=$(SQLFILES:.sql=.log)
-MANIFEST=$(SQLFILES) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
-STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
+STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's@/@\\/@g' -e 's@\&@\\\&@g' -e 's/\o047/\\o047\\o047\\o047\\o047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
+
 
 # rules
 
@@ -92,8 +93,7 @@ $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 $(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_FILE)
 	@$(ECHO) $<
 	@$(DATE) > $@
-	@$(SED) -e 's/DB_NAME/$(LIVEDB)/g' -e 's/DB_VERSION/$(VERSION)/' -e 's/DB_HASH/$(HASH)/' -e 's/DB_STATUS/$(STATUS)/' $< | $(PSQL) $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) &>> $@
-	@$(GREP) ": " $@ || true
+	@$(SED) -e 's/DB_NAME/$(LIVEDB)/g' -e 's/DB_VERSION/$(VERSION)/' -e 's/DB_HASH/$(HASH)/' -e 's/DB_STATUS/$(STATUS)/' $< | $(PSQL) --quiet $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) 2>&1 | $(TEE) -a $@ && $(ECHO) "RECORD VERSION"
 
 %.db/$(LOG): hash %.db $(addprefix %.db/,$(COMMITFILES))
 	@$(DATE) >> $@
@@ -104,8 +104,7 @@ define db_commit
 $(1).db/%.log: %.sql
 	@$$(ECHO) $$<
 	@$$(DATE) > $$@
-	@$$(PSQL) $$(PFLAGS) -d $$(@:.db/$$*.log=) -f $$< &>> $$@
-	@$$(GREP) ": " $$@ || true
+	@$$(PSQL) $$(PFLAGS) -d $$(@:.db/$$*.log=) -f $$< 2>&1 | $$(TEE) -a $$@
 endef
 
 $(foreach DB,$(DBS),$(eval $(call db_commit,$(DB))))
@@ -115,4 +114,5 @@ $(foreach DB,$(DBS),$(eval $(call db_commit,$(DB))))
 
 %: %.db/$(LOG)
 	@$(ECHO) Done $*
+
 
