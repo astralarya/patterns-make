@@ -41,7 +41,7 @@ DEPENDENCIES=$(OBJECTS:.o=.d)
 EXTRA=
 GENERATEDH=
 GENERATEDC=
-MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(MISC) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
 STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
