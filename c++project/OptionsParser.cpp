@@ -6,7 +6,7 @@
 int OptionsParser::parse() {
     Mode::type_map param;
 
-    // Read OPTIONSFILE
+    // Read OPTIONS_FILE
     std::stringstream line;
     std::string buffer,
                 variable;

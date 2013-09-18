@@ -40,7 +40,7 @@ _modes()
 
 void Options::_initialize()
 {
-    std::ifstream options_file(exe_path() + OPTIONSFILE);
+    std::ifstream options_file(exe_path() + OPTIONS_FILE);
     if(options_file.is_open()) {
         OptionsParser p(*this, options_file);
         p.parse();

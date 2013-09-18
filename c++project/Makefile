@@ -10,7 +10,7 @@ VERSION=0.1
 CFLAGS=-std=c++0x -g
 LDFLAGS=
 DOXFILE=
-OPTIONSFILE=OPTIONS.rc
+OPTIONS_FILE=OPTIONS.rc
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
@@ -41,7 +41,7 @@ DEPENDENCIES=$(OBJECTS:.o=.d)
 EXTRA=
 GENERATEDH=
 GENERATEDC=
-MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONSFILE) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(MISC) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
 STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
 
@@ -95,7 +95,7 @@ main.o: main.cpp $(REVISION_FILE)
 	@rm -f $*.d.tmp
 
 Options.o: Options.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@ -D OPTIONSFILE='"$(OPTIONSFILE)"'
+	$(CXX) $(CFLAGS) -c $< -o $@ -D OPTIONS_FILE='"$(OPTIONS_FILE)"'
 	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d

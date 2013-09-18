@@ -1,5 +1,5 @@
 // OptionsParser.h
-// Parses the OPTIONSFILE and initializes Options
+// Parses the OPTIONS_FILE and initializes Options
 //
 // Mara Kim
 
