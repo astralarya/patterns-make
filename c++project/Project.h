@@ -47,9 +47,7 @@ typename TypeInfo<string_mode>::defaults_type TypeInfo<string_mode>::defaults {{
 template <>
 typename TypeInfo<string_mode>::init_type TypeInfo<string_mode>::init {};
 template <>
-void TypeInfo<string_mode>::assign(std::string& var, const std::string& str) {
-    var = str;
-}
+void TypeInfo<string_mode>::assign(std::string& var, const std::string& str) { var = str; }
 
 template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
