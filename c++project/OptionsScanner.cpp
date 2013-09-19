@@ -17,10 +17,19 @@ OptionsScanner::token OptionsScanner::lex() {
             _state = VAR;
         c = _istream.get();
     }
+    int last = 0;
     switch(c) {
-    //case '"':
     case EOF:
         return END;
+    case '"':
+        c = _istream.get();
+        while((c != '"' || last == '\\') && c != EOF) {
+            if(c != '\\' || last == '\\')
+                _matched.push_back(c);
+            last = c;
+            c = _istream.get();
+        }
+        break;
     default:
         while(!isspace(c) && c != EOF) {
             _matched.push_back(c);
