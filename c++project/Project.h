@@ -9,16 +9,20 @@
 
 #include "Mode.h"
 
+// Project enums
+namespace Project {
+    enum string_mode{DB_HOST,DB_USER,DB_NAME};
+    enum float_mode{AVOGADRO};
+}
+
 // Typed modes
-enum string_mode{DB_HOST,DB_USER,DB_NAME};
 template <>
-struct Type<string_mode> {
+struct Type<Project::string_mode> {
     typedef std::string T;
 };
 
-enum float_mode{AVOGADRO};
 template <>
-struct Type<float_mode> {
+struct Type<Project::float_mode> {
     typedef float T;
 };
 
@@ -32,6 +36,8 @@ struct Type<char> {
 
 #ifdef PROJECT_STATICS
 /// Static Declarations ///
+
+using namespace Project;
 
 // Mode Signitures
 template <>
