@@ -80,17 +80,14 @@ protected:
                 // look for key
                 auto finder = properties.find(it->second);
                 if(finder != properties.end()) {
-                    std::stringstream ss;
                     // copy the strings
                     if(finder->second.size()) {
                         vec_type vector;
                         for(auto reader = finder->second.begin(); reader != finder->second.end(); reader++) {
-                            ss << *reader;
-                            my_type input;
-                            // use the extraction operator to set the variable
-                            ss >> input;
+                            my_type input = _init;
+                            // Assign value
+                            _assign(input,*reader);
                             vector.push_back(input);
-                            ss.str().clear();
                         }
                         if(vector.size() > _map[it->first].size())
                             _map[it->first].resize(vector.size());
@@ -102,6 +99,9 @@ protected:
     }
 
 private:
+    void _assign(my_type& var,const std::string& str) {
+        TypeInfo<ENUM>::assign(var,str);
+    }
     map_type _map;
     key_type& _keys;
     defaults_type& _defaults;
