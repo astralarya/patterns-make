@@ -87,7 +87,7 @@ protected:
                         for(auto reader = finder->second.begin(); reader != finder->second.end(); reader++) {
                             ss << *reader;
                             my_type input;
-                            // use the insertion operator to set the variable
+                            // use the extraction operator to set the variable
                             ss >> input;
                             vector.push_back(input);
                             ss.str().clear();
