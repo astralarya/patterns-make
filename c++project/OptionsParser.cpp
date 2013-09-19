@@ -6,21 +6,19 @@
 int OptionsParser::parse() {
     Mode::type_map param;
 
-    // Read OPTIONS_FILE
-    std::stringstream line;
-    std::string buffer,
-                variable;
-    while(std::getline(_istream,buffer)) {
-        line.str(buffer);
-        bool first = true;
-        while(std::getline(line,buffer,' '))
-            if(first) {
-                variable = buffer;
-                first = false;
-            } else
-                param[variable].push_back(buffer);
-
-        line.clear();
+    bool done = false;
+    std::string variable;
+    while(!done) {
+        switch(_scanner.lex()) {
+        case OptionsScanner::VARIABLE:
+            variable = _scanner.matched();
+            break;
+        case OptionsScanner::VALUE:
+            param[variable].push_back(_scanner.matched());
+            break;
+        default:
+            done = true;
+        }
     }
 
     // Initialize Options
