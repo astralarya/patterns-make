@@ -22,6 +22,7 @@ struct TypeInfo {
     typedef std::map<ENUM,std::vector<typename Type<ENUM>::T> > map_type;
     typedef const std::map<ENUM,std::vector<typename Type<ENUM>::T> > defaults_type;
     typedef const std::map<ENUM,std::string> key_type;
+    typedef typename std::vector<typename Type<ENUM>::T> vec_type;
     typedef typename Type<ENUM>::T my_type;
     typedef typename std::vector<typename Type<ENUM>::T>::reference ref_type;
     typedef const typename Type<ENUM>::T init_type;
