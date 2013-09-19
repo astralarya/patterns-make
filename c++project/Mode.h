@@ -50,33 +50,33 @@ public:
 protected:
     // ctors
     Typed_Mode():
-    map(),
-    keys(TypeInfo<ENUM>::keys),
-    defaults(TypeInfo<ENUM>::defaults),
-    init(TypeInfo<ENUM>::init) {};
+    _map(),
+    _keys(TypeInfo<ENUM>::keys),
+    _defaults(TypeInfo<ENUM>::defaults),
+    _init(TypeInfo<ENUM>::init) {};
 
 
     // accessor functions
     void set(const ENUM& mode, size_t index, const my_type& value) {
-        if(index >= map[mode].size())
-            map[mode].resize(index+1,init);
-        map[mode][index] = value;
+        if(index >= _map[mode].size())
+            _map[mode].resize(index+1,_init);
+        _map[mode][index] = value;
     }
 
     ref_type get(const ENUM& mode, size_t index) {
-        if(index >= map[mode].size())
-            map[mode].resize(index+1,init);
-        return map[mode][index];
+        if(index >= _map[mode].size())
+            _map[mode].resize(index+1,_init);
+        return _map[mode][index];
     }
 
     // initializer
     void _initialize(const type_map& properties) {
         // set defaults
-        for(auto it = defaults.begin(); it != defaults.end(); it++)
-            map[it->first] = it->second;
+        for(auto it = _defaults.begin(); it != _defaults.end(); it++)
+            _map[it->first] = it->second;
 
         // for each key
-        for(auto it = keys.begin(); it != keys.end(); it++) {
+        for(auto it = _keys.begin(); it != _keys.end(); it++) {
             if(!it->second.empty()) {
                 // look for key
                 auto finder = properties.find(it->second);
@@ -93,9 +93,9 @@ protected:
                             vector.push_back(input);
                             ss.str().clear();
                         }
-                        if(vector.size() > map[it->first].size())
-                            map[it->first].resize(vector.size());
-                        std::copy(vector.begin(), vector.end(), map[it->first].begin());
+                        if(vector.size() > _map[it->first].size())
+                            _map[it->first].resize(vector.size());
+                        std::copy(vector.begin(), vector.end(), _map[it->first].begin());
                     } 
                 }
             }
@@ -103,10 +103,10 @@ protected:
     }
 
 private:
-    map_type map;
-    key_type& keys;
-    defaults_type& defaults;
-    init_type& init;
+    map_type _map;
+    key_type& _keys;
+    defaults_type& _defaults;
+    init_type& _init;
 };
 
 #endif // MODE_H
