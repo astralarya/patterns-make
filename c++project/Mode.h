@@ -24,7 +24,6 @@ class Options;
 // Base mode class
 class Mode {
 public:
-    friend class Options;
     typedef std::vector<std::string> svector_type;
     typedef std::pair<std::string,svector_type> svpair_type;
     typedef std::map<std::string,svector_type> type_map;
