@@ -13,18 +13,17 @@
 #include "Options.h"
 #include "Mode.h"
 
-class OptionsParser
-{
-    public:
-        OptionsParser(Options& options, std::istream &in = std::cin):
-        _options(options),_istream(in){}
+class OptionsParser {
+public:
+    OptionsParser(Options& options, std::istream &in = std::cin):
+    _options(options),_istream(in){}
 
-        int parse();
+    int parse();
 
-    private:
-        std::istream& _istream;
-        Options& _options;
-        void error(char const *msg);    // called on (syntax) errors
+private:
+    std::istream& _istream;
+    Options& _options;
+    void error(char const *msg);    // called on (syntax) errors
 };
 
 #endif
