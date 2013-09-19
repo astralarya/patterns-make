@@ -81,6 +81,8 @@ int main(int argc, const char* argv[]) {
 
     // run program
 
+    std::cout << Options::Instance()->get(Project::GREETING) << std::endl;
+
     Foo foo;
     foo.bar();
 

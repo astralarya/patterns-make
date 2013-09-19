@@ -11,6 +11,10 @@ void Foo::bar() {
     Options::Instance()->set(Project::AVOGADRO,1,5.5);
     std::cout << "AVOGADRO = " << Options::Instance()->get(Project::AVOGADRO) << std::endl;
     std::cout << "AVOGADRO[1] = " << Options::Instance()->get(Project::AVOGADRO,1) << std::endl;
+    std::cout << "NUMBERS = " << Options::Instance()->get(Project::NUMBERS) << std::endl;
+    std::cout << "NUMBERS[1] = " << Options::Instance()->get(Project::NUMBERS,1) << std::endl;
+    std::cout << "NUMBERS[2] = " << Options::Instance()->get(Project::NUMBERS,2) << std::endl;
+    std::cout << "NUMBERS[3] = " << Options::Instance()->get(Project::NUMBERS,3) << std::endl;
 
     Options::Instance()->set('a',true);
     std::cout << "'a'= " << Options::Instance()->get('a') << std::endl;

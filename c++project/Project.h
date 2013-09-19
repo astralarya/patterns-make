@@ -11,8 +11,8 @@
 
 // Project enums
 namespace Project {
-    enum string_mode{DB_HOST,DB_USER,DB_NAME,USERNAME};
-    enum float_mode{AVOGADRO};
+    enum string_mode{GREETING,DB_HOST,DB_USER,DB_NAME,USERNAME};
+    enum float_mode{AVOGADRO, NUMBERS};
 }
 
 // Typed modes
@@ -41,7 +41,7 @@ using namespace Project;
 
 // Mode Signitures
 template <>
-typename TypeInfo<string_mode>::key_type TypeInfo<string_mode>::keys ({{DB_HOST, "DB_HOST"},{DB_USER,"DB_USER"},{DB_NAME,"DB_NAME"}});
+typename TypeInfo<string_mode>::key_type TypeInfo<string_mode>::keys ({{GREETING, "GREETING"},{DB_HOST, "DB_HOST"},{DB_USER,"DB_USER"},{DB_NAME,"DB_NAME"}});
 template <>
 typename TypeInfo<string_mode>::defaults_type TypeInfo<string_mode>::defaults {{DB_HOST,{"A_DATABASE"}},{USERNAME,{"USER"}}};
 template <>
@@ -50,7 +50,7 @@ template <>
 void TypeInfo<string_mode>::assign(std::string& var, const std::string& str) { var = str; }
 
 template <>
-typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"}});
+typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"},{NUMBERS, "NUMBERS"}});
 template <>
 typename TypeInfo<float_mode>::defaults_type TypeInfo<float_mode>::defaults {};
 template <>

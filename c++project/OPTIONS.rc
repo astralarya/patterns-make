@@ -1,5 +1,6 @@
+GREETING "Hello, world!"
 DB_HOST myserver
 DB_USER myuser
 DB_NAME mydb
-GREPEXEC /bin/grep
+NUMBERS 2.81828 42 3.14159
 AVOGADRO_CONSTANT 6.02214e23
