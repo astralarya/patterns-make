@@ -4,3 +4,4 @@ VERSION.log
 *.d
 *.o
 *.cc
+*.swp
