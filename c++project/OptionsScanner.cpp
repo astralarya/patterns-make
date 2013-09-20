@@ -10,30 +10,59 @@ OptionsScanner::token OptionsScanner::lex() {
     _matched.clear();
 
     // Read next token
-    int c;
-    c = _istream.get();
-    while(isspace(c)) {
-        if(c == '\n')
-            _state = VAR;
-        c = _istream.get();
-    }
+    int c = _istream.get();
     int last = 0;
-    switch(c) {
-    case EOF:
-        return END;
-    case '"':
-        c = _istream.get();
-        while((c != '"' || last == '\\') && c != EOF) {
-            if(c != '\\' || last == '\\')
-                _matched.push_back(c);
-            last = c;
+    bool done = false;
+    while(!done) {
+        while(isspace(c)) {
+            if(c == '\n')
+                _state = VAR;
             c = _istream.get();
         }
-        break;
-    default:
-        while(!isspace(c) && c != EOF) {
-            _matched.push_back(c);
+        switch(c) {
+        case EOF:
+            return END;
+        case '/':
+            if(_istream.peek() == '*') {
+                // C-style multiline comment
+                _istream.get();
+                c = _istream.get();
+                while(c != '/' && last != '*' && c != EOF) {
+                    last = c;
+                    c = _istream.get();
+                }
+                c = _istream.get();
+            } else if(_istream.peek() == '/') {
+                while(c != '\n')
+                    c = _istream.get();
+                _state = VAR;
+            } else {
+                _matched.push_back(c);
+                c = _istream.get();
+            }
+            break;
+        case '"':
+            // Read quoted string
             c = _istream.get();
+            while((c != '"' || last == '\\') && c != EOF) {
+                if(c != '\\' || last == '\\')
+                    _matched.push_back(c);
+                last = c;
+                c = _istream.get();
+            }
+            done = true;
+            break;
+        default:
+            // Read word
+            while(!isspace(c) && c != EOF) {
+                if(c == '/' && (_istream.peek() == '*' || _istream.peek() == '/')) {
+                    _istream.putback(c);
+                    break;
+                }
+                _matched.push_back(c);
+                c = _istream.get();
+            }
+            done = true;
         }
     }
 
