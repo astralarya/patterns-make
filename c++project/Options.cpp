@@ -17,10 +17,20 @@ Options* Options::Instance()
     if(!_Instance) // if there is no instance of the class
     {
         _Instance = new Options;
-        _Instance->_initialize();
     }
 
     return _Instance;
+}
+
+Options::Options():
+_properties(),
+_modes() {
+    std::ifstream options_file(exe_path() + OPTIONS_FILE);
+    if(options_file.is_open()) {
+        OptionsParser p(*this, options_file);
+        p.parse();
+        options_file.close();
+    }
 }
 
 std::string Options::exe_path()
@@ -33,24 +43,7 @@ std::string Options::exe_path()
     return path.substr(0,path_end);
 }
 
-Options::Options():
-_modes()
-{
-}
-
-void Options::_initialize()
-{
-    std::ifstream options_file(exe_path() + OPTIONS_FILE);
-    if(options_file.is_open()) {
-        OptionsParser p(*this, options_file);
-        p.parse();
-        options_file.close();
-    }
-}
-
 void Options::_new(const Mode::type_map& properties)
 {
     _properties = properties;
-    for(auto mode = _modes.begin(); mode != _modes.end(); mode++)
-        mode->second->_initialize(_properties);
 }

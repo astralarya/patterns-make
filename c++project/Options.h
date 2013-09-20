@@ -63,8 +63,7 @@ class Options
 
         template <typename ENUM>
         void _addmode() {
-            _modes[typeid(ENUM).hash_code()] = new Typed_Mode<ENUM>;
-            _modes[typeid(ENUM).hash_code()]->_initialize(_properties);
+            _modes[typeid(ENUM).hash_code()] = new Typed_Mode<ENUM>(_properties);
         };
 
         static Options* _Instance;

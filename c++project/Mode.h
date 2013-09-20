@@ -27,7 +27,6 @@ public:
     typedef std::vector<std::string> svector_type;
     typedef std::pair<std::string,svector_type> svpair_type;
     typedef std::map<std::string,svector_type> type_map;
-    virtual void _initialize(const type_map&) = 0;
     
 };
 
@@ -47,27 +46,11 @@ public:
     typedef typename TypeInfo<ENUM>::key_type key_type;
 
 protected:
-    // ctors
-    Typed_Mode():
+    // ctor
+    Typed_Mode(const type_map& properties):
     _map(TypeInfo<ENUM>::defaults),
     _keys(TypeInfo<ENUM>::keys),
-    _init(TypeInfo<ENUM>::init) {};
-
-    // accessor functions
-    void set(const ENUM& mode, size_t index, const my_type& value) {
-        if(index >= _map[mode].size())
-            _map[mode].resize(index+1,_init);
-        _map[mode][index] = value;
-    }
-
-    ref_type get(const ENUM& mode, size_t index) {
-        if(index >= _map[mode].size())
-            _map[mode].resize(index+1,_init);
-        return _map[mode][index];
-    }
-
-    // initializer
-    void _initialize(const type_map& properties) {
+    _init(TypeInfo<ENUM>::init) {
         // for each key in this Mode
         std::for_each(_keys.begin(), _keys.end(),
                       [this, &properties] (const typename key_type::value_type& key) {
@@ -90,13 +73,27 @@ protected:
                       });
     }
 
+    // accessor functions
+    void set(const ENUM& mode, size_t index, const my_type& value) {
+        if(index >= _map[mode].size())
+            _map[mode].resize(index+1,_init);
+        _map[mode][index] = value;
+    }
+
+    ref_type get(const ENUM& mode, size_t index) {
+        if(index >= _map[mode].size())
+            _map[mode].resize(index+1,_init);
+        return _map[mode][index];
+    }
+
+
 private:
     void _assign(my_type& var,const std::string& str) {
         TypeInfo<ENUM>::assign(var,str);
     }
     map_type _map;
-    key_type& _keys;
-    init_type& _init;
+    const key_type& _keys;
+    const init_type& _init;
 };
 
 #endif // MODE_H
