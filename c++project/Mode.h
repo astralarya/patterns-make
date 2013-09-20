@@ -49,11 +49,9 @@ public:
 protected:
     // ctors
     Typed_Mode():
-    _map(),
+    _map(TypeInfo<ENUM>::defaults),
     _keys(TypeInfo<ENUM>::keys),
-    _defaults(TypeInfo<ENUM>::defaults),
     _init(TypeInfo<ENUM>::init) {};
-
 
     // accessor functions
     void set(const ENUM& mode, size_t index, const my_type& value) {
@@ -70,32 +68,26 @@ protected:
 
     // initializer
     void _initialize(const type_map& properties) {
-        // set defaults
-        for(auto it = _defaults.begin(); it != _defaults.end(); it++)
-            _map[it->first] = it->second;
-
-        // for each key
-        for(auto it = _keys.begin(); it != _keys.end(); it++) {
-            if(!it->second.empty()) {
-                // look for key
-                auto finder = properties.find(it->second);
-                if(finder != properties.end()) {
-                    // copy the strings
-                    if(finder->second.size()) {
-                        vec_type vector;
-                        for(auto reader = finder->second.begin(); reader != finder->second.end(); reader++) {
-                            my_type input = _init;
-                            // Assign value
-                            _assign(input,*reader);
-                            vector.push_back(input);
-                        }
-                        if(vector.size() > _map[it->first].size())
-                            _map[it->first].resize(vector.size());
-                        std::copy(vector.begin(), vector.end(), _map[it->first].begin());
-                    } 
-                }
-            }
-        }
+        // for each key in this Mode
+        std::for_each(_keys.begin(), _keys.end(),
+                      [this, &properties] (const typename key_type::value_type& key) {
+                          // look for key in properties
+                          auto finder = properties.find(key.second);
+                          if(finder != properties.end()) {
+                              // read the strings
+                              vec_type vector;
+                              std::for_each(finder->second.begin(), finder->second.end(),
+                                            [this, &vector] (const std::string& str) {
+                                                my_type input = _init;
+                                                // Assign value
+                                                this->_assign(input,str);
+                                                vector.push_back(input);
+                                            });
+                              if(vector.size() > _map[key.first].size())
+                                  _map[key.first].resize(vector.size());
+                              std::copy(vector.begin(), vector.end(), _map[key.first].begin());
+                          }
+                      });
     }
 
 private:
@@ -104,7 +96,6 @@ private:
     }
     map_type _map;
     key_type& _keys;
-    defaults_type& _defaults;
     init_type& _init;
 };
 
