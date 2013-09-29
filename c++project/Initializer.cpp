@@ -69,7 +69,7 @@ void Initializer::option(const std::vector<const char*>& longflags, const std::v
 
 void Initializer::parse() {
     error_t status = argp_parse(&_argp,_argc,_argv,0,0,0);
-    perror("");
+    perror("argp_parse():");
 }
 
 Initializer::~Initializer() {
