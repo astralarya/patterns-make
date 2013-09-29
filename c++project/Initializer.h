@@ -1,43 +1,37 @@
 /*
  * Initializer.h
  *
- *  Created on: Dec 14, 2012
  *      Author: mara
  */
 
 #ifndef INITIALIZER_H_
 #define INITIALIZER_H_
 
-#include <cstring>
-#include <string>
-#include <sstream>
-#include <set>
+#include <argp.h>
+#include <stdio.h>
+#include <vector>
 #include <map>
 
 class Initializer {
 public:
-	Initializer(int argc, const char* argv[]);
-	virtual ~Initializer();
-	bool noargs();
-	bool flag(char c);
-	bool flag(std::string s);
-	typedef std::map<int,std::string> extras_map;
-	typedef extras_map::iterator extras_iterator;
-	std::string extra();
-	std::string extra(char c);
-	std::string extra(std::string s);
-	extras_map extras();
-	extras_map extras(char c);
-	extras_map extras(std::string s);
-	std::string reportUnused();
+    typedef argp_state state;
+    typedef void (*optFunc)(char*,state*);
+
+    Initializer(int argc, char** argv, const char* progdoc = 0, const char* argdoc = 0);
+    virtual ~Initializer();
+    void option(const char* longflag, const int shortflag, const char* argument, const char* doc, optFunc function,
+                const bool hidden = false, const bool arg_optional = false);
+    void option(const std::vector<const char*>& longflags, const std::vector<int>& shortflags,
+                const char* argument, const char* doc, optFunc function,
+                const bool hidden = false, const bool arg_optional = false);
+    void parse();
 private:
-	int _argc;
-	const char** _argv;
-	std::set<char> _shortflags;
-	std::set<std::string> _longflags;
-	std::map<char,extras_map> _shortflagextras;
-	std::map<std::string,extras_map> _longflagextras;
-	extras_map _unusedextras;
+    static int _funcall(int key, char* arg, state* state);
+    int _argc;
+    char** _argv;
+    std::vector<argp_option> _arg_opts;
+    std::map<int, optFunc> _arg_funcs;
+    argp _argp;
 };
 
 #endif /* INITIALIZER_H_ */

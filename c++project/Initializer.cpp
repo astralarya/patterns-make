@@ -6,120 +6,73 @@
 
 #include "Initializer.h"
 
-Initializer::Initializer(int argc, const char* argv[]):
+Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
 _argc(argc),
-_argv(argv){
-    // check for arguments
-    if(_argc > 1) {
-        // process arguments
-        std::set<char> _prevflags;
-        std::string _prevlong;
-        bool input = false;
-        for(size_t i = 1; i < _argc; i++) {
-            std::string s = _argv[i];
-            if(input)
-                _unusedextras[i] = s;
-            else if(s == "--")
-                input = true;
-            else if(s.find("--") == 0) {
-                s = s.substr(2);
-                size_t eq = s.find('=');
-                if(eq != std::string::npos) {
-                    std::string extra = s.substr(eq + 1);
-                    s = s.substr(0,eq);
-                    _longflagextras[s][i] = extra;
-                }
-                _longflags.insert(s);
-                _prevflags.clear();
-                _prevlong = s;
-            } else if(s.find("-") == 0) {
-                _prevflags.clear();
-                _prevlong.clear();
-                for(size_t j = 1; j < s.length(); j++) {
-                    _shortflags.insert(s[j]);
-                    _prevflags.insert(s[j]);
-                }
-            } else {
-                if(_prevflags.size())
-                    for(std::set<char>::iterator it = _prevflags.begin();
-                            it != _prevflags.end();
-                            it++)
-                        _shortflagextras[*it][i] = s;
-                if(_prevlong.length())
-                    _longflagextras[_prevlong][i] = s;
-                _unusedextras[i] = s;
-            }
-        }
+_argv(argv),
+_arg_opts(),
+_arg_funcs(),
+_argp() {
+    _argp.options = _arg_opts.data();
+    _argp.parser = _funcall;
+    _argp.doc = progdoc;
+    _argp.args_doc = argdoc;
+}
+
+void Initializer::option(const char* longflag, const int shortflag, const char* argument, const char* doc,
+                         optFunc function,
+                         const bool hidden, const bool arg_optional) {
+    argp_option opt;
+    opt.name = longflag;
+    opt.key = shortflag;
+    opt.arg = argument;
+    opt.doc = doc;
+    if(arg_optional)
+        opt.flags = opt.flags | OPTION_ARG_OPTIONAL;
+    if(hidden)
+        opt.flags = opt.flags | OPTION_HIDDEN;
+    _arg_opts.push_back(opt);
+    _arg_funcs[opt.key] = function;
+}
+
+void Initializer::option(const std::vector<const char*>& longflags, const std::vector<int>& shortflags,
+                    const char* argument, const char* doc, optFunc function,
+                    const bool hidden, const bool arg_optional) {
+    bool first = true;
+    auto long_it = longflags.begin();
+    auto short_it = shortflags.begin();
+    while(long_it != longflags.end() || short_it != shortflags.end()) {
+        argp_option opt;
+        if(long_it != longflags.end())
+            opt.name = *long_it;
+        if(short_it != shortflags.end())
+            opt.key = *short_it;
+        if(first) {
+            first = false;
+            opt.arg = argument;
+            opt.doc = doc;
+            if(arg_optional)
+                opt.flags = opt.flags | OPTION_ARG_OPTIONAL;
+            if(hidden)
+                opt.flags = opt.flags | OPTION_HIDDEN;
+            _arg_funcs[opt.key] = function;
+        } else
+            opt.flags = opt.flags | OPTION_ALIAS;
+        _arg_opts.push_back(opt);
+
+        // Increment
+        if(long_it != longflags.end())
+            long_it++;
+        if(short_it != shortflags.end())
+            short_it++;
     }
+}
+
+void Initializer::parse() {
+    error_t status = argp_parse(&_argp,_argc,_argv,0,0,0);
+    perror("");
 }
 
 Initializer::~Initializer() {
     // dtor
-}
-
-bool Initializer::noargs() {
-    return _argc == 1;
-}
-
-bool Initializer::flag(char c) {
-    return _shortflags.find(c) != _shortflags.end();
-}
-
-bool Initializer::flag(std::string s) {
-    return _longflags.find(s) != _longflags.end();
-}
-
-std::string Initializer::extra(char c) {
-    if(_shortflagextras[c].size()) {
-        _unusedextras.erase(_shortflagextras[c].begin()->first);
-        std::string r(_shortflagextras[c].begin()->second);
-        _shortflagextras[c].erase(_shortflagextras[c].begin());
-        return r;
-    } else
-        return "";
-}
-
-Initializer::extras_map Initializer::extras(char c) {
-    for(extras_iterator it = _shortflagextras[c].begin(); it != _shortflagextras[c].end(); it++)
-        _unusedextras.erase(it->first);
-    return _shortflagextras[c];
-}
-
-std::string Initializer::extra(std::string s) {
-    if(_longflagextras[s].size()) {
-        _unusedextras.erase(_longflagextras[s].begin()->first);
-        std::string r(_longflagextras[s].begin()->second);
-        _longflagextras[s].erase(_longflagextras[s].begin());
-        return r;
-    } else
-        return "";
-}
-
-Initializer::extras_map Initializer::extras(std::string s) {
-    for(extras_iterator it = _longflagextras[s].begin(); it != _longflagextras[s].end(); it++)
-        _unusedextras.erase(it->first);
-    return _longflagextras[s];
-}
-
-std::string Initializer::extra() {
-    if(_unusedextras.size()) {
-        std::string r(_unusedextras.begin()->second);
-        _unusedextras.erase(_unusedextras.begin());
-        return r;
-    } else
-        return "";
-}
-
-Initializer::extras_map Initializer::extras() {
-    return _unusedextras;
-}
-
-std::string Initializer::reportUnused() {
-    std::stringstream ss;
-    for(extras_iterator it = _unusedextras.begin();
-            it != _unusedextras.end();
-            it++)
-    ss << "Ignored argument " << it->second << '\n';
-    return ss.str();
 }
 
