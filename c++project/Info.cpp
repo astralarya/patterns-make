@@ -28,8 +28,10 @@ const char *const PROGRAM_NAME = __PROGRAM_NAME,
            *const REVISION_STATUS = __REVISION_STATUS,
            *const REVISION_DIFF = __REVISION_DIFF;
 
-void PRINT_VERSION(std::ostream& ostream) {
+void PRINT_VERSION(std::ostream& ostream, bool license) {
     ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";
+    if(license)
+        ostream << PROGRAM_LICENSE << "\n";
 }
 
 void PRINT_REVISION(char* arg, std::ostream& ostream) {
@@ -62,12 +64,12 @@ void PRINT_REVISION(char* arg, std::ostream& ostream) {
             }
             c++;
         }
-        PRINT_REVISION(version,hash,status,diff);
+        PRINT_REVISION(ostream, version, hash, status, diff);
     } else
-        PRINT_REVISION();
+        PRINT_REVISION(ostream);
 }
 
-void PRINT_REVISION(bool version, bool hash, bool status, bool diff, std::ostream& ostream) {
+void PRINT_REVISION(std::ostream& ostream, bool version, bool hash, bool status, bool diff) {
     if(version)
         PRINT_VERSION(ostream);
     if(hash)

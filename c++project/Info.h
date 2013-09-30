@@ -31,9 +31,9 @@ extern const char *const PROGRAM_NAME,
                   *const REVISION_HASH,
                   *const REVISION_STATUS;
 
-void PRINT_VERSION(std::ostream& ostream = std::cout);
+void PRINT_VERSION(std::ostream& ostream = std::cout, bool license = false);
 void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
-void PRINT_REVISION(bool version = true, bool hash = true, bool status = true, bool diff = true, std::ostream& ostream = std::cout);
+void PRINT_REVISION(std::ostream& ostream = std::cout, bool version = true, bool hash = true, bool status = true, bool diff = true);
 void PRINT_VERSION(FILE* stream);
 void PRINT_REVISION(FILE* stream);
 
