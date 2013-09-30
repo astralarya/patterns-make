@@ -50,13 +50,11 @@ int main(int argc, char** argv) {
     // Parse arguments
     init.parse();
 
-    // Welcome
-    std::cout << "\nBegin Example:\n\n";
-
     // run program
 
-    std::cout << Options::Instance()->get(Project::GREETING) << std::endl;
+    std::cout << "\nBegin Example:\n\n";
 
+    std::cout << Options::Instance()->get(Project::GREETING) << std::endl;
     std::cout << "MYFOO=" << Options::Instance()->get(Project::FOO) << std::endl;
     std::cout << "SWITCH=" << (Options::Instance()->get(Project::SWITCH)?"true":"false") << std::endl;
     std::cout << "ARG0=" << Options::Instance()->get(Project::ARGUMENTS,0) << std::endl;
