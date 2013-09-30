@@ -2,6 +2,8 @@
 // Mara Kim
 //
 // Globals with program information
+// This file captures version info
+// defined externally in the Makefile
 
 #ifndef INFO_H
 #define INFO_H
