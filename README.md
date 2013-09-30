@@ -29,7 +29,7 @@ to create a \*.tar.gz containing the project.
 
 patterns-make
 
-Copyright (C)  2013 Mara Kim
+Copyright (C) 2013 Mara Kim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
