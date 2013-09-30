@@ -21,7 +21,7 @@ The project automatically compiles version info into the executable.  You can vi
 
     myprog --version
 
-It also automatically generates help and usage output based on the options described in main.cpp using Initializer.  You can view this with
+It also automatically generates help and usage output based on the options described in main.cpp using Initializer.  You can view these with
 
     myprog --help
 
