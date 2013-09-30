@@ -42,16 +42,14 @@ public:
 
     Initializer(int argc, char** argv, const char* argdoc = 0, const char* progdoc = 0);
     virtual ~Initializer();
+
     // Define options -- functions called for each option
     void option(const char* longflag, const int shortflag, const char* argument, const char* doc, optFunc function,
                 const bool arg_optional = false, const bool hidden = false);
     void option(const std::vector<const char*>& longflags, const std::vector<int>& shortflags,
                 const char* argument, const char* doc, optFunc function,
-                const bool arg_optional = false, const bool hidden = false); /*
-    void option(const char* longflag, const int shortflag, const char* argument, const char* doc, simpleOptFunc function,
-                const bool hidden = false, const bool arg_optional = false);
-    void option(const char* longflag, const int shortflag, const char* argument, const char* doc, argOptFunc function,
-                const bool hidden = false, const bool arg_optional = false); */
+                const bool arg_optional = false, const bool hidden = false);
+
     // Define argument functions -- called for each command line argument
     void event(event_t e, optFunc function);
 
