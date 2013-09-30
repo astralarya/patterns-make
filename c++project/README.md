@@ -19,11 +19,13 @@ to create a \*.tar.gz containing the project.
 
 The project automatically compiles version info into the executable.  You can view this with
 
-    myprog -V
-
-or
     myprog --version
 
+It also automatically generates help and usage output based on the options described in main.cpp using Initializer.  You can view this with
+
+    myprog --help
+
+    myprog --usage
 
 The hash and branch of the current HEAD commit (via `git rev-parse HEAD` and `git rev-parse --abbrev-ref HEAD`), as well as the status and diff of the index file verses the current HEAD commit (via `git status --porcelain` and `git diff`) at the time of compilation are compiled into the executable.  Note that this functionality only records changes while in a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
 
