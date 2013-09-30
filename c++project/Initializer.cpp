@@ -10,6 +10,13 @@ extern "C" int Initializer_argp_funcall(int key, char* arg, struct argp_state *s
     return ((Initializer*)state->input)->argp_funcall(key, arg, state);
 }
 
+void Initializer::print_version(FILE* stream, argp_state* state) {
+    // Global print_version defined in Info.h
+    ::print_version(stream);
+}
+
+void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Initializer::print_version;
+
 Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
 _argc(argc),
 _argv(argv),

@@ -10,8 +10,10 @@
 #include <argp.h>
 #include <stdio.h>
 #include <vector>
+#include <string>
 #include <functional>
 #include <map>
+#include "Info.h"
 
 class Initializer {
 public:
@@ -36,6 +38,7 @@ public:
     void parse();
 
     int argp_funcall(int key, char* arg, state* state);
+    static void print_version(FILE* stream, argp_state* state);
 private:
     int _argc;
     char** _argv;
