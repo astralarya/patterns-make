@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
     Initializer init(argc, argv, "ARG0 ARG1", "A Barebones C++ Project\vBe sure to provide two non-option arguments!");
 
     // Describe options
-    init.option(0, '#', "FIELD", 0, // output revision hash
+    init.option(0, '#', "FILTER", 0, // output revision hash
                 [&] (char* arg, Initializer::state* state) -> int {
                     PRINT_REVISION(arg);
                     exit(0);
