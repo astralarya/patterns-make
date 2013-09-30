@@ -41,7 +41,7 @@ EXTRA=
 GENERATEDH=
 GENERATEDC=
 MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(MISC) $(ME)
-HASH=$(shell $(SED) -e '2,$$d' $(REVISION_FILE))
+HASH=$(shell $(SED) -e '2,$$d' $(REVISION_FILE))\n
 STATUS=\#\# $(shell $(SED) -e '1,1d' -e '/^$$/,$$d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
 DIFF=$(shell $(SED) -e '1,1d' -e '1,/^$$/d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
 
