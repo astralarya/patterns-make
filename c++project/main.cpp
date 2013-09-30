@@ -9,69 +9,36 @@
 #include "Foo.h"
 #include <iostream>
 
-
 void printwelcome() {
     // Welcome
     std::cout << "\n<Welcome>\n\n";
 }
 
-void printshorthelp() {
-    // output usage info
-    std::cout << "Usage: " PROGRAM_NAME "\n";
-}
-
-void printhelp() {
-    printwelcome();
-    // output help
-    printshorthelp();
-    std::cout << "<Description>\n\n"
-
-                 "Option\t\tGNU long option\t\tMeaning\n"
-                 "-f\t\t--foo\t\t\tRun the program\n"
-                 "-h, -?\t\t--help\t\t\tShow this message\n"
-                 "-v\t\t--version\t\tOutput program version\n"
-                 "-V\t\t--version-long\t\tOutput full program version\n";
-}
-
-void printversion() {
-    std::cout << PROGRAM_NAME " " SOURCE_VERSION "\n";
-}
+const char* program_name = PROGRAM_NAME;
+const char* program_version = SOURCE_VERSION;
 
 void printrevision() {
-    std::cout << REVISION_HASH "\n"
+    std::cout << PROGRAM_NAME " " SOURCE_VERSION "\n"
+                 REVISION_HASH "\n"
                  REVISION_STATUS "\n";
 }
 
-int main(int argc, const char* argv[]) {
+int main(int argc, char** argv) {
     // Initialize
-    Initializer init(argc, argv);
+    Initializer init(argc, argv, "A barebones c++ project", "ARG1 ARG2");
 
     // process arguments
-    if(init.noargs()) {
-        printshorthelp();
-        std::cout << "Try --help\n";
-        return 0;
-    }
-    bool stop = false;
-    if(init.flag("version") ||
-       init.flag('v') ) {
-        // output version
-        printversion();
-        stop = true;
-    }
-    if(init.flag("version-long") ||
-       init.flag('V') ) {
-        // output revision
-        printversion();
-        printrevision();
-        stop = true;
-    }
-    if(init.flag("help") ||
-       init.flag('h') ||
-       init.flag('?')) {
-        printhelp();
-        stop = true;
-    }
+    bool stop = true;
+    init.option("foo", 'f', 0, "Run the program",
+                [&] (char* c, Initializer::state* s) {
+                    stop = false;
+                });
+    init.option("version-long", 'V', 0, "Output full program version",
+                [&] (char* c, Initializer::state* s) {
+                    // output revision
+                    printrevision();
+                },false,true);
+    init.parse();
 
     if(stop)
         return 0;

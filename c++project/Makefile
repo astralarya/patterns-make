@@ -7,7 +7,7 @@
 
 EXECUTABLE=myprog
 VERSION=0.1
-CFLAGS=-std=c++0x -g
+CFLAGS=-std=gnu++0x -g
 LDFLAGS=
 DOXFILE=
 OPTIONS_FILE=OPTIONS.rc

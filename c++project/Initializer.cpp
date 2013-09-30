@@ -6,22 +6,29 @@
 
 #include "Initializer.h"
 
+extern "C" int Initializer_argp_funcall(int key, char* arg, struct argp_state *state) {
+    return ((Initializer*)state->input)->argp_funcall(key, arg, state);
+}
+
 Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
 _argc(argc),
 _argv(argv),
 _arg_opts(),
 _arg_funcs(),
 _argp() {
-    _argp.options = _arg_opts.data();
-    _argp.parser = _funcall;
+    _argp.parser = Initializer_argp_funcall;
     _argp.doc = progdoc;
     _argp.args_doc = argdoc;
 }
 
+Initializer::~Initializer() {
+    // dtor
+}
+
 void Initializer::option(const char* longflag, const int shortflag, const char* argument, const char* doc,
                          optFunc function,
-                         const bool hidden, const bool arg_optional) {
-    argp_option opt;
+                         const bool arg_optional, const bool hidden) {
+    struct argp_option opt = {0};
     opt.name = longflag;
     opt.key = shortflag;
     opt.arg = argument;
@@ -35,8 +42,9 @@ void Initializer::option(const char* longflag, const int shortflag, const char* 
 }
 
 void Initializer::option(const std::vector<const char*>& longflags, const std::vector<int>& shortflags,
-                    const char* argument, const char* doc, optFunc function,
-                    const bool hidden, const bool arg_optional) {
+                         const char* argument, const char* doc, optFunc function,
+                         const bool arg_optional, const bool hidden) {
+    struct argp_option opt = {0};
     bool first = true;
     auto long_it = longflags.begin();
     auto short_it = shortflags.begin();
@@ -68,11 +76,20 @@ void Initializer::option(const std::vector<const char*>& longflags, const std::v
 }
 
 void Initializer::parse() {
-    error_t status = argp_parse(&_argp,_argc,_argv,0,0,0);
-    perror("argp_parse():");
+    struct argp_option opt = {0};
+    _arg_opts.push_back(opt);
+    _argp.options = _arg_opts.data();
+    error_t status = argp_parse(&_argp,_argc,_argv,0,0,this);
+    if(status)
+        perror("argp_parse():");
 }
 
-Initializer::~Initializer() {
-    // dtor
+int Initializer::argp_funcall(int key, char* arg, state* state) {
+    auto finder = _arg_funcs.find(key);
+    if(finder != _arg_funcs.end())
+        finder->second(arg,state);
+    else
+        return ARGP_ERR_UNKNOWN;
+    return 0;
 }
 
