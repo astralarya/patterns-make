@@ -9,19 +9,17 @@
 #include "Foo.h"
 #include <iostream>
 
-
 int main(int argc, char** argv) {
     // Initialize
     // argcount, argvector, description, argument usage
     Initializer init(argc, argv, "ARG0 ARG1", "A Barebones C++ Project\vBe sure to provide two non-option arguments!");
 
     // Describe options
-    init.option(0, '#', 0, 0, // output revision hash
+    init.option(0, '#', "FIELD", 0, // output revision hash
                 [&] (char* arg, Initializer::state* state) -> int {
-                    PRINT_VERSION();
-                    PRINT_REVISION();
+                    PRINT_REVISION(arg);
                     exit(0);
-                },false,true);
+                },true,true);
     init.option("foo", 'f', "MYFOO", "Set MYFOO",
                 [&] (char* arg, Initializer::state* s) -> int {
                     if(arg)

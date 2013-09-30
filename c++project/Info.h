@@ -17,7 +17,8 @@ extern const char *const PROGRAM_NAME,
                   *const PROGRAM_BUG_ADDRESS;
 
 void PRINT_VERSION(std::ostream& ostream = std::cout);
-void PRINT_REVISION(std::ostream& ostream = std::cout);
+void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
+void PRINT_REVISION(bool version = true, bool hash = true, bool status = true, bool diff = true, std::ostream& ostream = std::cout);
 void PRINT_VERSION(FILE* stream);
 void PRINT_REVISION(FILE* stream);
 
