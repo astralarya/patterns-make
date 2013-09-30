@@ -27,6 +27,32 @@ or
 
 The hash and branch of the current HEAD commit (via `git rev-parse HEAD` and `git rev-parse --abbrev-ref HEAD`), as well as the status and diff of the index file verses the current HEAD commit (via `git status --porcelain` and `git diff`) at the time of compilation are compiled into the executable.  Note that this functionality only records changes while in a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
 
+You can view this information with
+
+    myprog -#
+
+You can also provide the following arguments to this option:
+
+Show only version
+
+    myprog -#v
+
+Show only hash
+
+    myprog -#h
+
+Show only status
+
+    myprog -#s
+
+Show only diff
+
+    myprog -#d
+
+These options can be combined.  For example, show hash and status:
+
+    myprog -#hs
+
 ## License
 
 c++project
