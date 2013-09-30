@@ -54,7 +54,7 @@ These options can be combined.  For example, to show the revision hash and statu
 
 ## License
 
-c++project
+c++project v0.5
 
 Copyright (C) 2013 Mara Kim
 
