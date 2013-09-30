@@ -8,10 +8,10 @@
 // Initialize with external macro
 const char *const PROGRAM_NAME = __PROGRAM_NAME,
            *const PROGRAM_VERSION = __PROGRAM_VERSION,
+           *const PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS,
            *const REVISION_HASH = __REVISION_HASH,
            *const REVISION_STATUS = __REVISION_STATUS,
-           *const REVISION_DIFF = __REVISION_DIFF,
-           *const PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS;
+           *const REVISION_DIFF = __REVISION_DIFF;
 
 void PRINT_VERSION(std::ostream& ostream) {
     ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";

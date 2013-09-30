@@ -12,9 +12,9 @@
 
 extern const char *const PROGRAM_NAME,
                   *const PROGRAM_VERSION,
+                  *const PROGRAM_BUG_ADDRESS,
                   *const REVISION_HASH,
-                  *const REVISION_STATUS,
-                  *const PROGRAM_BUG_ADDRESS;
+                  *const REVISION_STATUS;
 
 void PRINT_VERSION(std::ostream& ostream = std::cout);
 void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
