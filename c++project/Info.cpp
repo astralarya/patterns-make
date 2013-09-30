@@ -27,8 +27,8 @@ const char *const PROGRAM_NAME = __PROGRAM_NAME,
            *const REVISION_STATUS = __REVISION_STATUS,
            *const REVISION_DIFF = __REVISION_DIFF;
 
-void PRINT_VERSION(std::ostream& ostream) {
-    ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";
+void PRINT_VERSION(bool license, std::ostream& ostream) {
+    ostream << PROGRAM_NAME << ' ' << PROGRAM_VERSION << '\n';
 }
 
 void PRINT_REVISION(char* arg, std::ostream& ostream) {
