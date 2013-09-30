@@ -4,7 +4,6 @@ void Foo::bar() {
     std::cout << "DB_HOST = " << Options::Instance()->get(Project::DB_HOST) << std::endl;
     std::cout << "DB_NAME = " << Options::Instance()->get(Project::DB_NAME) << std::endl;
     std::cout << "DB_USER = " << Options::Instance()->get(Project::DB_USER) << std::endl;
-    std::cout << "USERNAME = " << Options::Instance()->get(Project::USERNAME) << std::endl;
 
     std::cout << "AVOGADRO = " << Options::Instance()->get(Project::AVOGADRO) << std::endl;
     Options::Instance()->set(Project::AVOGADRO,1);

@@ -19,6 +19,7 @@ void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Ini
 
 const char* argp_program_bug_address = program_bug_address;
 
+
 Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
 _argc(argc),
 _argv(argv),
@@ -84,6 +85,10 @@ void Initializer::option(const std::vector<const char*>& longflags, const std::v
     }
 }
 
+void Initializer::event(event_t e, optFunc function) {
+    _arg_funcs[e] = function;
+}
+
 void Initializer::parse() {
     struct argp_option opt = {0};
     _arg_opts.push_back(opt);
@@ -96,9 +101,11 @@ void Initializer::parse() {
 int Initializer::argp_funcall(int key, char* arg, state* state) {
     auto finder = _arg_funcs.find(key);
     if(finder != _arg_funcs.end())
-        finder->second(arg,state);
+        return finder->second(arg,state);
     else
         return ARGP_ERR_UNKNOWN;
-    return 0;
 }
 
+void Initializer::print_usage(state* state) {
+    argp_usage(state);
+}
