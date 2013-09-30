@@ -23,7 +23,7 @@
 # project specific
 
 EXECUTABLE=c++project
-VERSION=0.1
+VERSION=0.5
 BUG_ADDRESS=hacker.root@gmail.com
 CFLAGS=-std=gnu++0x -g
 LDFLAGS=
