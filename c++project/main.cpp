@@ -13,7 +13,7 @@
 int main(int argc, char** argv) {
     // Initialize
     // argcount, argvector, description, argument usage
-    Initializer init(argc, argv, "A barebones C++ project", "ARG0 ARG1");
+    Initializer init(argc, argv, program_description, "ARG0 ARG1");
 
     // Describe options
     init.option("revision", 'V', 0, "Output revision",
@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
                     if(arg)
                         Options::Instance()->set(Project::FOO,arg);
                     return 0;
-                },true);
+                });
     init.option("switch", 's', 0, "Set SWITCH = true",
                 [&] (char* arg, Initializer::state* s) -> int {
                     Options::Instance()->set(Project::SWITCH,true);
@@ -46,7 +46,7 @@ int main(int argc, char** argv) {
     init.parse();
 
     // Welcome
-    std::cout << "\nBarebones c++ Project:\n\n";
+    std::cout << "\n" << program_description << ":\n\n";
 
     // run program
 
