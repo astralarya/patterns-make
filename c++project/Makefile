@@ -66,7 +66,7 @@ GIT_DIFF=$(shell $(SED) -e '1,1d' -e '1,/^$$/d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' 
 
 # rules
 
-all: hash $(MAIN) $(SOURCES) $(HEADERS) $(LEXFILE) $(YACCFILE) $(EXTRA) $(EXECUTABLE)
+all: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
 
 rebuild: clean all
 
