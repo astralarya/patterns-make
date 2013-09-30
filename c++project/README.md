@@ -3,6 +3,7 @@ c++project
 
 **c++project** - Barebones C++ project
 
+
 ## Summary
 
 *c++project* makes a C++ program capable of parsing both command line and persistent file options.
@@ -17,23 +18,26 @@ Copy this project with
 
 to create a \*.tar.gz containing the project.
 
-The project automatically compiles version info into the executable.  You can view this with
+
+## Usage
+
+The project compiles version info into the executable.  You can view this with
 
     myprog --version
 
-It also automatically generates help and usage output based on the options described in main.cpp using Initializer.  You can view these with
+It also generates help and usage output based on the options described in main.cpp using GNU Argp.  You can view these with
 
     myprog --help
 
     myprog --usage
 
-The hash and branch of the current HEAD commit, as well as the status and diff of the index file verses the current HEAD commit at the time of compilation are compiled into the executable.  Note that this functionality only records changes while in a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
+The project compiles in the hash and branch of the current HEAD, as well as the status and diff of the index file verses the current HEAD at the time of compilation.  Note that this functionality only tracks changes while inside a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
 
 You can view this information with
 
     myprog -#
 
-You can also provide the following arguments to filter the output of this option:
+By default, all fields are printed. You can append the following characters to filter the output:
 
 * Show version - `v`
 
@@ -46,6 +50,7 @@ You can also provide the following arguments to filter the output of this option
 These options can be combined.  For example, to show the revision hash and status:
 
     myprog -#hs
+
 
 ## License
 
