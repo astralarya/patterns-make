@@ -27,15 +27,19 @@ void PRINT_REVISION(char* arg, std::ostream& ostream) {
         while(*c) {
             switch(*c) {
             case 'v':
+            case 'V':
                 version = true;
                 break;
             case 'h':
+            case 'H':
                 hash = true;
                 break;
             case 's':
+            case 'S':
                 status = true;
                 break;
             case 'd':
+            case 'D':
                 diff = true;
                 break;
             default:
