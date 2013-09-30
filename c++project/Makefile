@@ -13,6 +13,7 @@ LDFLAGS=
 DOXFILE=
 OPTIONS_FILE=OPTIONS.rc
 REVISION_FILE=VERSION.log
+LICENSE_FILE=LICENSE.txt
 MISC=README.md .gitignore
 
 # environment specific
@@ -40,7 +41,8 @@ DEPENDENCIES=$(OBJECTS:.o=.d)
 EXTRA=
 GENERATEDH=
 GENERATEDC=
-MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(LICENSE_FILE) $(MISC) $(ME)
+LICENSE=$(shell $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(LICENSE_FILE) | $(TR) -d '\n')
 GIT_HASH=$(shell $(SED) -e '2,$$d' $(REVISION_FILE))\n
 GIT_STATUS=\#\# $(shell $(SED) -e '1,1d' -e '/^$$/,$$d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
 GIT_DIFF=$(shell $(SED) -e '1,1d' -e '1,/^$$/d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
@@ -86,7 +88,7 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 -include $(DEPENDENCIES)
 
 Info.o: Info.cpp $(REVISION_FILE)
-	$(CXX) $(CFLAGS) -c $< -o $@ -D __PROGRAM_NAME='"$(EXECUTABLE)"' -D __PROGRAM_VERSION='"$(VERSION)"' -D __REVISION_HASH='"$(GIT_HASH)"' -D __REVISION_STATUS='"$(GIT_STATUS)"' -D __REVISION_DIFF='"$(GIT_DIFF)"' -D __PROGRAM_BUG_ADDRESS='"$(BUG_ADDRESS)"'
+	$(CXX) $(CFLAGS) -c $< -o $@ -D __PROGRAM_NAME='"$(EXECUTABLE)"' -D __PROGRAM_VERSION='"$(VERSION)"' -D __REVISION_HASH='"$(GIT_HASH)"' -D __REVISION_STATUS='"$(GIT_STATUS)"' -D __REVISION_DIFF='"$(GIT_DIFF)"' -D __PROGRAM_BUG_ADDRESS='"$(BUG_ADDRESS)"' -D __PROGRAM_LICENSE='"$(LICENSE)"'
 	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d

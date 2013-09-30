@@ -26,6 +26,7 @@
 
 extern const char *const PROGRAM_NAME,
                   *const PROGRAM_VERSION,
+                  *const PROGRAM_LICENSE,
                   *const PROGRAM_BUG_ADDRESS,
                   *const REVISION_HASH,
                   *const REVISION_STATUS;
