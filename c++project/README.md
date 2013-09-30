@@ -33,25 +33,18 @@ You can view this information with
 
     myprog -#
 
-You can also provide the following arguments to this option:
+You can also provide the following arguments to filter the output of this option:
 
 Show only version
-
-    myprog -#v
-
+: `v`
 Show only hash
-
-    myprog -#h
-
+: h
 Show only status
-
-    myprog -#s
-
+: s
 Show only diff
+: d
 
-    myprog -#d
-
-These options can be combined.  For example, show hash and status:
+These options can be combined.  For example, show the revision hash and status:
 
     myprog -#hs
 
