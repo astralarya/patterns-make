@@ -16,9 +16,9 @@ int main(int argc, char** argv) {
     Initializer init(argc, argv, program_description, "ARG0 ARG1");
 
     // Describe options
-    init.option("revision", 'V', 0, "Output revision",
+    init.option(0, '#', 0, 0,
+                // output revision hash
                 [&] (char* c, Initializer::state* s) -> int {
-                    // output revision
                     print_version();
                     print_revision();
                     exit(0);
@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
                 [&] (char* arg, Initializer::state* s) -> int {
                     Options::Instance()->set(Project::SWITCH,true);
                     return 0;
-                },true);
+                });
     init.event(Initializer::ARG,
                [&] (char* arg, Initializer::state* state) -> int {
                    if(state->arg_num >= 2)
