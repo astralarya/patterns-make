@@ -56,7 +56,7 @@ void PRINT_REVISION(bool version, bool hash, bool status, bool diff, std::ostrea
     if(status)
         ostream << REVISION_STATUS;
     if(diff)
-        ostream << REVISION_DIFF << "\n";
+        ostream << REVISION_DIFF;
 
 }
 
