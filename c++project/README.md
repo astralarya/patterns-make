@@ -35,14 +35,13 @@ You can view this information with
 
 You can also provide the following arguments to filter the output of this option:
 
-Show only version
-: `v`
-Show only hash
-: h
-Show only status
-: s
-Show only diff
-: d
+Show only version : `v`
+
+Show only hash : `h`
+
+Show only status : `s`
+
+Show only diff : `d`
 
 These options can be combined.  For example, show the revision hash and status:
 
