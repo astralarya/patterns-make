@@ -20,15 +20,15 @@ void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Ini
 const char* argp_program_bug_address = program_bug_address;
 
 
-Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
+Initializer::Initializer(int argc, char** argv, const char* argdoc, const char* progdoc):
 _argc(argc),
 _argv(argv),
 _arg_opts(),
 _arg_funcs(),
 _argp() {
     _argp.parser = Initializer_argp_funcall;
-    _argp.doc = progdoc;
     _argp.args_doc = argdoc;
+    _argp.doc = progdoc;
 }
 
 Initializer::~Initializer() {

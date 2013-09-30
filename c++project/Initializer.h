@@ -27,7 +27,7 @@ public:
                    ERROR = ARGP_KEY_ERROR, FINI = ARGP_KEY_FINI };
     enum signal_t { GOOD = 0, UNKNOWN = ARGP_ERR_UNKNOWN };
 
-    Initializer(int argc, char** argv, const char* progdoc = 0, const char* argdoc = 0);
+    Initializer(int argc, char** argv, const char* argdoc = 0, const char* progdoc = 0);
     virtual ~Initializer();
     // Define options -- functions called for each option
     void option(const char* longflag, const int shortflag, const char* argument, const char* doc, optFunc function,

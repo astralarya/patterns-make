@@ -13,12 +13,12 @@
 int main(int argc, char** argv) {
     // Initialize
     // argcount, argvector, description, argument usage
-    Initializer init(argc, argv, program_description, "ARG0 ARG1");
+    Initializer init(argc, argv, "ARG0 ARG1", "A Barebones C++ Project\vBe sure to provide two non-option arguments!");
 
     // Describe options
     init.option(0, '#', 0, 0,
                 // output revision hash
-                [&] (char* c, Initializer::state* s) -> int {
+                [&] (char* arg, Initializer::state* state) -> int {
                     print_version();
                     print_revision();
                     exit(0);
@@ -41,12 +41,18 @@ int main(int argc, char** argv) {
                    Options::Instance()->set(Project::ARGUMENTS,state->arg_num,arg);
                    return 0;
                });
+    init.event(Initializer::END,
+               [&] (char* arg, Initializer::state* state) -> int {
+                   if(state->arg_num < 2)
+                       init.print_usage(state);
+                   return 0;
+               });
 
     // Parse arguments
     init.parse();
 
     // Welcome
-    std::cout << "\n" << program_description << ":\n\n";
+    std::cout << "\nBegin Example:\n\n";
 
     // run program
 

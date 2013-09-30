@@ -12,7 +12,6 @@
 
 extern const char *const program_name,
                   *const program_version,
-                  *const program_description,
                   *const revision_hash,
                   *const revision_status,
                   *const program_bug_address;

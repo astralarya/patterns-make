@@ -8,7 +8,6 @@
 // Initialize with external macro
 const char *const program_name = __PROGRAM_NAME,
            *const program_version = __PROGRAM_VERSION,
-           *const program_description = __PROGRAM_DESCRIPTION,
            *const revision_hash = __REVISION_HASH,
            *const revision_status = __REVISION_STATUS,
            *const program_bug_address = __PROGRAM_BUG_ADDRESS;
