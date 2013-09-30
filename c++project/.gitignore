@@ -4,4 +4,6 @@ VERSION.log
 *.d
 *.o
 *.cc
+html/
+latex/
 *.swp
