@@ -12,7 +12,9 @@
 int main(int argc, char** argv) {
     // Initialize
     // argcount, argvector, description, argument usage
-    Initializer init(argc, argv, "ARG0 ARG1", "A Barebones C++ Project\vBe sure to provide two non-option arguments!");
+    Initializer init(argc, argv, "ARG0 ARG1",
+                     "A Barebones C++ Project\v"
+                     "Be sure to provide two non-option arguments!");
 
     // Describe options
     init.option(0, '#', "FILTER", 0, // output revision hash
