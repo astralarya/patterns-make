@@ -7,6 +7,7 @@
 
 EXECUTABLE=myprog
 VERSION=0.1
+BUG_ADDRESS=hacker.root@gmail.com
 CFLAGS=-std=gnu++0x -g
 LDFLAGS=
 DOXFILE=
@@ -86,7 +87,7 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 -include $(DEPENDENCIES)
 
 Info.o: Info.cpp $(REVISION_FILE)
-	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D PROGRAM_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(HASH)"' -D REVISION_STATUS='"$(STATUS)"'
+	$(CXX) $(CFLAGS) -c $< -o $@ -D PROGRAM_NAME='"$(EXECUTABLE)"' -D PROGRAM_VERSION='"$(VERSION)"' -D REVISION_HASH='"$(HASH)"' -D REVISION_STATUS='"$(STATUS)"' -D PROGRAM_BUG_ADDRESS='"$(BUG_ADDRESS)"'
 	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d

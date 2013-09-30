@@ -5,10 +5,11 @@
 
 #include "Info.h"
 
-const char* const program_name = PROGRAM_NAME,
-          * const program_version = PROGRAM_VERSION,
-          * const revision_hash = REVISION_HASH,
-          * const revision_status = REVISION_STATUS;
+const char *const program_name = PROGRAM_NAME,
+           *const program_version = PROGRAM_VERSION,
+           *const revision_hash = REVISION_HASH,
+           *const revision_status = REVISION_STATUS,
+           *const program_bug_address = PROGRAM_BUG_ADDRESS;
 
 void print_version(std::ostream& ostream) {
     ostream << program_name << " " << program_version << "\n";

@@ -17,6 +17,8 @@ void Initializer::print_version(FILE* stream, argp_state* state) {
 
 void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Initializer::print_version;
 
+const char* argp_program_bug_address = program_bug_address;
+
 Initializer::Initializer(int argc, char** argv, const char* progdoc, const char* argdoc):
 _argc(argc),
 _argv(argv),
