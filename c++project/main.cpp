@@ -11,7 +11,7 @@
 
 int main(int argc, char** argv) {
     // Initialize
-    // argcount, argvector, description, argument usage
+    // argcount, argvector, argument usage, description
     Initializer init(argc, argv, "ARG0 ARG1",
                      "A Barebones C++ Project\v"
                      "Be sure to provide two non-option arguments!");
