@@ -10,11 +10,11 @@
 
 #include <iostream>
 
-extern const char *const program_name,
-                  *const program_version,
-                  *const revision_hash,
-                  *const revision_status,
-                  *const program_bug_address;
+extern const char *const PROGRAM_NAME,
+                  *const PROGRAM_VERSION,
+                  *const REVISION_HASH,
+                  *const REVISION_STATUS,
+                  *const PROGRAM_BUG_ADDRESS;
 
 void print_version(std::ostream& ostream = std::cout);
 void print_revision(std::ostream& ostream = std::cout);
