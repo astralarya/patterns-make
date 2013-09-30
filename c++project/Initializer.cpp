@@ -93,7 +93,7 @@ void Initializer::parse() {
     struct argp_option opt = {0};
     _arg_opts.push_back(opt);
     _argp.options = _arg_opts.data();
-    error_t status = argp_parse(&_argp,_argc,_argv,0,0,this);
+    error_t status = argp_parse(&_argp,_argc,_argv,ARGP_IN_ORDER,0,this);
     if(status)
         perror("argp_parse():");
 }
