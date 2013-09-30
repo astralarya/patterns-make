@@ -11,8 +11,8 @@ extern "C" int Initializer_argp_funcall(int key, char* arg, struct argp_state *s
 }
 
 void Initializer::print_version(FILE* stream, argp_state* state) {
-    // Global print_version defined in Info.h
-    ::print_version(stream);
+    // Global PRINT_VERSION defined in Info.h
+    PRINT_VERSION(stream);
 }
 
 void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Initializer::print_version;

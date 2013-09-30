@@ -16,9 +16,9 @@ extern const char *const PROGRAM_NAME,
                   *const REVISION_STATUS,
                   *const PROGRAM_BUG_ADDRESS;
 
-void print_version(std::ostream& ostream = std::cout);
-void print_revision(std::ostream& ostream = std::cout);
-void print_version(FILE* stream);
-void print_revision(FILE* stream);
+void PRINT_VERSION(std::ostream& ostream = std::cout);
+void PRINT_REVISION(std::ostream& ostream = std::cout);
+void PRINT_VERSION(FILE* stream);
+void PRINT_REVISION(FILE* stream);
 
 #endif // INFO_H

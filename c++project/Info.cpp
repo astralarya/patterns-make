@@ -12,23 +12,23 @@ const char *const PROGRAM_NAME = __PROGRAM_NAME,
            *const REVISION_STATUS = __REVISION_STATUS,
            *const PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS;
 
-void print_version(std::ostream& ostream) {
+void PRINT_VERSION(std::ostream& ostream) {
     ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";
 }
 
-void print_revision(std::ostream& ostream) {
+void PRINT_REVISION(std::ostream& ostream) {
     ostream << REVISION_HASH << "\n"
             << REVISION_STATUS << "\n";
 }
 
-void print_version(FILE* stream) {
+void PRINT_VERSION(FILE* stream) {
     fputs(PROGRAM_NAME, stream);
     fputc(' ', stream);
     fputs(PROGRAM_VERSION, stream);
     fputc('\n', stream);
 }
 
-void print_revision(FILE* stream) {
+void PRINT_REVISION(FILE* stream) {
     fputs(REVISION_HASH , stream);
     fputc('\n', stream);
     fputs(REVISION_STATUS , stream);

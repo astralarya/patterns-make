@@ -19,8 +19,8 @@ int main(int argc, char** argv) {
     init.option(0, '#', 0, 0,
                 // output revision hash
                 [&] (char* arg, Initializer::state* state) -> int {
-                    print_version();
-                    print_revision();
+                    PRINT_VERSION();
+                    PRINT_REVISION();
                     exit(0);
                 },false,true);
     init.option("foo", 'f', "MYFOO", "Set MYFOO",
