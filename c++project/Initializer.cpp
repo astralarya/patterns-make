@@ -106,17 +106,19 @@ void Initializer::option(const std::vector<const char*>& longflags, const std::v
     }
 }
 
-void Initializer::event(event_t e, optFunc function) {
-    _arg_funcs[e] = function;
+void Initializer::event(event_t event, optFunc function) {
+    _arg_funcs[event] = function;
 }
 
-void Initializer::parse() {
+error_t Initializer::parse() {
     struct argp_option opt = {0};
     _arg_opts.push_back(opt);
     _argp.options = _arg_opts.data();
     error_t status = argp_parse(&_argp,_argc,_argv,ARGP_IN_ORDER,0,this);
     if(status)
         perror("argp_parse():");
+    _arg_opts.pop_back();
+    return status;
 }
 
 int Initializer::argp_funcall(int key, char* arg, state* state) {
