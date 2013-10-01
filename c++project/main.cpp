@@ -31,11 +31,6 @@ int main(int argc, char** argv) {
                      "Be sure to provide two non-option arguments!");
 
     // Describe options
-    init.option(0, '#', "FILTER", 0, // output revision hash
-                [&] (char* arg, Initializer::state* state) -> int {
-                    PRINT_REVISION(arg);
-                    exit(0);
-                },true,true);
     init.option("foo", 'f', "MYFOO", "Set MYFOO",
                 [&] (char* arg, Initializer::state* s) -> int {
                     if(arg)

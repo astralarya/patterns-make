@@ -39,9 +39,17 @@ _argv(argv),
 _arg_opts(),
 _arg_funcs(),
 _argp() {
+    // Initialize Argp parser
     _argp.parser = Initializer_argp_funcall;
     _argp.args_doc = argdoc;
     _argp.doc = progdoc;
+
+    // Define -# option to retrieve detailed version info
+    option(0, '#', "FILTER", 0, // output revision hash
+           [&] (char* arg, Initializer::state* state) -> int {
+               PRINT_REVISION(arg);
+               exit(0);
+           },true,true);
 }
 
 Initializer::~Initializer() {
