@@ -29,14 +29,13 @@
 #include "Info.h"
 
 /** Processes program arguments
- *  Generates usage and help documentation
+ *  and generates usage, help, and version documentation
  */
 class Initializer {
 public:
-    typedef argp_state state;
-    typedef std::function<int (char*,state*)> optFunc;
-    typedef std::function<int ()> simpleOptFunc;
-    typedef std::function<int (char*)> argOptFunc;
+    typedef argp_state state; /**< Argp state struct */
+    typedef std::function<int (char*,state*)> optFunc; /**< std::function object corresponding to functions with signature
+                                                        *   int function(char*, Initializer::state*) */
     enum event_t { ARG = ARGP_KEY_ARG, ARGS = ARGP_KEY_ARGS,
                    END = ARGP_KEY_END, NO_ARGS = ARGP_KEY_NO_ARGS,
                    INIT = ARGP_KEY_INIT, SUCCESS = ARGP_KEY_SUCCESS,
