@@ -17,27 +17,55 @@
 
 
 /** \file Info.h
- * Globals with program information
- * Captures version information defined in the Makefile
+ * Globals with program information.
+ * Captures version information defined in the Makefile.
  */
 #ifndef INFO_H
 #define INFO_H
 
 #include <iostream>
 
-extern const char *const PROGRAM_NAME, /**< The name of the program */
-                        *PROGRAM_VERSION, /**< The version number of this executable */
-                        *PROGRAM_LICENSE, /**< The program license printed with '--version' */
-                        *PROGRAM_BUG_ADDRESS, /**< The email address for bug reports about this program */
-                        *REVISION_HASH, /**< The hexedecimal git object name of the current HEAD */
+extern const char *const PROGRAM_NAME, /**< The name of the program. */
+                        *PROGRAM_VERSION, /**< The version number of this executable. */
+                        *PROGRAM_LICENSE, /**< The program license printed with '--version'. */
+                        *PROGRAM_BUG_ADDRESS, /**< The email address for bug reports about this program. */
+                        *REVISION_HASH, /**< The hexedecimal git object name of the current HEAD. */
                         *REVISION_STATUS, /**< The paths that have differences between
-                                               the index file and the current HEAD commit  */
-                        *REVISION_DIFF; /**< The changes between the working tree and the index */
+                                               the working directory and the current HEAD commit.  */
+                        *REVISION_DIFF; /**< The changes between the working directory and the index. */
 
+/** Print the version string
+ *  (ie. PROGRAM_NAME + ' ' + PROGRAM_VERSION)
+ *  \param license Also print the PROGRAM_LICENSE
+ */
 void PRINT_VERSION(std::ostream& ostream = std::cout, bool license = false);
-void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
+
+/** Print revision info
+ *  \param ostream The output stream
+ *  \param version Print the version string
+ *  \param hash Print the revision hash 
+ *  \param status Print the revision status
+ *  \param diff Print the diff of the working directory
+ */
 void PRINT_REVISION(std::ostream& ostream = std::cout, bool version = true, bool hash = true, bool status = true, bool diff = true);
+
+/** Parse argument and print corresponding revision info.
+ *  If arg is null, print all fields,
+ *  otherwise look for the following characters and print the respective fields:    
+ *  - [Vv] - print version
+ *  - [Hh] - print hash
+ *  - [Ss] - print status
+ *  - [Dd] - print diff
+ *  \param arg The flags specifying which fields to print
+ *  \param ostream The output stream
+ */
+void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
+
+
+/** Print the version string and license info
+ *  Called by GNU Argp
+ *  \param stream The output stream
+ */
 void PRINT_VERSION(FILE* stream);
-void PRINT_REVISION(FILE* stream);
 
 #endif // INFO_H
