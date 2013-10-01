@@ -21,12 +21,12 @@
 
 // Initialize with external macro
 const char *const PROGRAM_NAME = __PROGRAM_NAME,
-           *const PROGRAM_VERSION = __PROGRAM_VERSION,
-           *const PROGRAM_LICENSE = __PROGRAM_LICENSE,
-           *const PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS,
-           *const REVISION_HASH = __REVISION_HASH,
-           *const REVISION_STATUS = __REVISION_STATUS,
-           *const REVISION_DIFF = __REVISION_DIFF;
+                 *PROGRAM_VERSION = __PROGRAM_VERSION,
+                 *PROGRAM_LICENSE = __PROGRAM_LICENSE,
+                 *PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS,
+                 *REVISION_HASH = __REVISION_HASH,
+                 *REVISION_STATUS = __REVISION_STATUS,
+                 *REVISION_DIFF = __REVISION_DIFF;
 
 void PRINT_VERSION(std::ostream& ostream, bool license) {
     ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";

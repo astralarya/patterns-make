@@ -1,7 +1,4 @@
 // Info.h
-// Globals with program information
-//
-// Captures version information defined in the Makefile
 //
 // Copyright (C) 2013 Mara Kim
 //
@@ -19,17 +16,23 @@
 // this program. If not, see http://www.gnu.org/licenses/.
 
 
+/** \file Info.h
+ * Globals with program information
+ * Captures version information defined in the Makefile
+ */
 #ifndef INFO_H
 #define INFO_H
 
 #include <iostream>
 
-extern const char *const PROGRAM_NAME,
-                  *const PROGRAM_VERSION,
-                  *const PROGRAM_LICENSE,
-                  *const PROGRAM_BUG_ADDRESS,
-                  *const REVISION_HASH,
-                  *const REVISION_STATUS;
+extern const char *const PROGRAM_NAME, /**< The name of the program */
+                        *PROGRAM_VERSION, /**< The version number of this executable */
+                        *PROGRAM_LICENSE, /**< The program license printed with '--version' */
+                        *PROGRAM_BUG_ADDRESS, /**< The email address for bug reports about this program */
+                        *REVISION_HASH, /**< The hexedecimal git object name of the current HEAD */
+                        *REVISION_STATUS, /**< The paths that have differences between
+                                               the index file and the current HEAD commit  */
+                        *REVISION_DIFF; /**< The changes between the working tree and the index */
 
 void PRINT_VERSION(std::ostream& ostream = std::cout, bool license = false);
 void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
