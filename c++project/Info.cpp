@@ -17,7 +17,64 @@
 // this program. If not, see http://www.gnu.org/licenses/.
 
 
+/** \file Info.cpp
+ * Initialize globals with program information.
+ * Captures version information defined in the Makefile.
+ */
+
 #include "Info.h"
+ 
+/** \def __PROGRAM_NAME
+ *  Value of \$(EXECUTABLE) in Makefile
+ */
+#ifndef __PROGRAM_NAME
+#define __PROGRAM_NAME
+#endif
+
+/**  \def __PROGRAM_VERSION
+ *  Value of \$(VERSION) in Makefile
+ */
+#ifndef __PROGRAM_VERSION
+#define __PROGRAM_VERSION
+#endif
+
+/**  \def __PROGRAM_LICENSE
+ *  Contents of file \$(LICENSE_FILE) defined in Makefile
+ */
+#ifndef __PROGRAM_LICENSE
+#define __PROGRAM_LICENSE
+#endif
+
+/**  \def __PROGRAM_BUG_ADDRESS
+ *  Value of \$(BUG_ADDRESS) in Makefile
+ */
+#ifndef __PROGRAM_BUG_ADDRESS
+#define __PROGRAM_BUG_ADDRESS
+#endif
+
+/**  \def __REVISION_HASH
+ *  Value of `git rev-parse HEAD` at compile time, or the last known value while
+ *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
+ */
+#ifndef __REVISION_HASH
+#define __REVISION_HASH
+#endif
+
+/**  \def __REVISION_STATUS
+ *  Value of `git status --porcelain` at compile time, or the last known value while
+ *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
+ */
+#ifndef __REVISION_STATUS
+#define __REVISION_STATUS
+#endif
+
+/**  \def __REVISION_DIFF
+ *  Value of `git diff` at compile time, or the last known value while
+ *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
+ */
+#ifndef __REVISION_DIFF
+#define __REVISION_DIFF
+#endif
 
 // Initialize with external macro
 const char *const PROGRAM_NAME = __PROGRAM_NAME,
@@ -71,7 +128,7 @@ void PRINT_REVISION(char* arg, std::ostream& ostream) {
 
 void PRINT_REVISION(std::ostream& ostream, bool version, bool hash, bool status, bool diff) {
     if(version)
-        PRINT_VERSION(ostream);
+        PRINT_VERSION(ostream,false);
     if(hash)
         ostream << REVISION_HASH;
     if(status)
@@ -81,12 +138,14 @@ void PRINT_REVISION(std::ostream& ostream, bool version, bool hash, bool status,
 
 }
 
-void PRINT_VERSION(FILE* stream) {
+void PRINT_VERSION(FILE* stream, bool license) {
     fputs(PROGRAM_NAME, stream);
     fputc(' ', stream);
     fputs(PROGRAM_VERSION, stream);
     fputc('\n', stream);
-    fputs(PROGRAM_LICENSE, stream);
-    fputc('\n', stream);
+    if(license) {
+        fputs(PROGRAM_LICENSE, stream);
+        fputc('\n', stream);
+    }
 }
 

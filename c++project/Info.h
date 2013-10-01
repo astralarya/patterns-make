@@ -17,8 +17,8 @@
 
 
 /** \file Info.h
- * Globals with program information.
- * Captures version information defined in the Makefile.
+ * Define globals with program information.
+ * Exposes the values captured from the Makefile
  */
 #ifndef INFO_H
 #define INFO_H
@@ -36,9 +36,18 @@ extern const char *const PROGRAM_NAME, /**< The name of the program. */
 
 /** Print the version string
  *  (ie. PROGRAM_NAME + ' ' + PROGRAM_VERSION)
+ *  \param ostream The output stream
  *  \param license Also print the PROGRAM_LICENSE
  */
-void PRINT_VERSION(std::ostream& ostream = std::cout, bool license = false);
+void PRINT_VERSION(std::ostream& ostream = std::cout, bool license = true);
+
+/** Print the version string and license info
+ *  Called by GNU Argp
+ *  \param stream The output stream
+ *  \param license Also print the PROGRAM_LICENSE
+ */
+void PRINT_VERSION(FILE* stream, bool license = true);
+
 
 /** Print revision info
  *  \param ostream The output stream
@@ -60,12 +69,5 @@ void PRINT_REVISION(std::ostream& ostream = std::cout, bool version = true, bool
  *  \param ostream The output stream
  */
 void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
-
-
-/** Print the version string and license info
- *  Called by GNU Argp
- *  \param stream The output stream
- */
-void PRINT_VERSION(FILE* stream);
 
 #endif // INFO_H

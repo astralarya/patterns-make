@@ -28,6 +28,9 @@
 #include <map>
 #include "Info.h"
 
+/** Processes program arguments
+ *  Generates usage and help documentation
+ */
 class Initializer {
 public:
     typedef argp_state state;
