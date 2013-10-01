@@ -27,7 +27,7 @@
 
 extern const char *const PROGRAM_NAME, /**< The name of the program. */
                         *PROGRAM_VERSION, /**< The version number of this executable. */
-                        *PROGRAM_LICENSE, /**< The program license printed with '--version'. */
+                        *PROGRAM_LICENSE, /**< The program license printed with `--version`. */
                         *PROGRAM_BUG_ADDRESS, /**< The email address for bug reports about this program. */
                         *REVISION_HASH, /**< The hexedecimal git object name of the current HEAD. */
                         *REVISION_STATUS, /**< The paths that have differences between
