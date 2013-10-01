@@ -18,6 +18,10 @@ Copy this project with
 
 to create a \*.tar.gz containing the project.
 
+You can generate and view documentation with
+
+    make dox
+
 
 ## Usage
 
