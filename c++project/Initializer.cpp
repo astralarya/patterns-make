@@ -126,7 +126,7 @@ int Initializer::argp_funcall(int key, char* arg, state* state) {
     if(finder != _arg_funcs.end())
         return finder->second(arg,state);
     else
-        return ARGP_ERR_UNKNOWN;
+        return UNKNOWN;
 }
 
 void Initializer::print_usage(state* state) {
