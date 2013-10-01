@@ -12,13 +12,11 @@ To build, simply:
 
     make
 
-Copy this project with
+To create a tarball of the project:
 
     make tar
 
-to create a \*.tar.gz containing the project.
-
-You can generate and view Doxygen documentation with
+To generate and view Doxygen documentation:
 
     make dox
 
