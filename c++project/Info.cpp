@@ -24,55 +24,44 @@
 
 #include "Info.h"
  
-/** \def __PROGRAM_NAME
- *  Value of \$(EXECUTABLE) in Makefile
- */
 #ifndef __PROGRAM_NAME
+/** Value of \$(EXECUTABLE) in Makefile */
 #define __PROGRAM_NAME
 #endif
 
-/**  \def __PROGRAM_VERSION
- *  Value of \$(VERSION) in Makefile
- */
 #ifndef __PROGRAM_VERSION
+/** Value of \$(VERSION) in Makefile */
 #define __PROGRAM_VERSION
 #endif
 
-/**  \def __PROGRAM_LICENSE
- *  Contents of file \$(LICENSE_FILE) defined in Makefile
- */
 #ifndef __PROGRAM_LICENSE
+/** Contents of file \$(LICENSE_FILE) defined in Makefile */
 #define __PROGRAM_LICENSE
 #endif
 
-/**  \def __PROGRAM_BUG_ADDRESS
- *  Value of \$(BUG_ADDRESS) in Makefile
- */
 #ifndef __PROGRAM_BUG_ADDRESS
+/** Value of \$(BUG_ADDRESS) in Makefile */
 #define __PROGRAM_BUG_ADDRESS
 #endif
 
-/**  \def __REVISION_HASH
- *  Value of `git rev-parse HEAD` at compile time, or the last known value while
- *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
- */
 #ifndef __REVISION_HASH
+/** If compiled inside a git repository, the value of `git rev-parse HEAD` at compile time.
+ *  Otherwise the last known value stored in file \$(REVISION_FILE) defined in Makefile.
+ */
 #define __REVISION_HASH
 #endif
 
-/**  \def __REVISION_STATUS
- *  Value of `git status --porcelain` at compile time, or the last known value while
- *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
- */
 #ifndef __REVISION_STATUS
+/** If compiled inside a git repository, the value of `git status --porcelain` at compile time.
+ *  Otherwise the last known value stored in file \$(REVISION_FILE) defined in Makefile.
+ */
 #define __REVISION_STATUS
 #endif
 
-/**  \def __REVISION_DIFF
- *  Value of `git diff` at compile time, or the last known value while
- *  in a git repository stored in file \$(REVISION_FILE) defined in Makefile
- */
 #ifndef __REVISION_DIFF
+/** If compiled inside a git repository, the value of `git diff` at compile time.
+ *  Otherwise the last known value stored in file \$(REVISION_FILE) defined in Makefile.
+ */
 #define __REVISION_DIFF
 #endif
 
