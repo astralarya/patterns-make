@@ -155,7 +155,7 @@ public:
     void event(event_t event, optFunc function);
 
     // Parse the arguments
-    void parse();
+    error_t parse();
 
     // hook to key handlers
     int argp_funcall(int key, char* arg, state* state);
