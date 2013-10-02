@@ -163,8 +163,14 @@ public:
      */
     error_t parse();
 
-    /** C style function hook
-     *  for GNU Argp
+    /** C style function hook for GNU Argp.
+     *  The value of argp::parser during parsing.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parser-Functions.html>.
+     *  \param key The key of the current option or event.
+     *  \param arg Either null, or the value of the argument to the option,
+     *             or the value of a non-option argument.
+     *  \param state The state of the parser.
+     *               See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsing-State.html>.
      */
     friend int Initializer_argp_funcall(int key, char* arg, state* state);
 
