@@ -1,14 +1,6 @@
 // Options.h
 // Static program settings
 //
-// A singleton class which reads a
-// configuration file and provides
-// the values to the program
-//
-// Usage:
-// Options::Instance()->get(FOO)
-//                      set(FOO)
-//
 // Copyright (C) 2013 Mara Kim
 //
 // This program is free software: you can redistribute it and/or modify it under
@@ -36,32 +28,53 @@
 
 class OptionsParser;
 
+/** A singleton class which reads a
+ *  configuration file and provides
+ *  the values to the program
+ */
 class Options
 {
     public:
         friend class OptionsParser;
 
+        /** Static function to retrieve class instance
+         *  that initializes the class using lazy instantiation.
+         *  \return Pointer to the singleton instance.
+         */
         static Options* Instance();
 
+        /** Set the value of index 0 of key of type ENUM
+         *  \param key The key being set
+         *  \param value The new value
+         */
         template <class ENUM>
-        inline void set(const ENUM& mode, const typename TypeInfo<ENUM>::my_type& value) {
-            set<ENUM>(mode,0,value);
+        inline void set(const ENUM& key, const typename TypeInfo<ENUM>::my_type& value) {
+            set<ENUM>(key,0,value);
         }
 
+        /** Set the value of an index of key of type ENUM
+         *  \param key The key being set
+         *  \param index The index being set
+         *  \param value The new value
+         */
         template <class ENUM>
-        void set(const ENUM& mode, size_t index, const typename TypeInfo<ENUM>::my_type& value)
+        void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::my_type& value)
+        {
+            if(_keys.find(typeid(ENUM).hash_code()) == _modes.end())
+                _addmode<ENUM>();
+            static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(key,index,value);
+        }
+
+        /** Get the value of an index of key of type ENUM
+         *  \param key The key being fetched
+         *  \param index The index being fetched
+         */
+        template <class ENUM>
+        typename TypeInfo<ENUM>::ref_type get(const ENUM& key, size_t index=0)
         {
             if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
-            static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(mode,index,value);
-        }
-
-        template <class ENUM>
-        typename TypeInfo<ENUM>::ref_type get(const ENUM& mode, size_t index=0)
-        {
-            if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
-                _addmode<ENUM>();
-            return static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->get(mode,index);
+            return static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->get(key,index);
         }
 
     protected:
