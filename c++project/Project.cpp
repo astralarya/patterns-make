@@ -1,5 +1,4 @@
 // Project.cpp
-// Globals to be included with Options.h
 //
 // Copyright (C) 2013 Mara Kim
 //
@@ -16,6 +15,10 @@
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see http://www.gnu.org/licenses/.
 
+
+/** \file Project.cpp
+ *  Define project statics
+ */
 
 // Define statics
 #define PROJECT_STATICS

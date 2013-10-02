@@ -1,5 +1,4 @@
 // Options.cpp
-// Static program settings
 //
 // Copyright (C) 2013 Mara Kim
 //

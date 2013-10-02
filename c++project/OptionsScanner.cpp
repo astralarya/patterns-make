@@ -1,5 +1,4 @@
 // OptionsScanner.cpp
-// Scans the OPTIONS_FILE for variables and values
 //
 // Copyright (C) 2013 Mara Kim
 //

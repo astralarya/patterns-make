@@ -1,5 +1,4 @@
 // Project.h
-// Globals to be included with Options.h
 //
 // Copyright (C) 2013 Mara Kim
 //
@@ -17,12 +16,16 @@
 // this program. If not, see http://www.gnu.org/licenses/.
 
 
+/** \file Project.h
+ *  Globals defining option types
+ */
+
 #ifndef PROJECT_H
 #define PROJECT_H
 
 #include "Mode.h"
 
-// Project enums
+/** Project enums */
 namespace Project {
     enum string_mode{GREETING,DB_HOST,DB_USER,DB_NAME,ARGUMENTS,FOO};
     enum float_mode{AVOGADRO, NUMBERS};

@@ -1,5 +1,4 @@
 // Initializer.cpp
-// Parses command line arguments
 //
 // Copyright (C) 2013 Mara Kim
 //

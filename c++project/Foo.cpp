@@ -1,5 +1,4 @@
-// Foo.h
-// An example object
+// Foo.cpp
 //
 // Copyright (C) 2013 Mara Kim
 //

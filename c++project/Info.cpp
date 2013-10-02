@@ -1,5 +1,4 @@
 // Info.cpp
-// Globals with program information
 //
 // Copyright (C) 2013 Mara Kim
 //

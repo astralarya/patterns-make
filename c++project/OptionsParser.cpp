@@ -1,5 +1,4 @@
 // OptionsParser.cpp
-// Parses the OPTIONS_FILE and initializes Options
 //
 // Copyright (C) 2013 Mara Kim
 //
