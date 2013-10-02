@@ -104,17 +104,9 @@ $(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
 # pull in dependency info for *existing* .o files
 -include $(DEPENDENCIES)
 
+# Compile info into executable
 Info.o: Info.cpp $(REVISION_FILE)
-	$(CXX) $(CFLAGS) -c $< -o $@ -D __PROGRAM_NAME='"$(EXECUTABLE)"' -D __PROGRAM_VERSION='"$(VERSION)"' -D __REVISION_HASH='"$(GIT_HASH)"' -D __REVISION_STATUS='"$(GIT_STATUS)"' -D __REVISION_DIFF='"$(GIT_DIFF)"' -D __PROGRAM_BUG_ADDRESS='"$(BUG_ADDRESS)"' -D __PROGRAM_LICENSE='"$(LICENSE)"'
-	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
-	@mv -f $*.d $*.d.tmp
-	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
-	@sed -e 's/.*://' -e 's/\\$$//' < $*.d.tmp | fmt -1 | \
-	  sed -e 's/^ *//' -e 's/$$/:/' >> $*.d
-	@rm -f $*.d.tmp
-
-Options.o: Options.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@ -D OPTIONS_FILE='"$(OPTIONS_FILE)"'
+	$(CXX) $(CFLAGS) -c $< -o $@ -D __PROGRAM_NAME='"$(EXECUTABLE)"' -D __PROGRAM_VERSION='"$(VERSION)"' -D __REVISION_HASH='"$(GIT_HASH)"' -D __REVISION_STATUS='"$(GIT_STATUS)"' -D __REVISION_DIFF='"$(GIT_DIFF)"' -D __PROGRAM_BUG_ADDRESS='"$(BUG_ADDRESS)"' -D __PROGRAM_LICENSE='"$(LICENSE)"' -D __OPTIONS_FILE='"$(OPTIONS_FILE)"'
 	@$(CXX) -MM $(CFLAGS) $*.cpp > $*.d
 	@mv -f $*.d $*.d.tmp
 	@sed -e 's|.*:|$*.o:|' < $*.d.tmp > $*.d
