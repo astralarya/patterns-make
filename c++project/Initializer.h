@@ -28,6 +28,10 @@
 #include <map>
 #include "Info.h"
 
+extern "C" {
+    int Initializer_argp_funcall(int key, char* arg, struct argp_state *state);
+}
+
 /** Processes program arguments
  *  and generates usage, help, and version documentation
  */
@@ -154,16 +158,19 @@ public:
      */
     void event(event_t event, optFunc function);
 
-    // Parse the arguments
+    /** Parse the arguments.
+     *  \return 0 if successful, otherwise an error code.
+     */
     error_t parse();
 
-    // hook to key handlers
-    int argp_funcall(int key, char* arg, state* state);
-    // Hook to print version
-    static void print_version(FILE* stream, argp_state* state);
+    friend int Initializer_argp_funcall(int key, char* arg, state* state);
+
     // Print usage and exit
     void print_usage(state* state);
 private:
+    // hook to key handlers
+    int argp_funcall(int key, char* arg, state* state);
+
     int _argc;
     char** _argv;
     std::vector<argp_option> _arg_opts;

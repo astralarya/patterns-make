@@ -19,16 +19,18 @@
 
 #include "Initializer.h"
 
-extern "C" int Initializer_argp_funcall(int key, char* arg, struct argp_state *state) {
-    return ((Initializer*)state->input)->argp_funcall(key, arg, state);
+extern "C" {
+    int Initializer_argp_funcall(int key, char* arg, struct argp_state *state) {
+        return ((Initializer*)state->input)->argp_funcall(key, arg, state);
+    }
 }
 
-void Initializer::print_version(FILE* stream, argp_state* state) {
+void Initializer_argp_program_version_hook(FILE* stream, argp_state* state) {
     // Global PRINT_VERSION defined in Info.h
     PRINT_VERSION(stream);
 }
 
-void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Initializer::print_version;
+void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Initializer_argp_program_version_hook;
 
 const char* argp_program_bug_address = PROGRAM_BUG_ADDRESS;
 
