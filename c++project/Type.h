@@ -50,6 +50,7 @@ struct TypeInfo {
     typedef const std::map<ENUM,std::string> key_type;
     /** Const value */
     typedef const typename Type<ENUM>::T init_type;
+
     /** Initialize val_type using input string str.
      *  \param val The value being initialized
      *  \param str The input string
@@ -57,8 +58,20 @@ struct TypeInfo {
     static void assign(val_type& val, const std::string& str) {
         std::stringstream(str) >> val;
     }
+
+    /** Static map of variables to string keys.
+     *  Used by Typed_Mode<ENUM> during initialization to
+     *  read values from the OPTIONS_FILE */
     static key_type keys;
+
+    /** Static map of variables to value vectors
+     *  Used by Typed_Mode<ENUM> during initialization to
+     *  set the default values of the defined variables */
     static defaults_type defaults;
+
+    /** Static value type.
+     *  Used by Typed_Mode<ENUM> as the default values of
+     *  indexes that have not been previously set. */
     static init_type init;
 };
 
