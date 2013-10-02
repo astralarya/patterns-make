@@ -80,6 +80,12 @@ class Options
         }
 
     protected:
+        /** Set a new property map.
+         *  This is what is passed to each new mode to
+         *  scan for relevant key-valuelist pairs.
+         *  Called by OptionsParser.
+         *  \param properties The new property map
+         */
         void _new(const Mode::type_map& properties);
     private:
         // make instantiation, copying, and assignment private
