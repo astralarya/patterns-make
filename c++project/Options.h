@@ -35,10 +35,12 @@ class OptionsParser;
 class Options
 {
     public:
+        /** The parser object */
         friend class OptionsParser;
 
         /** Static function to retrieve class instance
-         *  that initializes the class using lazy instantiation.
+         *  that initializes the class using OptionsParser
+         *  to read the file \$(OPTIONSFILE) defined in Makefile.
          *  \return Pointer to the singleton instance.
          */
         static Options* Instance();
