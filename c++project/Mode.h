@@ -102,26 +102,26 @@ protected:
      *  \param index The index being set
      *  \param value The new value
      */
-    void set(const ENUM& mode, size_t index, const val_type& value) {
-        if(index >= _map[mode].size())
-            _map[mode].resize(index+1,_init);
-        _map[mode][index] = value;
+    void set(const ENUM& key, size_t index, const val_type& value) {
+        if(index >= _map[key].size())
+            _map[key].resize(index+1,_init);
+        _map[key][index] = value;
     }
 
     /** Get the value of an index of key in this mode
      *  \param key The key being fetched
      *  \param index The index being fetched
      */
-    ref_type get(const ENUM& mode, size_t index) {
-        if(index >= _map[mode].size())
-            _map[mode].resize(index+1,_init);
-        return _map[mode][index];
+    ref_type get(const ENUM& key, size_t index) {
+        if(index >= _map[key].size())
+            _map[key].resize(index+1,_init);
+        return _map[key][index];
     }
 
 
 private:
-    void _assign(val_type& var,const std::string& str) {
-        TypeInfo<ENUM>::assign(var,str);
+    void _assign(val_type& val,const std::string& str) {
+        TypeInfo<ENUM>::assign(val,str);
     }
     map_type _map;
     const key_type& _keys;
