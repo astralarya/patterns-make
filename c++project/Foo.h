@@ -1,5 +1,4 @@
 // Foo.h
-// An example object
 //
 // Copyright (C) 2013 Mara Kim
 //
@@ -20,8 +19,10 @@
 #include <iostream>
 #include "Options.h"
 
+/** An example class */
 class Foo {
 public:
+    /** An example member function */
     void bar();
 };
 

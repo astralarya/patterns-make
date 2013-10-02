@@ -64,10 +64,6 @@ int main(int argc, char** argv) {
     std::cout << "\nBegin Example:\n\n";
 
     std::cout << Options::Instance()->get(Project::GREETING) << std::endl;
-    std::cout << "MYFOO=" << Options::Instance()->get(Project::FOO) << std::endl;
-    std::cout << "SWITCH=" << (Options::Instance()->get(Project::SWITCH)?"true":"false") << std::endl;
-    std::cout << "ARG0=" << Options::Instance()->get(Project::ARGUMENTS,0) << std::endl;
-    std::cout << "ARG1=" << Options::Instance()->get(Project::ARGUMENTS,1) << std::endl;
     Foo foo;
     foo.bar();
 

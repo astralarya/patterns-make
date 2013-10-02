@@ -20,11 +20,19 @@
 #include "Foo.h"
 
 void Foo::bar() {
+    // Program arguments
+    std::cout << "MYFOO=" << Options::Instance()->get(Project::FOO) << std::endl;
+    std::cout << "SWITCH=" << (Options::Instance()->get(Project::SWITCH)?"true":"false") << std::endl;
+    std::cout << "ARG0=" << Options::Instance()->get(Project::ARGUMENTS,0) << std::endl;
+    std::cout << "ARG1=" << Options::Instance()->get(Project::ARGUMENTS,1) << std::endl;
+
+    // Options file
     std::cout << "DB_HOST = " << Options::Instance()->get(Project::DB_HOST) << std::endl;
     std::cout << "DB_NAME = " << Options::Instance()->get(Project::DB_NAME) << std::endl;
     std::cout << "DB_USER = " << Options::Instance()->get(Project::DB_USER) << std::endl;
-
     std::cout << "AVOGADRO = " << Options::Instance()->get(Project::AVOGADRO) << std::endl;
+
+    // Demonstrate options
     Options::Instance()->set(Project::AVOGADRO,1);
     Options::Instance()->set(Project::AVOGADRO,1,5.5);
     std::cout << "AVOGADRO = " << Options::Instance()->get(Project::AVOGADRO) << std::endl;
@@ -33,7 +41,6 @@ void Foo::bar() {
     std::cout << "NUMBERS[1] = " << Options::Instance()->get(Project::NUMBERS,1) << std::endl;
     std::cout << "NUMBERS[2] = " << Options::Instance()->get(Project::NUMBERS,2) << std::endl;
     std::cout << "NUMBERS[3] = " << Options::Instance()->get(Project::NUMBERS,3) << std::endl;
-
     Options::Instance()->set('a',true);
     std::cout << "'a'= " << Options::Instance()->get('a') << std::endl;
     std::cout << "'b'= " << Options::Instance()->get('b') << std::endl;
