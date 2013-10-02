@@ -163,10 +163,17 @@ public:
      */
     error_t parse();
 
+    /** C style function hook
+     *  for GNU Argp
+     */
     friend int Initializer_argp_funcall(int key, char* arg, state* state);
 
-    // Print usage and exit
-    void print_usage(state* state);
+    /** Print usage and exit.
+     *  Wraps a call to argp_usage(argp_state*).
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>
+     *  \param state The parser state
+     */
+    static void print_usage(state* state);
 private:
     // hook to key handlers
     int argp_funcall(int key, char* arg, state* state);

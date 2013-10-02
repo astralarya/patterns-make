@@ -52,7 +52,7 @@ int main(int argc, char** argv) {
     init.event(Initializer::END, // Check argument count
                [&] (char* arg, Initializer::state* state) -> int {
                    if(state->arg_num < 2)
-                       init.print_usage(state);
+                       Initializer::print_usage(state);
                    return 0;
                });
 
