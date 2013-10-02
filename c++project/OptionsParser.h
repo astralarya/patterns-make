@@ -27,8 +27,8 @@
 #include "OptionsScanner.h"
 #include "Mode.h"
 
-/** Parse an input stream and
- *  initialize Options
+/** \brief Parse an input stream and
+ *         initialize Options
  */
 class OptionsParser {
 public:

@@ -28,9 +28,9 @@
 
 class OptionsParser;
 
-/** A singleton class which reads a
- *  configuration file and provides
- *  the values to the program
+/** \brief A singleton class which reads a
+ *         configuration file and provides
+ *         the values to the program
  */
 class Options
 {

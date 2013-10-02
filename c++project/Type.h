@@ -25,13 +25,14 @@
 #include <vector>
 #include <map>
 
-// Type class to associate enums with types
+/** \brief Template type class to associate enums with types */
 template <class ENUM>
 struct Type {
     typedef void T;
 };
 
-// Type info class dependent on Type<ENUM>
+/** \brief Template class that dependently defines typedefs and functions
+  *        based on Type<ENUM> */
 template <typename ENUM>
 struct TypeInfo {
     typedef std::map<ENUM,std::vector<typename Type<ENUM>::T> > map_type;

@@ -19,7 +19,7 @@
 #include <iostream>
 #include "Options.h"
 
-/** An example class */
+/** \brief An example class */
 class Foo {
 public:
     /** An example member function */

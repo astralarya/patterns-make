@@ -22,8 +22,8 @@
 #include <iostream>
 #include <cctype>
 
-/** Tokenizes an input stream
- *  into variables and values
+/** \brief Tokenizes an input stream
+ *         into variables and values
  */
 class OptionsScanner {
 public:

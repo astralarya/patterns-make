@@ -31,8 +31,8 @@ extern "C" {
     int Initializer_argp_funcall(int key, char* arg, struct argp_state *state);
 }
 
-/** Processes program arguments
- *  and generates usage, help, and version documentation
+/** \brief Processes program arguments
+ *         and generates usage, help, and version documentation
  */
 class Initializer {
 public:

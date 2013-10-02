@@ -29,7 +29,7 @@
 class Options;
 
 
-/** Base mode class */
+/** \brief Base mode class */
 class Mode {
 public:
     /** Value list */
@@ -40,9 +40,7 @@ public:
     typedef std::map<std::string,svector_type> type_map;
 };
 
-/** Template class to encapsulate a mode and its type.
- *  Use Type<ENUM> to associate types.
- */
+/** \brief Template class to encapsulate a mode and its type.  */
 template <class ENUM>
 class Typed_Mode: public Mode {
 public:
