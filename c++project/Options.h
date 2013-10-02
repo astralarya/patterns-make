@@ -41,7 +41,7 @@ class Options
 
         /** Static function to retrieve class instance
          *  that initializes the class using OptionsParser
-         *  to read the file \$(OPTIONS_FILE) defined in Makefile.
+         *  to read the file ::OPTIONS_FILE.
          *  \return Pointer to the singleton instance.
          */
         static Options* Instance();
