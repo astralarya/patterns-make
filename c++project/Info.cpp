@@ -52,7 +52,8 @@
 #endif
 
 #ifndef __REVISION_STATUS
-/** If compiled inside a git repository, the value of `git status --porcelain` at compile time.
+/** If compiled inside a git repository, the value of `git rev-parse --abbrev-ref HEAD` (with '## ' prefix)
+ *  and `git status --porcelain` at compile time.
  *  Otherwise the last known value stored in file \$(REVISION_FILE) defined in Makefile.
  */
 #define __REVISION_STATUS
