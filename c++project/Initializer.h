@@ -38,14 +38,13 @@ extern "C" {
 class Initializer {
 public:
     typedef argp_state state; /**< GNU Argp state struct.
-                                   See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsing-State.html> */
+                               *   See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsing-State.html>. */
     typedef std::function<int (char*,state*)> optFunc; /**< std::function object corresponding to functions with signature
                                                         *   'int (char*, Initializer::state*)' */
 
     /** Special events during argument parsing
      *  corresponding to GNU Argp special keys.
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Special-Keys.html>
-     *  for a description of Argp special keys.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Special-Keys.html>.
      */
     enum event_t { ARG = ARGP_KEY_ARG, /**< Generated for each non-option command line argument.
                                         *   Equivalent to ARGP_KEY_ARG. */
@@ -67,8 +66,7 @@ public:
                  }; 
 
     /** Return values for option and event processing functions during parsing.
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parser-Functions.html>
-     *  for a description of Argp parser functions.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parser-Functions.html>.
      */
     enum signal_t { GOOD = 0, /**< Indicates the option or event was handled. Equivalent to 0. */
                     UNKNOWN = ARGP_ERR_UNKNOWN /**< Indicates the option or event was not handled.
@@ -77,8 +75,7 @@ public:
 
     /** Construct an Initializer.
      *  Initializes the private argp _argp struct.
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsers.html>
-     *  for details on struct argp.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsers.html>.
      *  \param argc The argument count
      *  \param argv The argument vector
      *  \param argdoc A string describing usage of non-option arguments to be printed with `--usage`.
@@ -91,8 +88,7 @@ public:
 
     /** Define an option flag.
      *  Adds an argp_option struct to the Argp option vector.
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Option-Vectors.html>
-     *  for details on struct argp_option.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Option-Vectors.html>.
      *  \param longflag Long name for the option, corresponding to the long option '--longflag'.
      *                  May be zero to indicate that this option only has a shortflag. See argp_option::name.
      *  \param shortflag Integer key for the option. If this is a printable ASCII character, also specifies
@@ -118,8 +114,7 @@ public:
 
     /** Define an option flag with additional aliases.
      *  Adds a number of argp_option structs to the Argp option vector.
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Option-Vectors.html>
-     *  for details on struct argp_option.
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Option-Vectors.html>.
      *  argp_option structs after the first are aliased to be combined with the first option.
      *  See OPTION_ALIAS at <http://www.gnu.org/software/libc/manual/html_node/Argp-Option-Flags.html>.
      *  \param longflags Long names for the option, where each corresponds to the long option '--longflag'.
@@ -147,7 +142,7 @@ public:
                 const bool arg_optional = false, const bool hidden = false);
 
     /** Define a function to handle a parser event.
-     *  See Initializer::event_t for a description of parser events.
+     *  See Initializer::event_t.
      *  \param event The event handled by the function.
      *  \param function The function called when this option is seen during parsing. This should be a function
      *                  with the signature 'int (char* arg, Initializer::state* state)', where arg is the
@@ -165,6 +160,9 @@ public:
 
     /** C style function hook for GNU Argp.
      *  The value of argp::parser during parsing.
+     *  For each option and event registered with option() and event(), calls the corresponding
+     *  function and returns its value.  If there is no function to handle an option or event,
+     *  returns ARGP_ERR_UNKNOWN.
      *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parser-Functions.html>.
      *  \param key The key of the current option or event.
      *  \param arg Either null, or the value of the argument to the option,
