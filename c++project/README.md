@@ -33,9 +33,7 @@ It also generates help and usage output based on the options described in main.c
 
     myprog --usage
 
-The project compiles in the hash and branch of the current HEAD, as well as the status and diff of the index file verses the current HEAD at the time of compilation.  Note that this functionality only tracks changes while inside a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
-
-You can view this information with
+The project compiles in the hash and branch of the current HEAD, as well as the status and diff of the index file verses the current HEAD at the time of compilation. You can view this information with
 
     myprog -#
 
@@ -52,6 +50,8 @@ By default, all fields are printed. You can append the following characters to f
 These options can be combined.  For example, to show the revision hash and status:
 
     myprog -#hs
+
+Note that this functionality only tracks changes while inside a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
 
 
 ## License

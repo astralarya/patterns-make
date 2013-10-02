@@ -4,6 +4,7 @@ sqlproject
 **sqlproject** - Barebones SQL project
 
 
+
 ## Summary
 
 *sqlproject* tracks and automatically commits changes to any \*.sql files in its directory.
@@ -20,15 +21,12 @@ To commit to all databases:
 
     make all
 
-
-The project automatically tracks version info via git, and commits them via version.sql to generate DEVDB\_version(), DEVDB\_hash(), DEVDB\_status(), and DEVDB\_version\_long().
-
-
-Copy this project with
+To create a tarball of the project:
 
     make tar
 
-to create a \*.tar.gz containing the project.
+The project automatically tracks version info via git, and commits them via version.sql to generate DEVDB\_version(), DEVDB\_hash(), DEVDB\_status(), and DEVDB\_version\_long().
+
 
 ## License
 
