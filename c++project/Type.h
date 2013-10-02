@@ -38,10 +38,10 @@ struct TypeInfo {
     typedef const std::map<ENUM,std::vector<typename Type<ENUM>::T> > defaults_type;
     typedef const std::map<ENUM,std::string> key_type;
     typedef typename std::vector<typename Type<ENUM>::T> vec_type;
-    typedef typename Type<ENUM>::T my_type;
+    typedef typename Type<ENUM>::T val_type;
     typedef typename std::vector<typename Type<ENUM>::T>::reference ref_type;
     typedef const typename Type<ENUM>::T init_type;
-    static void assign(my_type& var, const std::string& str) {
+    static void assign(val_type& var, const std::string& str) {
         std::stringstream(str) >> var;
     }
     static key_type keys;

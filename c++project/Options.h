@@ -50,7 +50,7 @@ class Options
          *  \param value The new value
          */
         template <class ENUM>
-        inline void set(const ENUM& key, const typename TypeInfo<ENUM>::my_type& value) {
+        inline void set(const ENUM& key, const typename TypeInfo<ENUM>::val_type& value) {
             set<ENUM>(key,0,value);
         }
 
@@ -60,7 +60,7 @@ class Options
          *  \param value The new value
          */
         template <class ENUM>
-        void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::my_type& value)
+        void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::val_type& value)
         {
             if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
