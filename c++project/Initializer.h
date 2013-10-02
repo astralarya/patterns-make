@@ -173,7 +173,7 @@ public:
 
     /** Print usage and exit.
      *  Wraps a call to argp_usage(argp_state*).
-     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>.
      *  \param state The parser state
      */
     static void print_usage(state* state);
