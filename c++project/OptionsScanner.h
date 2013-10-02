@@ -32,7 +32,7 @@ public:
      *  \param istream The input stream
      */
     OptionsScanner(std::istream &istream = std::cin):
-    _istream(in),
+    _istream(istream),
     _matched(),
     _state(VAR) {}
 

@@ -20,6 +20,7 @@
 #ifndef OPTIONS_H
 #define OPTIONS_H
 
+#include "Info.h"
 #include "Project.h"
 #include <fstream>
 #include <typeinfo>
@@ -40,7 +41,7 @@ class Options
 
         /** Static function to retrieve class instance
          *  that initializes the class using OptionsParser
-         *  to read the file \$(OPTIONSFILE) defined in Makefile.
+         *  to read the file \$(OPTIONS_FILE) defined in Makefile.
          *  \return Pointer to the singleton instance.
          */
         static Options* Instance();
