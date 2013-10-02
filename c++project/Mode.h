@@ -66,7 +66,13 @@ public:
     typedef typename TypeInfo<ENUM>::key_type key_type;
 
 protected:
-    // ctor
+    /** Initialize the mode using the
+     *  key-valuelist pairs read from the options file.
+     *  Initialize defaults and assign the value lists of
+     *  key matches in properties using
+     *  TypeInfo<ENUM>::assign(value_type& val, std::string& str).
+     *  \param properties Map of strings to string vectors
+     */
     Typed_Mode(const type_map& properties):
     _map(TypeInfo<ENUM>::defaults),
     _keys(TypeInfo<ENUM>::keys),
@@ -93,13 +99,21 @@ protected:
                       });
     }
 
-    // accessor functions
+    /** Set the value of an index of key in this mode
+     *  \param key The key being set
+     *  \param index The index being set
+     *  \param value The new value
+     */
     void set(const ENUM& mode, size_t index, const val_type& value) {
         if(index >= _map[mode].size())
             _map[mode].resize(index+1,_init);
         _map[mode][index] = value;
     }
 
+    /** Get the value of an index of key in this mode
+     *  \param key The key being fetched
+     *  \param index The index being fetched
+     */
     ref_type get(const ENUM& mode, size_t index) {
         if(index >= _map[mode].size())
             _map[mode].resize(index+1,_init);
