@@ -1,5 +1,4 @@
 // OptionsParser.h
-// Parses the OPTIONS_FILE and initializes Options
 //
 // Copyright (C) 2013 Mara Kim
 //
@@ -28,11 +27,21 @@
 #include "OptionsScanner.h"
 #include "Mode.h"
 
+/** Parse an input stream and
+ *  initialize Options
+ */
 class OptionsParser {
 public:
+    /** Initialize the parser
+     *  \param options Reference to the Options object being initialized
+     *  \param in The input stream
+     */
     OptionsParser(Options& options, std::istream &in = std::cin):
     _options(options),_scanner(in){}
 
+    /** Parse the input stream
+     *  \return 0 if successful, otherwise an error code
+     */
     int parse();
 
 private:

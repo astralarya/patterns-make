@@ -23,17 +23,38 @@
 #include <iostream>
 #include <cctype>
 
+/** Tokenizes an input stream
+ *  into variables and values
+ */
 class OptionsScanner {
 public:
-    OptionsScanner(std::istream &in = std::cin):
+    /** Initialize the scanner
+     *  \param istream The input stream
+     */
+    OptionsScanner(std::istream &istream = std::cin):
     _istream(in),
     _matched(),
     _state(VAR) {}
 
-    enum token {VARIABLE, VALUE, END};
-    enum state {VAR, VAL};
+    /** Tokens recognized by the scanner */
+    enum token { VARIABLE, /**< A variable */
+                 VALUE, /**< A value */
+                 END /**< EOF */
+               }; 
 
+    /** Scanner states */
+    enum state { VAR, /**< Scanning a variable */
+                 VAL /**< Scanning a value */
+               };
+
+    /** Scan for the next token in the stream
+     *  \return The matched token
+     */
     token lex();
+
+    /** Get the matched text
+     *  \return The text matched by the last call to lex().
+     */
     const std::string& matched() const;
 
 private:
