@@ -170,7 +170,6 @@ public:
      *  \param arg Either null, or the value of the argument to the option,
      *             or the value of a non-option argument.
      *  \param state The state of the parser.
-     *               See <http://www.gnu.org/software/libc/manual/html_node/Argp-Parsing-State.html>.
      */
     friend int Initializer_argp_funcall(int key, char* arg, state* state);
 
