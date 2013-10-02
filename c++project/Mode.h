@@ -52,11 +52,17 @@ public:
     typedef ENUM var_type;
     /** The value type */
     typedef typename TypeInfo<ENUM>::val_type val_type;
+    /** The value reference type */
     typedef typename TypeInfo<ENUM>::ref_type ref_type;
+    /** The value vector type */
     typedef typename TypeInfo<ENUM>::vec_type vec_type;
+    /** The value init type */
     typedef typename TypeInfo<ENUM>::init_type init_type;
+    /** The variable to value map type */
     typedef typename TypeInfo<ENUM>::map_type map_type;
+    /** The map init type */
     typedef typename TypeInfo<ENUM>::defaults_type defaults_type;
+    /** The map of strings to variables type */
     typedef typename TypeInfo<ENUM>::key_type key_type;
 
 protected:
