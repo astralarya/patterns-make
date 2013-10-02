@@ -88,19 +88,17 @@ class Options
          */
         void _new(const Mode::type_map& properties);
     private:
-        /* Private constructor to enforce Singleton pattern
-         */
+        /** Private constructor to enforce Singleton pattern */
         Options();
-        /* Private copy constructor to enforce Singleton pattern
-         */
+        /** Private copy constructor to enforce Singleton pattern */
         Options(Options const&);
 
-        // get executable path
+        /** Get executable path
+         *  \return Absolute path to directory containing the executable
+         */
         std::string exe_path();
 
-        // read options file
-        void _initialize();
-
+        /** Add mode of type ENUM to the set of modes */
         template <typename ENUM>
         void _addmode() {
             _modes[typeid(ENUM).hash_code()] = new Typed_Mode<ENUM>(_properties);
