@@ -35,7 +35,7 @@ extern const char *const PROGRAM_NAME, /**< The name of the program. */
                         *REVISION_DIFF; /**< The changes between the working directory and the index. */
 
 /** Print the version string
- *  (ie. PROGRAM_NAME + ' ' + PROGRAM_VERSION)
+ *  (ie. PROGRAM_NAME PROGRAM_VERSION)
  *  \param ostream The output stream
  *  \param license Also print the PROGRAM_LICENSE
  */
