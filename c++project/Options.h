@@ -88,8 +88,11 @@ class Options
          */
         void _new(const Mode::type_map& properties);
     private:
-        // make instantiation, copying, and assignment private
+        /* Private constructor to enforce Singleton pattern
+         */
         Options();
+        /* Private copy constructor to enforce Singleton pattern
+         */
         Options(Options const&);
 
         // get executable path
