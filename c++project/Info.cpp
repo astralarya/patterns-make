@@ -66,6 +66,11 @@
 #define __REVISION_DIFF
 #endif
 
+#ifndef __OPTIONS_FILE
+/** Value of \$(OPTIONS_FILE) in Makefile */
+#define __OPTIONS_FILE
+#endif
+
 // Initialize with external macro
 const char *const PROGRAM_NAME = __PROGRAM_NAME,
                  *PROGRAM_VERSION = __PROGRAM_VERSION,
@@ -73,7 +78,8 @@ const char *const PROGRAM_NAME = __PROGRAM_NAME,
                  *PROGRAM_BUG_ADDRESS = __PROGRAM_BUG_ADDRESS,
                  *REVISION_HASH = __REVISION_HASH,
                  *REVISION_STATUS = __REVISION_STATUS,
-                 *REVISION_DIFF = __REVISION_DIFF;
+                 *REVISION_DIFF = __REVISION_DIFF,
+                 *OPTIONS_FILE = __OPTIONS_FILE;
 
 void PRINT_VERSION(std::ostream& ostream, bool license) {
     ostream << PROGRAM_NAME << " " << PROGRAM_VERSION << "\n";
