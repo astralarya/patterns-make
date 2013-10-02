@@ -28,6 +28,7 @@
 /** \brief Template type class to associate enums with types */
 template <class ENUM>
 struct Type {
+    /** The type of values associated with keys of type ENUM */
     typedef void T;
 };
 
@@ -35,15 +36,26 @@ struct Type {
   *        based on Type<ENUM> */
 template <typename ENUM>
 struct TypeInfo {
-    typedef std::map<ENUM,std::vector<typename Type<ENUM>::T> > map_type;
-    typedef const std::map<ENUM,std::vector<typename Type<ENUM>::T> > defaults_type;
-    typedef const std::map<ENUM,std::string> key_type;
-    typedef typename std::vector<typename Type<ENUM>::T> vec_type;
+    /** The type of values associated with keys of type ENUM */
     typedef typename Type<ENUM>::T val_type;
+    /** Value type reference */
     typedef typename std::vector<typename Type<ENUM>::T>::reference ref_type;
+    /** Vector of values */
+    typedef typename std::vector<typename Type<ENUM>::T> vec_type;
+    /** Map of variables to vectors of values */
+    typedef std::map<ENUM,std::vector<typename Type<ENUM>::T> > map_type;
+    /** Const map of variables to vectors of values */
+    typedef const std::map<ENUM,std::vector<typename Type<ENUM>::T> > defaults_type;
+    /** Const map of variables to strings */
+    typedef const std::map<ENUM,std::string> key_type;
+    /** Const value */
     typedef const typename Type<ENUM>::T init_type;
-    static void assign(val_type& var, const std::string& str) {
-        std::stringstream(str) >> var;
+    /** Initialize val_type using input string str.
+     *  \param val The value being initialized
+     *  \param str The input string
+     */
+    static void assign(val_type& val, const std::string& str) {
+        std::stringstream(str) >> val;
     }
     static key_type keys;
     static defaults_type defaults;
