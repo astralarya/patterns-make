@@ -60,7 +60,7 @@ class Options
         template <class ENUM>
         void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::my_type& value)
         {
-            if(_keys.find(typeid(ENUM).hash_code()) == _modes.end())
+            if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
             static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(key,index,value);
         }
