@@ -33,7 +33,7 @@ extern const char *const PROGRAM_NAME, /**< The name of the program. */
                         *REVISION_STATUS, /**< The paths that have differences between
                                                the working directory and the current HEAD commit.  */
                         *REVISION_DIFF, /**< The changes between the working directory and the index. */
-                        *OPTIONS_FILE; /**< The name of the file containing program options */
+                        *OPTIONS_FILE; /**< The file containing program options */
 
 /** Print the version string
  *  (ie. PROGRAM_NAME PROGRAM_VERSION)
