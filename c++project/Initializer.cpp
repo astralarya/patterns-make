@@ -76,7 +76,6 @@ void Initializer::option(const char* longflag, const int shortflag, const char* 
 void Initializer::option(const std::vector<const char*>& longflags, const std::vector<int>& shortflags,
                          const char* argument, const char* doc, optFunc function,
                          const bool arg_optional, const bool hidden) {
-    struct argp_option opt = {0};
     bool first = true;
     auto long_it = longflags.begin();
     auto short_it = shortflags.begin();
