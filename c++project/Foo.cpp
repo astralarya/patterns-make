@@ -18,6 +18,7 @@
 
 #include "Foo.h"
 
+
 void Foo::bar() {
     // Program arguments
     std::cout << "MYFOO=" << Options::Instance()->get(Project::FOO) << std::endl;

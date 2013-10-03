@@ -37,7 +37,7 @@ MISC=README.md .gitignore
 
 GIT=git
 SED=sed
-TR=tr
+AWK=awk
 ECHO=echo
 TAR=tar
 CXX=g++
@@ -59,10 +59,10 @@ EXTRA=
 GENERATEDH=
 GENERATEDC=
 MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(LICENSE_FILE) $(MISC) $(ME)
-LICENSE=$(shell $(SED) -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(LICENSE_FILE) | $(TR) -d '\n')
-GIT_HASH=$(shell $(SED) -e '2,$$d' $(REVISION_FILE))\n
-GIT_STATUS=\#\# $(shell $(SED) -e '1,1d' -e '/^$$/,$$d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
-GIT_DIFF=$(shell $(SED) -e '1,1d' -e '1,/^$$/d' -e 's/\\/\\\\/g' -e 's/"/\\"/g' -e 's/\o047/\\047/g' -e '$$ ! s/$$/\\n/' $(REVISION_FILE) | $(TR) -d '\n')
+LICENSE=$(shell $(AWK) '{gsub(/["\\\47]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR==1) printf "%s",$$0; else printf "\\n%s",$$0}' $(LICENSE_FILE))
+GIT_HASH=$(shell $(AWK) 'NR==1 {printf "%s\\n",$$0}' $(REVISION_FILE))
+GIT_STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR>2) printf "%s\\n",$$0; else if (NR==2) printf "\#\# %s\\n",$$0}' $(REVISION_FILE))
+GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==1) {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047"); printf "%s\\n",$$0}}' $(REVISION_FILE))
 
 # rules
 
