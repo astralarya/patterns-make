@@ -62,7 +62,7 @@ MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FI
 LICENSE=$(shell $(AWK) '{gsub(/["\\\47]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR==1) printf "%s",$$0; else printf "\\n%s",$$0}' $(LICENSE_FILE))
 GIT_HASH=$(shell $(AWK) 'NR==1 {printf "%s\\n",$$0}' $(REVISION_FILE))
 GIT_STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR>2) printf "%s\\n",$$0; else if (NR==2) printf "\#\# %s\\n",$$0}' $(REVISION_FILE))
-GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==1) {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047"); printf "%s\\n",$$0}}' $(REVISION_FILE))
+GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==2) {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047"); printf "%s\\n",$$0} else if (flag==1) flag=2}' $(REVISION_FILE))
 
 # rules
 
@@ -74,7 +74,7 @@ name:
 	@$(ECHO) $(EXECUTABLE)
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && echo >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && echo >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
