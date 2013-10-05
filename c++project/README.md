@@ -54,6 +54,12 @@ These options can be combined.  For example, to show the revision hash and statu
 Note that this functionality only tracks changes while inside a git repository, so modifying the project after unpacking the result of `make tar` will not track any changes until a new git repository is initialized. 
 
 
+## Awknowledgements
+
+Thanks to Razorbliss at the Wikipedia Commons for the logo.svg
+Original: <http://en.wikipedia.org/wiki/File:Snow_flake.svg>
+
+
 ## License
 
 c++project v0.5
