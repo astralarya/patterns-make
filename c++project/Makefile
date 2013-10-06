@@ -31,7 +31,7 @@ DOXFILE=Doxyfile
 OPTIONS_FILE=OPTIONS.rc
 REVISION_FILE=VERSION.log
 LICENSE_FILE=LICENSE.txt
-MISC=README.md .gitignore
+MISC=README.md logo.svg
 
 # environment specific
 
