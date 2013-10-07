@@ -17,7 +17,6 @@
 // this program. If not, see http://www.gnu.org/licenses/.
 
 
-#include "Info.h"
 #include "Initializer.h"
 #include "Options.h"
 #include "Foo.h"
