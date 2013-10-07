@@ -28,7 +28,7 @@
 /** Project enums */
 namespace Project {
     enum string_mode{GREETING,DB_HOST,DB_USER,DB_NAME,ARGUMENTS,FOO};
-    enum float_mode{AVOGADRO, NUMBERS};
+    enum float_mode{AVOGADRO, NUMBERS, MYNUM};
     enum bool_mode{SWITCH};
 }
 
@@ -69,7 +69,7 @@ typename TypeInfo<string_mode>::defaults_type TypeInfo<string_mode>::defaults {{
 template <>
 typename TypeInfo<string_mode>::init_type TypeInfo<string_mode>::init {};
 template <>
-void TypeInfo<string_mode>::assign(std::string& var, const std::string& str) { var = str; }
+bool TypeInfo<string_mode>::assign(std::string& var, const std::string& str) { var = str; return var==str; }
 
 template <>
 typename TypeInfo<float_mode>::key_type TypeInfo<float_mode>::keys ({{AVOGADRO, "AVOGADRO_CONSTANT"},{NUMBERS, "NUMBERS"}});

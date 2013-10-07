@@ -21,6 +21,7 @@
 void Foo::bar() {
     // Program arguments
     std::cout << "MYFOO=" << Options::Instance()->get(Project::FOO) << std::endl;
+    std::cout << "MYNUM=" << Options::Instance()->get(Project::MYNUM) << std::endl;
     std::cout << "SWITCH=" << (Options::Instance()->get(Project::SWITCH)?"true":"false") << std::endl;
     std::cout << "ARG0=" << Options::Instance()->get(Project::ARGUMENTS,0) << std::endl;
     std::cout << "ARG1=" << Options::Instance()->get(Project::ARGUMENTS,1) << std::endl;

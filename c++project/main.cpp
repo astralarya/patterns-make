@@ -31,15 +31,24 @@ int main(int argc, char** argv) {
 
     // Describe options
     init.option("foo", 'f', "MYFOO", "Set MYFOO",
-                [&] (char* arg, Initializer::state* s) -> int {
+                [&] (char* arg, Initializer::state* state) -> int {
                     if(arg)
                         Options::Instance()->set(Project::FOO,arg);
                     return 0;
                 });
     init.option("switch", 's', 0, "Set SWITCH = true",
-                [&] (char* arg, Initializer::state* s) -> int {
+                [&] (char* arg, Initializer::state* state) -> int {
                     Options::Instance()->set(Project::SWITCH,true);
                     return 0;
+                });
+    init.option("num", 'n', "NUM", "Set MYNUM = NUM",
+                [&] (char* arg, Initializer::state* state) -> int {
+                    if(Options::Instance()->assign(Project::MYNUM,arg))
+                        return 0;
+                    else {
+                        Initializer::error(state,"Error converting '%s' to double", arg);
+                        return 1;
+                    }
                 });
     init.event(Initializer::ARG, // Handle arguments
                [&] (char* arg, Initializer::state* state) -> int {
@@ -51,7 +60,7 @@ int main(int argc, char** argv) {
     init.event(Initializer::END, // Check argument count
                [&] (char* arg, Initializer::state* state) -> int {
                    if(state->arg_num < 2)
-                       Initializer::print_usage(state);
+                       Initializer::usage(state);
                    return 0;
                });
 
