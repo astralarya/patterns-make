@@ -183,6 +183,15 @@ public:
      *  \param state The parser state
      *  \param error The error message
      */
+    static void error(state* state, const char* msg);
+
+    /** Print error and exit.
+     *  Wraps a call to argp_error(argp_state*).
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>.
+     *  \param state The parser state
+     *  \param error The error message
+     *  \param arg The argument to be substituted into msg
+     */
     static void error(state* state, const char* msg, const char* arg);
 private:
     // hook to key handlers

@@ -133,6 +133,10 @@ void Initializer::usage(state* state) {
     argp_usage(state);
 }
 
+void Initializer::error(state* state, const char* msg) {
+    argp_error(state, msg);
+}
+
 void Initializer::error(state* state, const char* msg, const char* arg) {
     argp_error(state, msg, arg);
 }
