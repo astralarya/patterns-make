@@ -9,9 +9,7 @@
 // version.
 //
 // This program is distributed in the hope that it will be useful, but WITHOUT
-// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-// FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-// details.
+// ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS // FOR A PARTICULAR PURPOSE. See the GNU General Public License for more // details.
 //
 // You should have received a copy of the GNU General Public License along with
 // this program. If not, see http://www.gnu.org/licenses/.
@@ -20,6 +18,7 @@
 #ifndef TYPE_H
 #define TYPE_H
 
+#include <iostream> //
 #include <string>
 #include <sstream>
 #include <vector>
@@ -51,12 +50,14 @@ struct TypeInfo {
     /** Const value */
     typedef const typename Type<ENUM>::T init_type;
 
-    /** Initialize val_type using input string str.
+    /** Attempt to initialize val_type using input string str.
      *  \param val The value being initialized
      *  \param str The input string
+     *  \return Success of assignment
      */
-    static void assign(val_type& val, const std::string& str) {
-        std::stringstream(str) >> val;
+    static bool assign(val_type& val, const std::string& str) {
+        std::stringstream ss(str);
+        return ss >> val && ss.peek() == EOF;
     }
 
     /** Static map of variables to string keys.

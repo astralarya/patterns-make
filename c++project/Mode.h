@@ -108,6 +108,22 @@ protected:
         _map[key][index] = value;
     }
 
+    /** Assign the value of an index of key in this mode
+     *  using the value parsed from a string
+     *  \param key The key being set
+     *  \param index The index being set
+     *  \param str The string to parse for a value
+     */
+    bool assign(const ENUM& key, size_t index, const std::string& str) {
+        if(index >= _map[key].size())
+            _map[key].resize(index+1,_init);
+        val_type value;
+        if(!_assign(value,str))
+            return false;
+        _map[key][index] = value;
+        return true;
+    }
+
     /** Get the value of an index of key in this mode
      *  \param key The key being fetched
      *  \param index The index being fetched
@@ -120,8 +136,8 @@ protected:
 
 
 private:
-    void _assign(val_type& val,const std::string& str) {
-        TypeInfo<ENUM>::assign(val,str);
+    bool _assign(val_type& val,const std::string& str) {
+        return TypeInfo<ENUM>::assign(val,str);
     }
     map_type _map;
     const key_type& _keys;

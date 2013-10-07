@@ -129,6 +129,10 @@ int Initializer::argp_funcall(int key, char* arg, state* state) {
         return UNKNOWN;
 }
 
-void Initializer::print_usage(state* state) {
+void Initializer::usage(state* state) {
     argp_usage(state);
+}
+
+void Initializer::error(state* state, const char* msg, const char* arg) {
+    argp_error(state, msg, arg);
 }

@@ -175,7 +175,15 @@ public:
      *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>.
      *  \param state The parser state
      */
-    static void print_usage(state* state);
+    static void usage(state* state);
+
+    /** Print error and exit.
+     *  Wraps a call to argp_error(argp_state*).
+     *  See <http://www.gnu.org/software/libc/manual/html_node/Argp-Helper-Functions.html>.
+     *  \param state The parser state
+     *  \param error The error message
+     */
+    static void error(state* state, const char* msg, const char* arg);
 private:
     // hook to key handlers
     int argp_funcall(int key, char* arg, state* state);

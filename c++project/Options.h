@@ -60,11 +60,33 @@ class Options
          *  \param value The new value
          */
         template <class ENUM>
-        void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::val_type& value)
-        {
+        void set(const ENUM& key, size_t index, const typename TypeInfo<ENUM>::val_type& value) {
             if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
                 _addmode<ENUM>();
             static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->set(key,index,value);
+        }
+
+        /** Assign the value of index 0 of key of type ENUM
+         *  using the value parsed from a string
+         *  \param key The key being set
+         *  \param str The string to parse for a value
+         */
+        template <class ENUM>
+        inline bool assign(const ENUM& key, const std::string& str) {
+            return assign<ENUM>(key,0,str);
+        }
+
+        /** Assign the value of index 0 of key of type ENUM
+         *  using the value parsed from a string
+         *  \param key The key being set
+         *  \param index The index being set
+         *  \param str The string to parse for a value
+         */
+        template <class ENUM>
+        bool assign(const ENUM& key, size_t index, const std::string& str) {
+            if(_modes.find(typeid(ENUM).hash_code()) == _modes.end())
+                _addmode<ENUM>();
+            return static_cast<Typed_Mode<ENUM>*>(_modes[typeid(ENUM).hash_code()])->assign(key,index,str);
         }
 
         /** Get the value of an index of key of type ENUM
