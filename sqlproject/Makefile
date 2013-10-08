@@ -43,8 +43,7 @@ TAR=tar
 TFLAGS=-pczf
 NANO=vim
 SED=sed
-TR=tr
-HEAD=head
+AWK=awk
 TAIL=tail
 ECHO=echo
 GREP=grep
@@ -58,8 +57,8 @@ ME=Makefile
 SQLFILES=$(wildcard *.sql)
 COMMITFILES=$(SQLFILES:.sql=.log)
 MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
-HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
-STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's@/@\\/@g' -e 's@\&@\\\&@g' -e 's/\o047/\\o047\\o047\\o047\\o047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
+HASH=$(shell $(AWK) 'NR==1 {printf "%s",$$0}' $(REVISION_FILE))
+STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/[\\]/,"\\&");gsub(/\47/,"\\\\o047")} {if (NR>2) printf "\\\\n%s",$$0; else if (NR==2) printf "\#\# %s",$$0}' $(REVISION_FILE))
 DIFF=testval
 
 
