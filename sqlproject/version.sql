@@ -21,7 +21,7 @@ CREATE TYPE version_type AS ENUM ('version', 'hash', 'status', 'diff');
 
 CREATE TABLE version (
     id version_type PRIMARY KEY,
-    value varchar
+    value text
 );
 
 TRUNCATE TABLE version;
@@ -29,5 +29,5 @@ TRUNCATE TABLE version;
 INSERT INTO version VALUES
     ('version','__DB_VERSION'),
     ('hash', '__DB_HASH'),
-    ('status','__DB_STATUS'),
-    ('diff','__DB_DIFF');
+    ('status',E'__DB_STATUS'),
+    ('diff',E'__DB_DIFF');
