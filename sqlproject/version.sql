@@ -17,6 +17,7 @@
 -- this program. If not, see http://www.gnu.org/licenses/.
 
 
+-- Set up type and table
 SET client_min_messages TO FATAL;
 CREATE TYPE version_type AS ENUM ('version', 'hash', 'status', 'diff');
 CREATE TABLE version (
@@ -24,10 +25,10 @@ CREATE TABLE version (
     value text
 );
 RESET client_min_messages;
+GRANT SELECT ON version TO PUBLIC;
 
-
+-- Record version
 TRUNCATE TABLE version;
-
 INSERT INTO version VALUES
     ('version','__DB_VERSION'),
     ('hash', '__DB_HASH'),
