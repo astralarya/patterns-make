@@ -19,9 +19,10 @@
 
 CREATE TYPE version_type AS ENUM ('version', 'hash', 'status', 'diff');
 
-CREATE TABLE version AS (
+CREATE TABLE version (
     id version_type PRIMARY KEY,
-    value varchar);
+    value varchar
+);
 
 TRUNCATE TABLE version;
 
