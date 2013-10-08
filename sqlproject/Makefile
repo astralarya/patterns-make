@@ -42,7 +42,6 @@ GIT=git
 TAR=tar
 TFLAGS=-pczf
 NANO=vim
-SED=sed
 AWK=awk
 TAIL=tail
 ECHO=echo
@@ -58,8 +57,8 @@ SQLFILES=$(wildcard *.sql)
 COMMITFILES=$(SQLFILES:.sql=.log)
 MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
 HASH=$(shell $(AWK) 'NR==1 {printf "%s",$$0}' $(REVISION_FILE))
-STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/[\\]/,"\\&");gsub(/\47/,"\\\\o047")} {if (NR>2) printf "\\\\n%s",$$0; else if (NR==2) printf "\#\# %s",$$0}' $(REVISION_FILE))
-DIFF=testval
+STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047")} {if (NR>2) printf "\\\\n%s",$$0; else if (NR==2) printf "\#\# %s",$$0}' $(REVISION_FILE))
+DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag>1) {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047"); if (flag==2) {printf "%s",$$0; flag=3} else if (flag==3) printf"\\\\n%s",$$0} else if (flag==1) flag=2}' $(REVISION_FILE))
 
 
 # rules
@@ -93,7 +92,7 @@ $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 $(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_FILE)
 	@$(ECHO) $<
 	@$(DATE) > $@
-	@$(SED) -e 's/__DB_VERSION/$(VERSION)/' -e 's/__DB_HASH/$(HASH)/' -e 's/__DB_STATUS/$(STATUS)/' -e 's/__DB_DIFF/$(DIFF)/' $< | $(PSQL) --quiet $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) 2>&1 | $(TEE) -a $@ && $(ECHO) "RECORD VERSION"
+	@$(AWK) '{gsub(/__DB_VERSION/,"$(VERSION)"); gsub(/__DB_HASH/,"$(HASH)"); gsub(/__DB_STATUS/,"$(STATUS)"); gsub(/__DB_DIFF/,"$(DIFF)"); print}' $< | $(PSQL) --quiet $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) 2>&1 | $(TEE) -a $@ && $(ECHO) "RECORD VERSION"
 
 %.db/$(LOG): hash %.db $(addprefix %.db/,$(COMMITFILES))
 	@$(DATE) >> $@
