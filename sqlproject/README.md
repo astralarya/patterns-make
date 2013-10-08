@@ -25,7 +25,7 @@ To create a tarball of the project:
 
     make tar
 
-The project automatically tracks version info via git, and commits them via version.sql to generate DEVDB\_version(), DEVDB\_hash(), DEVDB\_status(), and DEVDB\_version\_long().
+The project automatically tracks version info via git, and commits them via version.sql to the `version` relation;
 
 
 ## License
