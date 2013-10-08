@@ -17,33 +17,16 @@
 -- this program. If not, see http://www.gnu.org/licenses/.
 
 
-CREATE OR REPLACE FUNCTION DB_NAME_version() RETURNS text
-    LANGUAGE plpgsql
-    AS $$
-    BEGIN
-        RETURN 'DB_VERSION';
-    END;
-$$;
+CREATE TYPE version_type AS ENUM ('version', 'hash', 'status', 'diff');
 
-CREATE OR REPLACE FUNCTION DB_NAME_hash() RETURNS text
-    LANGUAGE plpgsql
-    AS $$
-    BEGIN
-        RETURN 'DB_HASH';
-    END;
-$$;
+CREATE TABLE version AS (
+    field version_type PRIMARY KEY,
+    value varchar);
 
-SET client_min_messages TO ERROR;
-CREATE OR REPLACE FUNCTION DB_NAME_hash_status() RETURNS text
-    LANGUAGE plpgsql
-    AS '
-    BEGIN
-        RETURN ''DB_STATUS'';
-    END;
-';
+TRUNCATE TABLE version;
 
-CREATE OR REPLACE FUNCTION DB_NAME_version_long(out version text, out hash text, out status text)
-    LANGUAGE SQL
-    AS $$ SELECT DB_NAME_version(), DB_NAME_hash(), DB_NAME_hash_status();
-$$;
-RESET client_min_messages;
+INSERT INTO version VALUES
+    ('version','__DB_VERSION'),
+    ('hash', '__DB_HASH'),
+    ('status','__DB_STATUS'),
+    ('diff','__DB_DIFF');

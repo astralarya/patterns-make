@@ -60,6 +60,7 @@ COMMITFILES=$(SQLFILES:.sql=.log)
 MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
 HASH=$(shell $(HEAD) -n 1 $(REVISION_FILE))
 STATUS=\#\# $(shell $(TAIL) -n +2 $(REVISION_FILE) | $(SED) -e 's/\\/\\\\/g' -e 's@/@\\/@g' -e 's@\&@\\\&@g' -e 's/\o047/\\o047\\o047\\o047\\o047/g' -e '$$ ! s/$$/\\n/' | $(TR) -d '\n')
+DIFF=testval
 
 
 # rules
@@ -71,7 +72,7 @@ all: $(DBS)
 live: $(LIVEDB)
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(NAME)_$(VERSION).tar.gz
@@ -93,7 +94,7 @@ $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 $(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_FILE)
 	@$(ECHO) $<
 	@$(DATE) > $@
-	@$(SED) -e 's/DB_NAME/$(LIVEDB)/g' -e 's/DB_VERSION/$(VERSION)/' -e 's/DB_HASH/$(HASH)/' -e 's/DB_STATUS/$(STATUS)/' $< | $(PSQL) --quiet $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) 2>&1 | $(TEE) -a $@ && $(ECHO) "RECORD VERSION"
+	@$(SED) -e 's/__DB_VERSION/$(VERSION)/' -e 's/__DB_HASH/$(HASH)/' -e 's/__DB_STATUS/$(STATUS)/' -e 's/__DB_DIFF/$(DIFF)/' $< | $(PSQL) --quiet $(PFLAGS) -d $(@:.db/$(VERSIONSQL:.sql=.log)=) 2>&1 | $(TEE) -a $@ && $(ECHO) "RECORD VERSION"
 
 %.db/$(LOG): hash %.db $(addprefix %.db/,$(COMMITFILES))
 	@$(DATE) >> $@
