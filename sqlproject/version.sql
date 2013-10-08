@@ -17,12 +17,14 @@
 -- this program. If not, see http://www.gnu.org/licenses/.
 
 
+SET client_min_messages TO FATAL;
 CREATE TYPE version_type AS ENUM ('version', 'hash', 'status', 'diff');
-
 CREATE TABLE version (
     id version_type PRIMARY KEY,
     value text
 );
+RESET client_min_messages;
+
 
 TRUNCATE TABLE version;
 
@@ -31,3 +33,4 @@ INSERT INTO version VALUES
     ('hash', '__DB_HASH'),
     ('status',E'__DB_STATUS'),
     ('diff',E'__DB_DIFF');
+
