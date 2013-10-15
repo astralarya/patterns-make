@@ -69,7 +69,7 @@ clean:
 	$(RM) -f $(DOCUMENT) $(DVIFILES)
 
 cleanall: clean
-	$(RM) -f $(NAME)_*.tar.gz
+	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof
 
 .PHONY: all rebuild hash tar clean cleanall
 
