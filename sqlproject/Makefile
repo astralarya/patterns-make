@@ -43,7 +43,6 @@ TAR=tar
 TFLAGS=-pczf
 NANO=vim
 AWK=awk
-TAIL=tail
 ECHO=echo
 GREP=grep
 TEE=tee
@@ -59,7 +58,6 @@ MANIFEST=$(SQLFILES) $(REVISION_FILE) $(ME)
 HASH=$(shell $(AWK) 'NR==1 {printf "%s",$$0}' $(REVISION_FILE))
 STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047")} {if (NR>2) printf "\\\\n%s",$$0; else if (NR==2) printf "\#\# %s",$$0}' $(REVISION_FILE))
 DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag>1) {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047"); if (flag==2) {printf "%s",$$0; flag=3} else if (flag==3) printf"\\\\n%s",$$0} else if (flag==1) flag=2}' $(REVISION_FILE))
-
 
 # rules
 
