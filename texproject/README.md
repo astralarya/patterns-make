@@ -17,7 +17,7 @@ To create a tarball of the project:
 
     make tar
 
-The project automatically tracks version info via git.
+The project automatically tracks version info via git and embeds it into the generated document under the section `Version Info`
 
 
 ## License
