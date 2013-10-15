@@ -25,7 +25,7 @@ To create a tarball of the project:
 
     make tar
 
-The project automatically tracks version info via git, and commits them via version.sql to the `version` relation;
+The project automatically tracks version info via git, and commits them via version.sql to the `version` relation.
 
 
 ## License
