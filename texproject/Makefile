@@ -22,8 +22,9 @@
 
 # project specific
 
+NAME=texproject
 VERSION=0.0
-MAIN=texproject.tex
+MAIN=$(NAME).tex
 REVISION_FILE=VERSION.log
 MISC=README.md
 
@@ -55,8 +56,10 @@ DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag>1) {gsub(/\\/,"\\\\
 
 all: hash $(MAIN) $(TEXFILES) $(DOCUMENT)
 
+rebuild: clean all
+
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(ECHO) $(NAME) $(VERSION) > $(REVISION_FILE) && $(GIT) rev-parse HEAD >> $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(NAME)_$(VERSION).tar.gz
@@ -67,7 +70,7 @@ clean:
 cleanall: clean
 	$(RM) -f */$(LOG) $(NAME)_*.tar.gz
 
-.PHONY: all hash tar clean cleanall
+.PHONY: all rebuild hash tar clean cleanall
 
 .SECONDARY:
 
