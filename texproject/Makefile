@@ -39,6 +39,7 @@ TFLAGS=-pczf
 NANO=vim
 AWK=awk
 ECHO=echo
+PRINTF=printf
 RM=rm
 ME=Makefile
 
@@ -59,7 +60,7 @@ all: hash $(MAIN) $(TEXFILES) $(DOCUMENT)
 rebuild: clean all
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse 2> /dev/null && $(ECHO) $(NAME) $(VERSION) > $(REVISION_FILE) && $(GIT) rev-parse HEAD >> $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(ECHO) $(NAME) $(VERSION) > $(REVISION_FILE) && $(GIT) rev-parse HEAD >> $(REVISION_FILE) && $(PRINTF) '## ' >> $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(NAME)_$(VERSION).tar.gz
@@ -78,7 +79,7 @@ $(NAME)_$(VERSION).tar.gz: $(MANIFEST)
 	$(RM) -f $(NAME)_*.tar.gz
 	$(TAR) $(TFLAGS) $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
-%.dvi: %.tex
+%.dvi: %.tex $(REVISION_FILE)
 	$(LATEX) $<
 
 %.pdf: %.dvi
