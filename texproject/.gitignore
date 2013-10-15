@@ -1,0 +1,6 @@
+texproject.pdf
+*.aux
+*.dvi
+*.log
+*.toc
+VERSION.log
