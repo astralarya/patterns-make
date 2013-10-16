@@ -57,6 +57,7 @@ Note that this functionality only tracks changes while inside a git repository, 
 ## Awknowledgements
 
 Thanks to Razorbliss at the Wikipedia Commons for the logo.svg
+
 Original: <http://en.wikipedia.org/wiki/File:Snow_flake.svg>
 
 
