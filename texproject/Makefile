@@ -33,6 +33,7 @@ MISC=README.md .gitignore
 VERSIONSQL=version.sql
 LATEX=latex
 DVIPDF=dvipdf
+EVINCE=evince
 GIT=git
 TAR=tar
 TFLAGS=-pczf
@@ -69,7 +70,10 @@ clean:
 cleanall: clean
 	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof
 
-.PHONY: all rebuild hash tar clean cleanall
+view: $(DOCUMENT)
+	$(EVINCE) $(DOCUMENT)
+
+.PHONY: all rebuild hash tar clean cleanall view
 
 .SECONDARY:
 
