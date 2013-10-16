@@ -30,7 +30,6 @@ MISC=README.md .gitignore
 
 # environment specific
 
-VERSIONSQL=version.sql
 LATEX=latex
 DVIPDF=dvipdf
 EVINCE=evince
