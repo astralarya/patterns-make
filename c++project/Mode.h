@@ -19,12 +19,12 @@
 #ifndef MODE_H
 #define MODE_H
 
+#include "Type.h"
 #include <string>
 #include <sstream>
 #include <vector>
 #include <map>
 #include <algorithm>
-#include "Type.h"
 
 class Options;
 
