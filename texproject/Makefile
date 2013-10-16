@@ -52,7 +52,9 @@ MANIFEST=$(TEXFILES) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
-all: hash $(MAIN) $(TEXFILES) $(DOCUMENT)
+all: doc view
+
+doc: hash $(MAIN) $(TEXFILES) $(DOCUMENT)
 
 rebuild: clean all
 
@@ -76,7 +78,7 @@ view: $(DOCUMENT)
 
 .SECONDARY:
 
-$(DOCUMENT): $(DVIFILE)
+$(DOCUMENT): $(DVIFILE) $(REVISION_FILE)
 	$(DVIPDF) $(DVIFILE) $(DOCUMENT)
 
 %.dvi: %.tex $(REVISION_FILE)
