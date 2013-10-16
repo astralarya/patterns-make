@@ -47,7 +47,7 @@ ME=Makefile
 
 TEXFILES=$(wildcard *.tex)
 DVIFILE=$(MAIN:.tex=.dvi)
-DOCUMENT=$(DOCUMENT).pdf
+DOCUMENT=$(NAME).pdf
 MANIFEST=$(TEXFILES) $(REVISION_FILE) $(ME)
 
 # rules
