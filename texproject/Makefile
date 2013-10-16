@@ -76,9 +76,9 @@ view: $(DOCUMENT)
 
 .SECONDARY:
 
+$(DOCUMENT): $(DVIFILE)
+	$(DVIPDF) $(DVIFILE) $(DOCUMENT)
+
 %.dvi: %.tex $(REVISION_FILE)
 	$(LATEX) $<
-
-$(DOCUMENT): $(DVIFILE)
-	$(DVIPDF) $<
 
