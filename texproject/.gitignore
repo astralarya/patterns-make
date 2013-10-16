@@ -4,5 +4,8 @@ texproject.pdf
 *.dvi
 *.log
 *.toc
+*.nav
+*.out
+*.snm
 *.swp
 VERSION.log
