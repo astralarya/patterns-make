@@ -23,7 +23,7 @@
 #ifndef PROJECT_H
 #define PROJECT_H
 
-#include "Mode.h"
+#include "Type.h"
 
 /** Project enums */
 namespace Project {
