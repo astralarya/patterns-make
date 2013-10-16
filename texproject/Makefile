@@ -25,6 +25,7 @@
 NAME=texproject
 VERSION=0.0
 MAIN=$(NAME).tex
+FIGURES=
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
@@ -46,7 +47,7 @@ ME=Makefile
 
 TEXFILES=$(wildcard *.tex)
 DOCUMENT=$(NAME).pdf
-MANIFEST=$(TEXFILES) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(TEXFILES) $(FIGURES) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
