@@ -20,7 +20,6 @@
 #define INITIALIZER_H_
 
 #include <argp.h>
-#include <stdio.h>
 #include <vector>
 #include <string>
 #include <functional>
