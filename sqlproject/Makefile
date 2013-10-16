@@ -71,7 +71,8 @@ hash $(REVISION_FILE):
 	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
-tar: hash $(NAME)_$(VERSION).tar.gz
+tar: hash $(MANIFEST)
+	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 clean:
 	$(RM) -f $(addprefix */,$(COMMITFILES))
@@ -82,10 +83,6 @@ cleanall: clean
 .PHONY: all dev live hash tar clean cleanall
 
 .SECONDARY:
-
-$(NAME)_$(VERSION).tar.gz: $(MANIFEST)
-	$(RM) -f $(NAME)_*.tar.gz
-	$(TAR) $(TFLAGS) $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 $(foreach DB,$(DBS),$(DB).db/$(VERSIONSQL:.sql=.log)): $(VERSIONSQL) $(REVISION_FILE)
 	@$(ECHO) $<

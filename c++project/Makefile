@@ -22,7 +22,7 @@
 
 # project specific
 
-EXECUTABLE=c++project
+NAME=c++project
 VERSION=0.5
 BUG_ADDRESS=hacker.root@gmail.com
 CFLAGS=-std=gnu++0x -Wall -O3
@@ -51,6 +51,7 @@ ME=Makefile
 
 # macros
 
+EXECUTABLE=$(NAME)
 SOURCES=$(wildcard *.cpp)
 HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
@@ -78,7 +79,7 @@ hash $(REVISION_FILE):
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
-	$(TAR) --transform 's,^,$(EXECUTABLE)_$(VERSION)/,' -pczf $(EXECUTABLE)_$(VERSION).tar.gz $(MANIFEST)
+	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 dox: $(DOXINDEX)
 	$(FF) $(DOXINDEX)

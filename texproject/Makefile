@@ -46,12 +46,9 @@ ME=Makefile
 # macros
 
 TEXFILES=$(wildcard *.tex)
-DVIFILES=$(TEXFILES:.tex=.dvi)
-DOCUMENT=$(MAIN:.tex=.pdf)
+DVIFILE=$(MAIN:.tex=.dvi)
+DOCUMENT=$(DOCUMENT).pdf
 MANIFEST=$(LEXFILES) $(REVISION_FILE) $(ME)
-HASH=$(shell $(AWK) 'NR==1 {printf "%s",$$0}' $(REVISION_FILE))
-STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047")} {if (NR>2) printf "\\\\n%s",$$0; else if (NR==2) printf "\#\# %s",$$0}' $(REVISION_FILE))
-DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag>1) {gsub(/\\/,"\\\\\\\\");gsub(/&/,"\\\\\\\\&");gsub(/"/,"\\\"");gsub(/\47/,"\\\\047"); if (flag==2) {printf "%s",$$0; flag=3} else if (flag==3) printf"\\\\n%s",$$0} else if (flag==1) flag=2}' $(REVISION_FILE))
 
 # rules
 
@@ -63,10 +60,11 @@ hash $(REVISION_FILE):
 	@$(GIT) rev-parse 2> /dev/null && $(ECHO) $(NAME) $(VERSION) > $(REVISION_FILE) && $(GIT) rev-parse HEAD >> $(REVISION_FILE) && $(PRINTF) '## ' >> $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
-tar: hash $(NAME)_$(VERSION).tar.gz
+tar: hash $(MANIFEST)
+	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 clean:
-	$(RM) -f $(DOCUMENT) $(DVIFILES)
+	$(RM) -f $(DOCUMENT) $(DVIFILE)
 
 cleanall: clean
 	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof
@@ -75,13 +73,9 @@ cleanall: clean
 
 .SECONDARY:
 
-$(NAME)_$(VERSION).tar.gz: $(MANIFEST)
-	$(RM) -f $(NAME)_*.tar.gz
-	$(TAR) $(TFLAGS) $(NAME)_$(VERSION).tar.gz $(MANIFEST)
-
 %.dvi: %.tex $(REVISION_FILE)
 	$(LATEX) $<
 
-%.pdf: %.dvi
+$(DOCUMENT): $(DVIFILE)
 	$(DVIPDF) $<
 
