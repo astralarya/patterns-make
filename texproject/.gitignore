@@ -7,5 +7,6 @@ texproject.pdf
 *.nav
 *.out
 *.snm
+*.vrb
 *.swp
 VERSION.log

@@ -68,7 +68,7 @@ clean:
 	$(RM) -f $(DOCUMENT) $(DVIFILE)
 
 cleanall: clean
-	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof
+	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb
 
 view: $(DOCUMENT)
 	$(EVINCE) $(DOCUMENT)
