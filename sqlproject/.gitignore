@@ -1,4 +1,4 @@
-sqlproject*.tar.gz
-VERSION.log
+*.tar.gz
 *.db
 *.swp
+VERSION.log

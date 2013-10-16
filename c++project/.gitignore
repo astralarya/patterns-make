@@ -1,9 +1,9 @@
 c++project
-c++project*.tar.gz
-VERSION.log
+*.tar.gz
+html/
+latex/
 *.d
 *.o
 *.cc
-html/
-latex/
 *.swp
+VERSION.log
