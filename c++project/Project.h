@@ -53,6 +53,10 @@ struct Type<char> {
     typedef bool T;
 };
 
+// Overrides
+template <>
+bool TypeInfo<Project::string_mode>::assign(std::string& var, const std::string& str);
+
 #endif
 
 
