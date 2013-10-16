@@ -30,8 +30,7 @@ MISC=README.md .gitignore
 
 # environment specific
 
-LATEX=latex
-DVIPDF=dvipdf
+LATEX=pdflatex
 EVINCE=evince
 GIT=git
 TAR=tar
@@ -46,7 +45,6 @@ ME=Makefile
 # macros
 
 TEXFILES=$(wildcard *.tex)
-DVIFILE=$(MAIN:.tex=.dvi)
 DOCUMENT=$(NAME).pdf
 MANIFEST=$(TEXFILES) $(REVISION_FILE) $(MISC) $(ME)
 
@@ -78,9 +76,6 @@ view: $(DOCUMENT)
 
 .SECONDARY:
 
-$(DOCUMENT): $(DVIFILE) $(REVISION_FILE)
-	$(DVIPDF) $(DVIFILE) $(DOCUMENT)
-
-%.dvi: %.tex $(REVISION_FILE)
-	$(LATEX) $<
+$(DOCUMENT): $(MAIN) $(REVISION_FILE)
+	$(LATEX) -jobname=$(NAME) $(MAIN)
 
