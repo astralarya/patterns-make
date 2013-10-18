@@ -25,7 +25,7 @@
 NAME=texproject
 VERSION=0.0
 MAIN=$(NAME).tex
-FIGURES=
+FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
