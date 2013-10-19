@@ -25,6 +25,7 @@
 #include <fstream>
 #include <typeinfo>
 #include <string>
+#include <istream>
 #include <map>
 
 class OptionsParser;

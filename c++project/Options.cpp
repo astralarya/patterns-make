@@ -36,12 +36,14 @@ Options* Options::Instance()
 Options::Options():
 _properties(),
 _modes() {
-    std::ifstream options_file(exe_path() + OPTIONS_FILE);
+    std::string file = exe_path() + OPTIONS_FILE;
+    std::ifstream options_file(file);
     if(options_file.is_open()) {
         OptionsParser p(*this, options_file);
         p.parse();
         options_file.close();
-    }
+    } else
+        std::cerr << "Cannot read OPTIONS_FILE: " << file << std::endl;
 }
 
 std::string Options::exe_path()
