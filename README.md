@@ -17,7 +17,7 @@ Then you can easily get updates with
 
 ## Patterns
 
-Each directory contains a barebones Makefile project.
+Each directory contains a barebones Makefile project that automatically tracks versions using `git`.
 
 You can make a tarball of a project by navigating to the project directory and using:
 
