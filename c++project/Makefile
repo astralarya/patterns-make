@@ -75,7 +75,10 @@ name:
 	@$(ECHO) $(EXECUTABLE)
 
 hash $(REVISION_FILE):
-	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && git diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) && \
+	 $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) && \
+	 $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) && \
+	 $(GIT) diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
