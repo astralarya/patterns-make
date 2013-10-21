@@ -59,6 +59,12 @@ _argp() {
 
     // Set signal handler
     signal(SIGINT, signalHandler);
+    signal(SIGABRT, signalHandler);
+    signal(SIGFPE, signalHandler);
+    signal(SIGILL, signalHandler);
+    signal(SIGSEGV, signalHandler);
+    signal(SIGTERM, signalHandler);
+    signal(SIGHUP, signalHandler);
 }
 
 Initializer::~Initializer() {

@@ -31,6 +31,9 @@ extern "C" {
     int Initializer_argp_funcall(int key, char* arg, struct argp_state *state);
 }
 
+/** Signal handler
+ *  \param signum The signal being handled
+ */
 void signalHandler(int signum);
 
 /** \brief Processes program arguments
