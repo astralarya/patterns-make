@@ -46,6 +46,11 @@ int main(int argc, char** argv) {
                     Options::Instance()->set(Project::LOOP,true);
                     return 0;
                 });
+    init.option("crash", 'c', 0, "Cause a crash",
+                [&] (char* arg, Initializer::state* state) -> int {
+                    Options::Instance()->set(Project::CRASH,true);
+                    return 0;
+                });
     init.option("num", 'n', "NUM", "Set MYNUM = NUM",
                 [&] (char* arg, Initializer::state* state) -> int {
                     if(Options::Instance()->assign(Project::MYNUM,arg))
@@ -80,6 +85,11 @@ int main(int argc, char** argv) {
     Foo foo;
     foo.bar();
 
+    if(Options::Instance()->get(Project::CRASH)) {
+        int* i = new int(10);
+        delete i;
+        delete i;
+    }
     if(Options::Instance()->get(Project::LOOP))
         std::cout << "Looping indefinitely..." << std::endl;
     while(Options::Instance()->get(Project::LOOP)) {
