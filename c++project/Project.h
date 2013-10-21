@@ -29,7 +29,7 @@
 namespace Project {
     enum string_mode{GREETING,DB_HOST,DB_USER,DB_NAME,ARGUMENTS,FOO};
     enum float_mode{AVOGADRO, NUMBERS, MYNUM};
-    enum bool_mode{SWITCH};
+    enum bool_mode{LOOP,SWITCH};
 }
 
 // Typed modes

@@ -41,6 +41,11 @@ int main(int argc, char** argv) {
                     Options::Instance()->set(Project::SWITCH,true);
                     return 0;
                 });
+    init.option("loop", 'l', 0, "Run an infinite loop",
+                [&] (char* arg, Initializer::state* state) -> int {
+                    Options::Instance()->set(Project::LOOP,true);
+                    return 0;
+                });
     init.option("num", 'n', "NUM", "Set MYNUM = NUM",
                 [&] (char* arg, Initializer::state* state) -> int {
                     if(Options::Instance()->assign(Project::MYNUM,arg))
@@ -74,6 +79,11 @@ int main(int argc, char** argv) {
     std::cout << Options::Instance()->get(Project::GREETING) << std::endl;
     Foo foo;
     foo.bar();
+
+    if(Options::Instance()->get(Project::LOOP))
+        std::cout << "Looping indefinitely..." << std::endl;
+    while(Options::Instance()->get(Project::LOOP)) {
+    }
 
     return 0;
 }
