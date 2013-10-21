@@ -133,6 +133,14 @@ void PRINT_REVISION(std::ostream& ostream, bool version, bool hash, bool status,
 
 }
 
+void PRINT_REVISION() {
+    printf("%s %s\n%s%s%s",
+        PROGRAM_NAME, PROGRAM_VERSION,
+        REVISION_HASH,
+        REVISION_STATUS,
+        REVISION_DIFF);
+}
+
 void PRINT_VERSION(FILE* stream, bool license) {
     fputs(PROGRAM_NAME, stream);
     fputc(' ', stream);

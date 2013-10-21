@@ -33,6 +33,11 @@ void (*argp_program_version_hook) (FILE *stream, struct argp_state *state) = Ini
 
 const char* argp_program_bug_address = PROGRAM_BUG_ADDRESS;
 
+void signalHandler(int signum) {
+    printf("Caught signal %d\n",signum);
+    PRINT_REVISION();
+    exit(signum);
+}
 
 Initializer::Initializer(int argc, char** argv, const char* argdoc, const char* progdoc):
 _argc(argc),
@@ -51,6 +56,9 @@ _argp() {
                PRINT_REVISION(arg);
                exit(0);
            },true,true);
+
+    // Set signal handler
+    signal(SIGINT, signalHandler);
 }
 
 Initializer::~Initializer() {

@@ -20,6 +20,7 @@
 #define INITIALIZER_H_
 
 #include <argp.h>
+#include <csignal>
 #include <vector>
 #include <string>
 #include <functional>
@@ -29,6 +30,8 @@
 extern "C" {
     int Initializer_argp_funcall(int key, char* arg, struct argp_state *state);
 }
+
+void signalHandler(int signum);
 
 /** \brief Processes program arguments
  *         and generates usage, help, and version documentation

@@ -57,7 +57,7 @@ void PRINT_VERSION(FILE* stream, bool license = true);
  *  \param status Print the revision status
  *  \param diff Print the diff of the working directory
  */
-void PRINT_REVISION(std::ostream& ostream = std::cout, bool version = true, bool hash = true, bool status = true, bool diff = true);
+void PRINT_REVISION(std::ostream& ostream, bool version = true, bool hash = true, bool status = true, bool diff = true);
 
 /** Parse argument and print corresponding revision info.
  *  If arg is null, print all fields,
@@ -70,5 +70,10 @@ void PRINT_REVISION(std::ostream& ostream = std::cout, bool version = true, bool
  *  \param ostream The output stream
  */
 void PRINT_REVISION(char* arg, std::ostream& ostream = std::cout);
+
+/** Print revision info.
+ *  Uses only C features.
+ */
+void PRINT_REVISION();
 
 #endif // INFO_H
