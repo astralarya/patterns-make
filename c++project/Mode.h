@@ -38,6 +38,8 @@ public:
     typedef std::pair<std::string,svector_type> svpair_type;
     /** Map of variabls to their value lists */
     typedef std::map<std::string,svector_type> type_map;
+    /** Declare virtual destructor **/
+    virtual ~Mode() {}
 };
 
 /** \brief Template class to encapsulate a mode and its type.  */

@@ -199,6 +199,10 @@ public:
      */
     static void error(state* state, const char* msg, const char* arg);
 private:
+    /** Private copy constructor */
+    Initializer(Initializer const&);
+    /** Private assignment operator */
+    Initializer& operator=(Initializer const&);
     // hook to key handlers
     int argp_funcall(int key, char* arg, state* state);
 

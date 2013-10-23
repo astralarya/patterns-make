@@ -25,7 +25,7 @@
 NAME=c++project
 VERSION=0.5
 BUG_ADDRESS=hacker.root@gmail.com
-CFLAGS=-std=gnu++0x -Wall -O3
+CFLAGS=-std=gnu++0x -Wall -O3 -pedantic -Weffc++
 LDFLAGS=
 DOXFILE=Doxyfile
 OPTIONS_FILE=OPTIONS.rc
