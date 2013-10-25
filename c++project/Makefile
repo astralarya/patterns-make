@@ -39,6 +39,7 @@ GIT=git
 SED=sed
 AWK=awk
 ECHO=echo
+PRINTF=printf
 TAR=tar
 CXX=g++
 DOX=doxygen
@@ -69,16 +70,25 @@ GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==2) {gsub(/["\\
 
 all: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
 
+help:
+	@$(PRINTF) '%b\n'\
+	 'make all		- make target'\
+	 'make clean		- delete generated files'\
+	 'make dox		- generate and view documentation'\
+	 'make rebuild		- clean and make target'\
+	 'make tar		- package project'\
+         
+
 rebuild: clean all
 
 name:
-	@$(ECHO) $(EXECUTABLE)
+	@$(PRINTF) '$(EXECUTABLE)\n'
 
 hash $(REVISION_FILE):
 	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) &&\
 	 $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) &&\
-	 $(GIT) status --porcelain >> $(REVISION_FILE) && $(ECHO) >> $(REVISION_FILE) &&\
-	 $(GIT) diff >> $(REVISION_FILE) && $(ECHO) 'Generate hash' || $(ECHO) 'Using stored hash'
+	 $(GIT) status --porcelain >> $(REVISION_FILE) && $(PRINTF) '\n' >> $(REVISION_FILE) &&\
+	 $(GIT) diff >> $(REVISION_FILE) && $(PRINTF) 'Generate hash\n' || $(PRINTF) 'Using stored hash\n'
 	@[ -e $(REVISION_FILE) ]
 
 tar: hash $(MANIFEST)
