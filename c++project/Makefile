@@ -78,7 +78,6 @@ help:
 	 'make rebuild		- clean and make target'\
 	 'make tar		- package project'\
 	 ''\
-         
 
 rebuild: clean all
 
