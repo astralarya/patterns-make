@@ -38,7 +38,6 @@ MISC=logo.svg README.md .gitignore
 GIT=git
 SED=sed
 AWK=awk
-ECHO=echo
 PRINTF=printf
 TAR=tar
 CXX=g++
@@ -72,11 +71,13 @@ all: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
 
 help:
 	@$(PRINTF) '%b\n'\
+	 '\n$(EXECUTABLE) $(VERSION)\n'\
 	 'make all		- make target'\
 	 'make clean		- delete generated files'\
 	 'make dox		- generate and view documentation'\
 	 'make rebuild		- clean and make target'\
 	 'make tar		- package project'\
+	 ''\
          
 
 rebuild: clean all
