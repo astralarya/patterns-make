@@ -68,6 +68,15 @@ all: $(DBS)
 
 live: $(LIVEDB)
 
+help:
+	@$(PRINTF) '%b\n'\
+	 '\n$(EXECUTABLE) $(VERSION)\n'\
+	 'make all		- make target'\
+	 'make clean		- delete generated files'\
+	 'make rebuild		- clean and make target'\
+	 'make tar		- package project'\
+	 ''\
+
 hash $(REVISION_FILE):
 	@$(GIT) rev-parse 2> /dev/null && $(GIT) rev-parse HEAD > $(REVISION_FILE) &&\
 	 $(GIT) rev-parse --abbrev-ref HEAD >> $(REVISION_FILE) &&\
