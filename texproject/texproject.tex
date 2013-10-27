@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{verbatim}
+\usepackage{fancyvrb}
 
 \title{texproject}
 \author{Mara Kim}
@@ -13,6 +13,5 @@ Create PDF documents with `make'.
 
 \null
 \vfill
-\hrulefill
-\scriptsize{\verbatiminput{VERSION.log}}
+\scriptsize{\VerbatimInput[frame=topline]{VERSION.log}}
 \end{document}
