@@ -9,4 +9,6 @@ texproject.pdf
 *.snm
 *.vrb
 *.swp
+*.bbl
+*.blg
 VERSION.log

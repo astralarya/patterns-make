@@ -26,12 +26,14 @@ NAME=texproject
 VERSION=0.0
 MAIN=$(NAME).tex
 FIGURES=$(wildcard figures/*)
+EXTRA=citations.bib
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
 # environment specific
 
 LATEX=pdflatex
+BIBTEX=bibtex
 EVINCE=evince
 GIT=git
 TAR=tar
@@ -47,7 +49,7 @@ ME=Makefile
 
 TEXFILES=$(wildcard *.tex)
 DOCUMENT=$(NAME).pdf
-MANIFEST=$(TEXFILES) $(FIGURES) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(TEXFILES) $(FIGURES) $(EXTRA) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
@@ -77,10 +79,10 @@ tar: hash $(MANIFEST)
 	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 clean:
-	$(RM) -f $(DOCUMENT) $(DVIFILE)
+	$(RM) -f $(DOCUMENT) *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb *.bbl *.blg
 
 cleanall: clean
-	$(RM) -f $(NAME)_*.tar.gz *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb
+	$(RM) -f $(NAME)_*.tar.gz
 
 view: $(DOCUMENT)
 	$(EVINCE) $(DOCUMENT)
@@ -90,5 +92,8 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(REVISION_FILE)
+	$(LATEX) -jobname=$(NAME) $(MAIN)
+	$(BIBTEX) $(NAME) || true
+	$(LATEX) -jobname=$(NAME) $(MAIN)
 	$(LATEX) -jobname=$(NAME) $(MAIN)
 
