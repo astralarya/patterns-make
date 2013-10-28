@@ -25,8 +25,6 @@
 NAME=texproject
 VERSION=0.0
 MAIN=main.tex
-FIGURES=$(wildcard figures/*)
-EXTRA=
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
@@ -47,19 +45,21 @@ ME=Makefile
 
 # macros
 
+FIGURES=$(wildcard figures/*)
+CITATIONS=$(wildcard *.bib)
 TEXFILES=$(wildcard *.tex)
 DOCUMENT=$(NAME).pdf
-MANIFEST=$(TEXFILES) $(FIGURES) $(EXTRA) $(REVISION_FILE) $(MISC) $(ME)
+MANIFEST=$(TEXFILES) $(FIGURES) $(CITATIONS) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
 all: doc view
 
-doc: hash $(MAIN) $(TEXFILES) $(DOCUMENT)
+doc: hash $(DOCUMENT)
 
 help:
 	@$(PRINTF) '%b\n'\
-	 '\n$(EXECUTABLE) $(VERSION)\n'\
+	 '\n$(NAME) $(VERSION)\n'\
 	 'make all		- make target'\
 	 'make clean		- delete generated files'\
 	 'make rebuild		- clean and make target'\
@@ -91,7 +91,7 @@ view: $(DOCUMENT)
 
 .SECONDARY:
 
-$(DOCUMENT): $(MAIN) $(FIGURES) $(REVISION_FILE)
+$(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
 	$(LATEX) -jobname=$(NAME) $(MAIN)
 	$(BIBTEX) $(NAME) || true
 	$(LATEX) -jobname=$(NAME) $(MAIN)
