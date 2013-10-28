@@ -24,7 +24,7 @@
 
 NAME=texproject
 VERSION=0.0
-MAIN=$(NAME).tex
+MAIN=main.tex
 FIGURES=$(wildcard figures/*)
 EXTRA=citations.bib
 REVISION_FILE=VERSION.log
