@@ -71,7 +71,9 @@ live: $(LIVEDB)
 help:
 	@$(PRINTF) '%b\n'\
 	 '\n$(EXECUTABLE) $(VERSION)\n'\
-	 'make all		- make target'\
+	 'make all		- commit to all DBS'\
+	 'make dev		- commit to DEVDB'\
+	 'make live		- commit to LIVEDB'\
 	 'make clean		- delete generated files'\
 	 'make tar		- package project'\
 	 ''\
