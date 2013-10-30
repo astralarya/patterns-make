@@ -67,19 +67,19 @@ GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==2) {gsub(/["\\
 
 # rules
 
-all: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
+build: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
 
 help:
 	@$(PRINTF) '%b\n'\
 	 '\n$(EXECUTABLE) $(VERSION)\n'\
-	 'make all		- make target'\
+	 'make build		- build project'\
 	 'make clean		- delete generated files'\
-	 'make dox		- generate and view documentation'\
-	 'make rebuild		- clean and make target'\
+	 'make rebuild		- clean and build'\
 	 'make tar		- package project'\
+	 'make dox		- generate and view documentation'\
 	 ''\
 
-rebuild: clean all
+rebuild: clean build
 
 name:
 	@$(PRINTF) '$(EXECUTABLE)\n'

@@ -73,7 +73,6 @@ help:
 	 '\n$(EXECUTABLE) $(VERSION)\n'\
 	 'make all		- make target'\
 	 'make clean		- delete generated files'\
-	 'make rebuild		- clean and make target'\
 	 'make tar		- package project'\
 	 ''\
 

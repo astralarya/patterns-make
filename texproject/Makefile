@@ -55,18 +55,18 @@ MANIFEST=$(TEXFILES) $(FIGURES) $(CITATIONS) $(REVISION_FILE) $(MISC) $(ME)
 
 all: doc view
 
-doc: hash $(DOCUMENT)
+build: hash $(DOCUMENT)
 
 help:
 	@$(PRINTF) '%b\n'\
 	 '\n$(NAME) $(VERSION)\n'\
-	 'make all		- make target'\
+	 'make build		- build project'\
 	 'make clean		- delete generated files'\
-	 'make rebuild		- clean and make target'\
+	 'make rebuild		- clean and build'\
 	 'make tar		- package project'\
 	 ''\
 
-rebuild: clean all
+rebuild: clean build
 
 hash $(REVISION_FILE):
 	@$(GIT) rev-parse 2> /dev/null && $(ECHO) $(NAME) $(VERSION) > $(REVISION_FILE) && $(GIT) rev-parse HEAD >> $(REVISION_FILE) &&\
