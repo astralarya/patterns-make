@@ -106,7 +106,7 @@ clean:
 cleanall: clean
 	$(RM) -rf $(EXECUTABLE)*.tar.gz html latex *~
 
-.PHONY: all rebuild name hash tar dox doxbuild clean cleanall
+.PHONY: build rebuild name hash tar dox doxbuild clean cleanall
 
 
 $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
