@@ -53,7 +53,7 @@ MANIFEST=$(TEXFILES) $(FIGURES) $(CITATIONS) $(REVISION_FILE) $(MISC) $(ME)
 
 # rules
 
-all: doc view
+all: build view
 
 build: hash $(DOCUMENT)
 
@@ -87,7 +87,7 @@ cleanall: clean
 view: $(DOCUMENT)
 	$(EVINCE) $(DOCUMENT)
 
-.PHONY: all rebuild hash tar clean cleanall view
+.PHONY: all help build rebuild hash tar clean cleanall view
 
 .SECONDARY:
 
