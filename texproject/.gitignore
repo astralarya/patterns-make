@@ -11,4 +11,6 @@ texproject.pdf
 *.swp
 *.bbl
 *.blg
+*-blx.bib
+*.run.xml
 VERSION.log
