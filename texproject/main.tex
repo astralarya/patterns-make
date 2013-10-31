@@ -12,7 +12,5 @@ This Makefile project manages a \LaTeX{} project.
 \section{Usage}
 Create PDF documents with `make'.
 
-\null
-\vfill
-\VerbatimInput[fontsize=\scriptsize,frame=topline]{VERSION.log}
+\let\thefootnote\relax\footnotetext{\VerbatimInput[fontsize=\scriptsize]{VERSION.log}}
 \end{document}
