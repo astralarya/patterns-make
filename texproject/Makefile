@@ -25,6 +25,8 @@
 NAME=texproject
 VERSION=0.0
 MAIN=main.tex
+CITATIONS=
+FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
 MISC=README.md .gitignore
 
@@ -45,9 +47,7 @@ ME=Makefile
 
 # macros
 
-FIGURES=$(wildcard figures/*)
-CITATIONS=$(wildcard *.bib)
-TEXFILES=$(wildcard *.tex)
+TEXFILES=$(sort $(MAIN) $(wildcard *.tex))
 DOCUMENT=$(NAME).pdf
 MANIFEST=$(TEXFILES) $(FIGURES) $(CITATIONS) $(REVISION_FILE) $(MISC) $(ME)
 
