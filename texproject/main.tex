@@ -12,5 +12,7 @@ This Makefile project manages a \LaTeX{} project.
 \section{Usage}
 Create PDF documents with `make'.
 
-\let\thefootnote\relax\footnotetext{\VerbatimInput[fontsize=\scriptsize]{VERSION.log}}
+% Version
+{\interfootnotelinepenalty=10000
+\let\thefootnote\relax\footnotetext{\VerbatimInput[fontsize=\scriptsize]{VERSION.log}}}
 \end{document}
