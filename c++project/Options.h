@@ -22,6 +22,7 @@
 #include "Info.h"
 #include "Project.h"
 #include "Mode.h"
+#include <unistd.h>
 #include <fstream>
 #include <typeinfo>
 #include <string>
