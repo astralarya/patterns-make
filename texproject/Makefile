@@ -92,8 +92,8 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(LATEX) -jobname=$(NAME) $(MAIN)
-	$(BIBTEX) $(NAME) || true
-	$(LATEX) -jobname=$(NAME) $(MAIN)
+	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
+	$(BIBTEX) $(NAME) || true &&\
+	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
 	$(LATEX) -jobname=$(NAME) $(MAIN)
 
