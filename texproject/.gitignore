@@ -1,4 +1,4 @@
-texproject.pdf
+*.pdf
 *.tar.gz
 *.aux
 *.dvi
