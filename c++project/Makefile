@@ -51,15 +51,17 @@ ME=Makefile
 
 # macros
 
+MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(LICENSE_FILE) $(MISC) $(ME)
+EXTRA=
+
+GENERATEDH=
+GENERATEDC=
+
 EXECUTABLE=$(NAME)
 SOURCES=$(wildcard *.cpp)
 HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
 DEPENDENCIES=$(OBJECTS:.o=.d)
-EXTRA=
-GENERATEDH=
-GENERATEDC=
-MANIFEST=$(SOURCES) $(HEADERS) $(EXTRA) $(DOXFILE) $(OPTIONS_FILE) $(REVISION_FILE) $(LICENSE_FILE) $(MISC) $(ME)
 LICENSE=$(shell $(AWK) '{gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR==1) printf "%s",$$0; else printf "\\n%s",$$0}' $(LICENSE_FILE))
 GIT_HASH=$(shell $(AWK) 'NR==1 {printf "%s\\n",$$0}' $(REVISION_FILE))
 GIT_STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR>2) printf "%s\\n",$$0; else if (NR==2) printf "\#\# %s\\n",$$0}' $(REVISION_FILE))
