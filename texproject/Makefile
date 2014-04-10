@@ -28,7 +28,7 @@ MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
-WORDLIST=custom.wordlist
+WORDLIST=aspell.wordlist
 MISC=README.md .gitignore
 
 # environment specific
