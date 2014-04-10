@@ -28,7 +28,7 @@ MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
-DICTIONARY=wordlist.rws
+WORDLIST=custom.wordlist
 MISC=README.md .gitignore
 
 # environment specific
@@ -36,6 +36,7 @@ MISC=README.md .gitignore
 LATEX=pdflatex
 BIBTEX=bibtex
 ASPELL=aspell
+LANGUAGE=en
 EVINCE=evince
 GIT=git
 TAR=tar
@@ -94,7 +95,8 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(ASPELL) -t --extra-dicts=./$(DICTIONARY) -c $(MAIN) && \
+	$(ASPELL) --lang=$(LANGUAGE) create master ./$(WORDLIST:.wordlist=.aws) < $(WORDLIST) && \
+	$(ASPELL) -t --extra-dicts=./$(WORDLIST:.wordlist=.aws) -c $(MAIN) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
 	($(BIBTEX) $(NAME) || true) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
