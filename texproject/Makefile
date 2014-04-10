@@ -82,7 +82,7 @@ tar: hash $(MANIFEST)
 	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 clean:
-	$(RM) -f $(DOCUMENT) *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb *.bbl *.blg
+	$(RM) -f $(DOCUMENT) *.aws *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb *.bbl *.blg
 
 cleanall: clean
 	$(RM) -f $(NAME)_*.tar.gz
