@@ -6,4 +6,4 @@ latex/
 *.o
 *.cc
 *.swp
-VERSION.log
+VERSION
