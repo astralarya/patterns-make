@@ -69,7 +69,7 @@ GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==2) {gsub(/["\\
 
 # rules
 
-build: hash $(MAIN) $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
+build: hash $(SOURCES) $(HEADERS) $(EXTRA) $(EXECUTABLE)
 
 help:
 	@$(PRINTF) '%b\n'\
@@ -114,7 +114,7 @@ cleanall: clean
 $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
 
-$(DOXINDEX): $(MAIN) $(SOURCES) $(HEADERS) $(GENERATED)
+$(DOXINDEX): $(SOURCES) $(HEADERS) $(GENERATED)
 	$(DOX) $(DOXFILE)	
 
 # pull in dependency info for *existing* .o files
