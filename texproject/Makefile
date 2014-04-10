@@ -36,7 +36,6 @@ MISC=README.md .gitignore
 LATEX=pdflatex
 BIBTEX=bibtex
 ASPELL=aspell
-LANGUAGE=en
 EVINCE=evince
 GIT=git
 TAR=tar
