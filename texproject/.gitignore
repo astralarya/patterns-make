@@ -1,5 +1,6 @@
 *.pdf
 *.aws
+*.bak
 *.tar.gz
 *.aux
 *.dvi
