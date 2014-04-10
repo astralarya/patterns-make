@@ -28,7 +28,7 @@ LIVEDB=mydb
 DBS=$(DEVDB) $(LIVEDB)
 DBUSER=myuser
 VERSION=0.0
-REVISION_FILE=VERSION.log
+REVISION_FILE=VERSION
 MISC=README.md .gitignore
 
 # environment specific

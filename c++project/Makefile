@@ -29,7 +29,7 @@ CFLAGS=-std=gnu++0x -Wall -O3 -pedantic -Weffc++
 LDFLAGS=
 DOXFILE=Doxyfile
 OPTIONS_FILE=OPTIONS.rc
-REVISION_FILE=VERSION.log
+REVISION_FILE=VERSION
 LICENSE_FILE=LICENSE.txt
 MISC=logo.svg README.md .gitignore
 
