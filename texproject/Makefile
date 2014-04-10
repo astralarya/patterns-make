@@ -28,6 +28,7 @@ MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
+DICTIONARY=wordlist.rws
 MISC=README.md .gitignore
 
 # environment specific
@@ -93,9 +94,9 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(ASPELL) -t -c $(MAIN) &&\
-	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
-	$(BIBTEX) $(NAME) || true &&\
-	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
+	$(ASPELL) -t --extra-dicts=./$(DICTIONARY) -c $(MAIN) && \
+	$(LATEX) -jobname=$(NAME) $(MAIN) && \
+	($(BIBTEX) $(NAME) || true) && \
+	$(LATEX) -jobname=$(NAME) $(MAIN) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN)
 
