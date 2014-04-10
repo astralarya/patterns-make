@@ -34,6 +34,7 @@ MISC=README.md .gitignore
 
 LATEX=pdflatex
 BIBTEX=bibtex
+ASPELL=aspell
 EVINCE=evince
 GIT=git
 TAR=tar
@@ -92,6 +93,7 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
+	$(ASPELL) -t -c $(MAIN) &&\
 	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
 	$(BIBTEX) $(NAME) || true &&\
 	$(LATEX) -jobname=$(NAME) $(MAIN) &&\
