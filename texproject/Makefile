@@ -27,9 +27,9 @@ VERSION=0.0
 MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
-REVISION_FILE=VERSION
 DICTIONARY=aspell.pws
 MISC=README.md .gitignore
+REVISION_FILE=VERSION
 
 # environment specific
 
