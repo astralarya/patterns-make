@@ -28,7 +28,7 @@ MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
 REVISION_FILE=VERSION.log
-WORDLIST=aspell.wordlist
+DICTIONARY=aspell.pws
 MISC=README.md .gitignore
 
 # environment specific
@@ -82,7 +82,7 @@ tar: hash $(MANIFEST)
 	$(TAR) --transform 's,^,$(NAME)_$(VERSION)/,' -pczf $(NAME)_$(VERSION).tar.gz $(MANIFEST)
 
 clean:
-	$(RM) -f $(DOCUMENT) *.aws *.bak *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb *.bbl *.blg
+	$(RM) -f $(DOCUMENT) *.bak *.log *.aux *.toc *.tof *.nav *.out *.snm *.vrb *.bbl *.blg
 
 cleanall: clean
 	$(RM) -f $(NAME)_*.tar.gz
@@ -95,8 +95,7 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(ASPELL) --lang=$(LANGUAGE) create master ./$(WORDLIST:.wordlist=.aws) < $(WORDLIST) && \
-	$(ASPELL) -t --extra-dicts=./$(WORDLIST:.wordlist=.aws) -c $(MAIN) && \
+	$(ASPELL) -t --personal=./$(DICTIONARY) -c $(MAIN) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
 	($(BIBTEX) $(NAME) || true) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
