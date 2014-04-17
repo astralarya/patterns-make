@@ -93,7 +93,7 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(ASPELL) -t --personal=./$(DICTIONARY) -c $(MAIN) && clear \
+	$(ASPELL) -t --personal=./$(DICTIONARY) -c $(MAIN) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
 	($(BIBTEX) $(NAME) || true) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
