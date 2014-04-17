@@ -4,8 +4,7 @@
 # Copyright (C) 2013 Mara Kim
 #
 # This program is free software: you can redistribute it and/or modify it under
-# the terms of the GNU General Public License as published by the Free Software
-# Foundation, either version 3 of the License, or (at your option) any later
+# the terms of the GNU General Public License as published by the Free Software # Foundation, either version 3 of the License, or (at your option) any later
 # version.
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
@@ -94,7 +93,7 @@ view: $(DOCUMENT)
 .SECONDARY:
 
 $(DOCUMENT): $(MAIN) $(FIGURES) $(CITATIONS) $(REVISION_FILE)
-	$(ASPELL) -t --personal=./$(DICTIONARY) -c $(MAIN) && \
+	$(ASPELL) -t --personal=./$(DICTIONARY) -c $(MAIN) && clear \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
 	($(BIBTEX) $(NAME) || true) && \
 	$(LATEX) -jobname=$(NAME) $(MAIN) && \
