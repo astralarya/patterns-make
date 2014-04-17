@@ -8,6 +8,7 @@ texproject
 ## Summary
 
 *texproject* tracks and records any changes to any \*.tex files in its directory.
+Spelling is checked using `aspell`.
 
 To create a PDF rendering of the project:
 
