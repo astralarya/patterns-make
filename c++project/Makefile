@@ -23,18 +23,18 @@
 # project specific
 
 NAME=c++project
-VERSION=0.5
 BUG_ADDRESS=hacker.root@gmail.com
 CFLAGS=-std=gnu++0x -Wall -O3 -pedantic -Weffc++
 LDFLAGS=
 DOXFILE=Doxyfile
 OPTIONS_FILE=OPTIONS.rc
-REVISION_FILE=VERSION
 LICENSE_FILE=LICENSE.txt
 MISC=logo.svg README.md .gitignore
 
 # environment specific
 
+VERSION_FILE=VERSION
+REVISION_FILE=HASH
 GIT=git
 SED=sed
 AWK=awk
@@ -63,6 +63,7 @@ HEADERS=$(wildcard *.h)
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
 DEPENDENCIES=$(OBJECTS:.o=.d)
 LICENSE=$(shell $(AWK) '{gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR==1) printf "%s",$$0; else printf "\\n%s",$$0}' $(LICENSE_FILE))
+VERSION=$(shell cat $(VERSION))
 GIT_HASH=$(shell $(AWK) 'NR==1 {printf "%s\\n",$$0}' $(REVISION_FILE))
 GIT_STATUS=$(shell $(AWK) '/^$$/ {exit 0} {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR>2) printf "%s\\n",$$0; else if (NR==2) printf "\#\# %s\\n",$$0}' $(REVISION_FILE))
 GIT_DIFF=$(shell $(AWK) 'BEGIN {flag=0} /^$$/ {flag=1} {if (flag==2) {gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047"); printf "%s\\n",$$0} else if (flag==1) flag=2}' $(REVISION_FILE))
@@ -115,7 +116,7 @@ $(EXECUTABLE): $(GENERATEDH) $(GENERATEDC) $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
 
 $(DOXINDEX): $(SOURCES) $(HEADERS) $(GENERATED)
-	$(DOX) $(DOXFILE)	
+	$(DOX) $(DOXFILE)
 
 # pull in dependency info for *existing* .o files
 -include $(DEPENDENCIES)
