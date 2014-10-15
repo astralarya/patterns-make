@@ -26,6 +26,7 @@ VERSION=0.0
 MAIN=main.tex
 CITATIONS=
 FIGURES=$(wildcard figures/*)
+STYLES=texmf/
 DICTIONARY=aspell.pws
 MISC=README.md .gitignore
 REVISION_FILE=VERSION
@@ -51,6 +52,7 @@ ME=Makefile
 TEXFILES=$(sort $(MAIN) $(wildcard *.tex))
 DOCUMENT=$(NAME).pdf
 MANIFEST=$(TEXFILES) $(FIGURES) $(CITATIONS) $(DICTIONARY) $(REVISION_FILE) $(MISC) $(ME)
+export TEXINPUTS:=./$(STYLES):$(TEXINPUTS)
 
 # rules
 
