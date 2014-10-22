@@ -24,12 +24,13 @@
 
 NAME=c++project
 BUG_ADDRESS=hacker.root@gmail.com
-CFLAGS=-std=gnu++0x -Wall -O3 -pedantic -Weffc++
+CFLAGS=-std=gnu++0x -I. -Wall -O3 -pedantic -Weffc++
 LDFLAGS=
 DOXFILE=Doxyfile
 OPTIONS_FILE=OPTIONS.rc
 LICENSE_FILE=LICENSE.txt
 MISC=logo.svg README.md .gitignore
+MODULES=
 
 # environment specific
 
@@ -58,8 +59,8 @@ GENERATEDH=
 GENERATEDC=
 
 EXECUTABLE=$(NAME)
-SOURCES=$(wildcard *.cpp)
-HEADERS=$(wildcard *.h)
+SOURCES=$(wildcard *.cpp) $(foreach MODULE, $(MODULES),$(wildcard $(MODULE)/*.cpp))
+HEADERS=$(wildcard *.h) $(foreach MODULE, $(MODULES),$(wildcard $(MODULE)/*.h))
 OBJECTS=$(SOURCES:.cpp=.o) $(GENERATEDC:.cc=.o)
 DEPENDENCIES=$(OBJECTS:.o=.d)
 LICENSE=$(shell $(AWK) '{gsub(/["\\]/,"\\\\&");gsub(/\47/,"\\047")} {if (NR==1) printf "%s",$$0; else printf "\\n%s",$$0}' $(LICENSE_FILE))
